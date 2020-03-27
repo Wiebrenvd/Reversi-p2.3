@@ -1,4 +1,4 @@
-package sample;
+package reversi;
 
 import java.net.URL;
 import java.util.ResourceBundle;

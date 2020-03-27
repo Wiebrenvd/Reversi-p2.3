@@ -1,5 +1,6 @@
-package sample;
+package reversi;
 
+import framework.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,14 +11,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../framework/login.fxml"));
 
         ServerConnection serverConnection = new ServerConnection();
         Controller controller = new Controller(serverConnection);
         loader.setController(controller);
 
         Parent root = loader.load();
-        primaryStage.setTitle("Group ONE: Reversi Client");
+        primaryStage.setTitle("Group ONE: reversi Client");
         primaryStage.setScene(new Scene(root, 420, 160));
         primaryStage.show();
     }

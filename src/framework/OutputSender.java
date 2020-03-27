@@ -1,16 +1,16 @@
-package sample;
+package framework;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class OutputListener{
+public class OutputSender {
     private Socket socket;
     private PrintWriter pw;
 
     private String command = "";
 
-    public OutputListener(Socket s) {
+    public OutputSender(Socket s) {
         this.socket = s;
         try {
             pw = new PrintWriter(socket.getOutputStream());

@@ -1,10 +1,10 @@
-package sample;
+package reversi;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Socket;
+
+import framework.InputListener;
+import framework.OutputSender;
 
 public class ServerConnection{
 
@@ -15,7 +15,7 @@ public class ServerConnection{
     private String input = "";
     private String response = "";
 
-    private OutputListener outputListener;
+    private OutputSender outputListener;
     private InputListener inputListener;        //InputListener is een Runnable
 
 
@@ -31,7 +31,7 @@ public class ServerConnection{
             Thread responseThrd = new Thread(inputListener);
             responseThrd.start();
 
-            outputListener = new OutputListener(socket);
+            outputListener = new OutputSender(socket);
         }
     }
 

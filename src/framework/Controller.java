@@ -1,4 +1,4 @@
-package sample;
+package framework;
 
 
 import java.io.IOException;
@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import reversi.ReversiUIController;
+import reversi.ServerConnection;
 
 public class Controller {
 
@@ -35,7 +37,7 @@ public class Controller {
         sc.sendCommand(command);
 
         if (sc.showResponse().equals("OK")){
-            sc.sendCommand("subscribe Reversi");
+            sc.sendCommand("subscribe reversi");
             loginSucceed(event);
         }
     }
