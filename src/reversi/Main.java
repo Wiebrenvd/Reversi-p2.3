@@ -16,7 +16,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../framework/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/framework/login.fxml"));
         ServerConnection sc = new ServerConnection();
         Controller lc = new ReversiLoginController(sc);
         loader.setController(lc);

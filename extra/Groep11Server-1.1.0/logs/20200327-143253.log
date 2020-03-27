@@ -1,0 +1,12 @@
+2020/03/27 14:32:53 - Loaded game module: Reversi
+2020/03/27 14:32:53 - Loaded game module: Tic-tac-toe
+2020/03/27 14:32:53 - Server listening on port 7789
+2020/03/27 14:32:54 - Application started
+2020/03/27 14:39:53 - Started closing application
+2020/03/27 14:39:53 - Saving settings
+2020/03/27 14:39:53 - Closing GameServerGUI
+2020/03/27 14:39:53 - Closing GameServer
+2020/03/27 14:39:53 - Closing client input handler
+2020/03/27 14:39:53 - Closing server selector
+2020/03/27 14:39:53 - Closing server socket
+2020/03/27 14:39:53 - Application closed

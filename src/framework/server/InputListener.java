@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class InputListener implements Runnable {
     private Socket socket;
@@ -12,9 +13,12 @@ public class InputListener implements Runnable {
 
     private String inputFromServer = "";
     private String lastResponse = "";
+    private ArrayList<String> serverResponses;
 
     public InputListener(Socket s){
         this.socket = s;
+        this.serverResponses = new ArrayList<>();
+
         try {
             isr = new InputStreamReader(socket.getInputStream());
             br = new BufferedReader(isr);
@@ -33,13 +37,18 @@ public class InputListener implements Runnable {
             }
             if (inputFromServer.length() != 0){
                 System.out.println(inputFromServer);
-                lastResponse = inputFromServer;
+                serverResponses.add(inputFromServer);
                 inputFromServer = "";
             }
         }
     }
 
+    public ArrayList<String> getServerResponses(){
+        return serverResponses;
+    }
+
     public String getLastResponse() {
-        return lastResponse;
+        return serverResponses.get(serverResponses.size()-1);
     }
 }
+

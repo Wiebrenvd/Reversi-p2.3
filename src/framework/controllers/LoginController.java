@@ -19,7 +19,7 @@ public abstract class LoginController extends Controller {
         System.out.println(command);
         sc.sendCommand(command);
 
-        return sc.showResponse();
+        return sc.showLastResponse();
     }
 
     public abstract void loginSucceed(ActionEvent event);
