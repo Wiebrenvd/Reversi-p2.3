@@ -18,7 +18,7 @@ public class Main extends Application {
 
         Parent root = loader.load();
         primaryStage.setTitle("Group ONE: Reversi Client");
-        primaryStage.setScene(new Scene(root, 420, 160));
+        primaryStage.setScene(new Scene(root, 420, 240));
         primaryStage.show();
     }
 
