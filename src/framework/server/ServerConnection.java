@@ -1,12 +1,9 @@
-package reversi;
+package framework.server;
 
 import java.io.IOException;
 import java.net.Socket;
 
-import framework.InputListener;
-import framework.OutputSender;
-
-public class ServerConnection{
+public class ServerConnection {
 
     private int port = 7789;
     private String host = "localhost";

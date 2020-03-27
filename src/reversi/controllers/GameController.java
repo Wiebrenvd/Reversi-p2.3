@@ -1,21 +1,22 @@
-package reversi;
+package reversi.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import framework.controllers.Controller;
+import framework.server.ServerConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 
-public class ReversiUIController implements Initializable {
+public class GameController extends Controller implements Initializable {
     @FXML
     private GridPane reversiTable;
-
     private ServerConnection serverConnection;
     private Pane[][] reversiBoard;
 
-    public ReversiUIController(ServerConnection sc){
+    public GameController(ServerConnection sc){
         this.serverConnection = sc;
         this.reversiBoard = new Pane[8][8];
     }
