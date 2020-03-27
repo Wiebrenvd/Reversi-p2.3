@@ -33,6 +33,11 @@ public class InputListener implements Runnable {
             try {
                 inputFromServer = br.readLine();
             } catch (IOException e) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
                 System.out.println("Failed to read from server...");
             }
             if (inputFromServer.length() != 0){

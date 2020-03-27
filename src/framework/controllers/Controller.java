@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class Controller {
 
-    public void changeScene(ActionEvent event, String fxmlPath) {
+    protected void changeScene(ActionEvent event, String fxmlPath) {
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         try {
             Parent loader = FXMLLoader.load(getClass().getResource(fxmlPath));

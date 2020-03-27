@@ -36,7 +36,7 @@ public class ServerConnection{
             }
         } catch (IOException e) {
             System.out.println("Connection Failed.");
-            e.printStackTrace();
+//            e.printStackTrace();
             return false;
         }
 
@@ -61,7 +61,6 @@ public class ServerConnection{
         } catch (InterruptedException e){
             System.out.println("Fail to sleep");
         }
-        System.out.println(inputListener.getLastResponse());
         return inputListener.getLastResponse();
     }
 

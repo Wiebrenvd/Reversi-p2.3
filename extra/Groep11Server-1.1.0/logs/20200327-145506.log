@@ -1,0 +1,35 @@
+2020/03/27 14:55:06 - Loaded game module: Reversi
+2020/03/27 14:55:06 - Loaded game module: Tic-tac-toe
+2020/03/27 14:55:06 - Server listening on port 7789
+2020/03/27 14:55:07 - Application started
+2020/03/27 14:55:09 - Handling command: action=get, argument=gamelist
+2020/03/27 14:55:14 - Handling command: action=login, argument=asdf
+2020/03/27 14:55:14 - Client logged in: asdf
+2020/03/27 14:55:14 - Handling command: action=subscribe, argument=Reversi
+2020/03/27 14:55:15 - Handling command: action=move, argument=29
+2020/03/27 14:55:16 - Handling command: action=move, argument=37
+2020/03/27 14:55:16 - Handling command: action=move, argument=44
+2020/03/27 14:55:16 - Handling command: action=move, argument=43
+2020/03/27 14:55:17 - Handling command: action=move, argument=42
+2020/03/27 14:55:17 - Handling command: action=move, argument=34
+2020/03/27 14:55:17 - Handling command: action=move, argument=18
+2020/03/27 14:55:17 - Handling command: action=move, argument=10
+2020/03/27 14:55:18 - Handling command: action=move, argument=11
+2020/03/27 14:55:18 - Handling command: action=move, argument=12
+2020/03/27 14:55:19 - Handling command: action=move, argument=12
+2020/03/27 14:55:19 - Handling command: action=move, argument=11
+2020/03/27 14:55:19 - Handling command: action=move, argument=11
+2020/03/27 14:55:19 - Handling command: action=move, argument=11
+2020/03/27 14:55:19 - Handling command: action=move, argument=11
+2020/03/27 14:55:20 - Handling command: action=move, argument=11
+2020/03/27 14:55:20 - Handling command: action=move, argument=11
+2020/03/27 14:55:20 - Handling command: action=move, argument=11
+2020/03/27 14:55:20 - Handling command: action=move, argument=12
+2020/03/27 14:55:31 - Handling command: action=get, argument=gamelist
+2020/03/27 14:55:33 - Handling command: action=login, argument=asdf
+2020/03/27 14:55:35 - Handling command: action=login, argument=fda
+2020/03/27 14:55:35 - Client logged in: fda
+2020/03/27 14:55:35 - Handling command: action=subscribe, argument=Reversi
+2020/03/27 14:55:38 - Handling command: action=move, argument=12
+2020/03/27 14:55:38 - Handling command: action=move, argument=21
+2020/03/27 14:55:39 - Handling command: action=move, argument=29

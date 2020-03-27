@@ -2,3 +2,27 @@
 2020/03/27 14:39:58 - Loaded game module: Tic-tac-toe
 2020/03/27 14:39:58 - Server listening on port 7789
 2020/03/27 14:39:58 - Application started
+2020/03/27 14:40:17 - Handling command: action=get, argument=gamelist
+2020/03/27 14:40:21 - Handling command: action=login, argument=asdf
+2020/03/27 14:40:21 - Client logged in: asdf
+2020/03/27 14:40:21 - Handling command: action=subscribe, argument=reversi
+2020/03/27 14:40:22 - Handling command: action=move, argument=20
+2020/03/27 14:40:22 - Handling command: action=move, argument=19
+2020/03/27 14:40:22 - Handling command: action=move, argument=27
+2020/03/27 14:40:23 - Handling command: action=move, argument=35
+2020/03/27 14:40:23 - Handling command: action=move, argument=35
+2020/03/27 14:40:23 - Handling command: action=move, argument=36
+2020/03/27 14:40:24 - Handling command: action=move, argument=38
+2020/03/27 14:40:24 - Handling command: action=move, argument=51
+2020/03/27 14:41:28 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2020/03/27 14:41:28 - Disconnecting client
+2020/03/27 14:41:28 - Closing client socket connection
+2020/03/27 14:41:28 - Client disconnected, removing input buffer
+2020/03/27 14:44:40 - Started closing application
+2020/03/27 14:44:40 - Saving settings
+2020/03/27 14:44:40 - Closing GameServerGUI
+2020/03/27 14:44:40 - Closing GameServer
+2020/03/27 14:44:40 - Closing client input handler
+2020/03/27 14:44:40 - Closing server selector
+2020/03/27 14:44:40 - Closing server socket
+2020/03/27 14:44:40 - Application closed

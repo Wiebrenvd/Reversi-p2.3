@@ -1,0 +1,21 @@
+2020/03/27 14:52:37 - Loaded game module: Reversi
+2020/03/27 14:52:37 - Loaded game module: Tic-tac-toe
+2020/03/27 14:52:37 - Server listening on port 7789
+2020/03/27 14:52:38 - Application started
+2020/03/27 14:52:41 - Handling command: action=get, argument=gamelist
+2020/03/27 14:53:46 - IOException while processing key: java.io.IOException: An existing connection was forcibly closed by the remote host
+2020/03/27 14:53:46 - Disconnecting client
+2020/03/27 14:53:46 - Closing client socket connection
+2020/03/27 14:53:46 - Client disconnected, removing input buffer
+2020/03/27 14:54:20 - Handling command: action=get, argument=gamelist
+2020/03/27 14:54:24 - Started closing application
+2020/03/27 14:54:24 - Saving settings
+2020/03/27 14:54:24 - Closing GameServerGUI
+2020/03/27 14:54:24 - Closing GameServer
+2020/03/27 14:54:24 - Disconnecting client
+2020/03/27 14:54:24 - Closing client socket connection
+2020/03/27 14:54:24 - Client disconnected, removing input buffer
+2020/03/27 14:54:24 - Closing client input handler
+2020/03/27 14:54:24 - Closing server selector
+2020/03/27 14:54:24 - Closing server socket
+2020/03/27 14:54:24 - Application closed

@@ -9,7 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import reversi.controllers.ReversiLoginController;
+import framework.controllers.LoginController;
 
 public class Main extends Application {
 
@@ -18,7 +18,7 @@ public class Main extends Application {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/framework/login.fxml"));
         ServerConnection sc = new ServerConnection();
-        Controller lc = new ReversiLoginController(sc);
+        Controller lc = new LoginController(sc);
         loader.setController(lc);
         try {
             Parent root = loader.load();
