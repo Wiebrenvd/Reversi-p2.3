@@ -1,8 +1,5 @@
 package reversi.controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import framework.controllers.Controller;
 import framework.server.ServerConnection;
 import javafx.fxml.FXML;
@@ -12,6 +9,9 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class GameController extends Controller implements Initializable {
     @FXML
