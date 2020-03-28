@@ -60,16 +60,18 @@ public class GameController extends Controller implements Initializable {
     }
 
     public void makeABoard(){
+        HashMap<Point, Integer> spawnPoints = Settings.SpawnPoints;
+
         RowConstraints rowConstraints;
         ColumnConstraints colConstraints;
 
-        for (int i = 0; i < Settings.tilesX ; i++) {
+        for (int i = 0; i < TicTacToe.Settings.tilesX ; i++) {
             colConstraints = new ColumnConstraints();
             colConstraints.setHgrow(Priority.SOMETIMES);
             gameTable.getColumnConstraints().add(colConstraints);
         }
 
-        for (int i = 0; i < Settings.tilesY ; i++) {
+        for (int i = 0; i < TicTacToe.Settings.tilesY ; i++) {
             rowConstraints = new RowConstraints();
             rowConstraints.setVgrow(Priority.SOMETIMES);
             gameTable.getRowConstraints().add(rowConstraints);
@@ -80,6 +82,9 @@ public class GameController extends Controller implements Initializable {
                 Point tPos = new Point(x,y);
 
                 addPane(x, y);
+
+                if(spawnPoints.containsKey(tPos))
+                    setMove(tPos, spawnPoints.get(tPos), false);
             }
         }
     }

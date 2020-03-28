@@ -1,5 +1,6 @@
-package TicTacToe.controllers;
+package framework.TicTacToe.controllers;
 
+import TicTacToe.Settings;
 import framework.controllers.Controller;
 import framework.server.ServerConnection;
 import javafx.fxml.FXML;
@@ -15,8 +16,6 @@ import java.awt.*;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-
-import TicTacToe.Settings;
 
 public class GameController extends Controller implements Initializable {
     @FXML
@@ -75,7 +74,7 @@ public class GameController extends Controller implements Initializable {
             gameTable.getRowConstraints().add(rowConstraints);
         }
 
-        for (int x = 0 ; x < Settings.tilesX ; x++) {
+        for (int x = 0; x < Settings.tilesX ; x++) {
             for (int y = 0; y < Settings.tilesY; y++) {
                 Point tPos = new Point(x,y);
 
@@ -133,7 +132,7 @@ public class GameController extends Controller implements Initializable {
     }
 
     public Point getPos(int num) {
-        int row = (int)Math.round(num/Settings.tilesX);
+        int row = (int)Math.round(num/ Settings.tilesX);
         int col = num % Settings.tilesX;
 
         return new Point(col, row);

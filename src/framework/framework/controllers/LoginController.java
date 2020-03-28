@@ -1,29 +1,20 @@
-package framework.controllers;
+package framework.framework.controllers;
 
-import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
+import framework.controllers.Controller;
 import framework.server.ServerConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import reversi.controllers.GameController;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class LoginController extends Controller implements Initializable {
 
@@ -99,43 +90,8 @@ public class LoginController extends Controller implements Initializable {
         }
     }
 
-    public void loginSucceed(ActionEvent event) {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        String gName = this.getGamename(gameChoiceBox.getSelectionModel().getSelectedItem());
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + gName + "/View.fxml"));
-
-        try {
-            Class<?> Controllers = Class.forName(gName + ".controllers.GameController");
-            Constructor<?> cons = Controllers.getConstructor(ServerConnection.class);
-
-            loader.setController(cons.newInstance(sc));
-
-            Parent root = (Parent)loader.load();
-            Scene rScene = new Scene(root);
-
-            rScene.getStylesheets().add(getClass().getResource("/" + gName + "/Style.css").toExternalForm());
-
-            stage.setScene(rScene);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        //changeScene(event, "/reversi/View.fxml", new GameController(sc));
-    }
-
-    public String getGamename(String key){
-        String name = "";
-        String[] words = key.split("[_-]");
-
-        for(String sWord : words){
-            name += sWord.substring(0, 1).toUpperCase();
-            name += sWord.substring(1);
-        }
-
-        return name;
+    public void loginSucceed(ActionEvent event){
+        changeScene(event, "/reversi/reversi.fxml", new GameController(sc));
     }
 
     private void getGamelist() {
@@ -147,6 +103,8 @@ public class LoginController extends Controller implements Initializable {
             gameChoiceBox.getItems().add(game.substring(1,game.length()-1));
         }
     }
+
+
 
     //https://stackoverflow.com/questions/17405688/javafx-activate-a-tooltip-with-a-button
     public static void showTooltip(Stage owner, Control control, String tooltipText,
@@ -164,4 +122,8 @@ public class LoginController extends Controller implements Initializable {
                 + control.getScene().getY() + control.getScene().getWindow().getY());
 
     }
+
+
+
+
 }
