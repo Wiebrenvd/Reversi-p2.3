@@ -3,7 +3,6 @@ package framework.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import framework.controllers.LoginController;
 import framework.server.ServerConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +18,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import reversi.controllers.GameController;
+import Reversi.controllers.GameController;
 
 public class LoginController extends Controller implements Initializable {
 
@@ -96,7 +95,7 @@ public class LoginController extends Controller implements Initializable {
     }
 
     public void loginSucceed(ActionEvent event){
-        changeScene(event, "/reversi/reversi.fxml", new GameController(sc));
+        changeScene(event, "/Reversi/reversi.fxml", new GameController(sc));
     }
 
     private void getGamelist() {
