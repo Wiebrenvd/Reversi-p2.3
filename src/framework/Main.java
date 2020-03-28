@@ -1,4 +1,4 @@
-package reversi;
+package framework;
 
 import java.io.IOException;
 
@@ -22,8 +22,12 @@ public class Main extends Application {
         loader.setController(lc);
         try {
             Parent root = loader.load();
+            Scene rScene = new Scene(root);
+
+            rScene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+
             primaryStage.setTitle("Group ONE: reversi Client");
-            primaryStage.setScene(new Scene(root));
+            primaryStage.setScene(rScene);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();

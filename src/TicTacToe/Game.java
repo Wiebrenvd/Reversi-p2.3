@@ -1,14 +1,14 @@
-package reversi;
+package TicTacToe;
 
 
 import framework.server.ServerConnection;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+
 import java.util.ArrayList;
 
-public class ReversiGame implements Runnable {
-
-
+public class Game implements Runnable {
     private ServerConnection serverConnection;
     private boolean gameFound = false;
 
@@ -19,7 +19,7 @@ public class ReversiGame implements Runnable {
     public Label lblBlack, lblWhite;
 
 
-    public ReversiGame(ServerConnection sc, GridPane gp, Label lblB, Label lblW) {
+    public Game(ServerConnection sc, GridPane gp, Label lblB, Label lblW) {
         this.serverConnection = sc;
         this.gridPane = gp;
         this.lblBlack = lblB;
