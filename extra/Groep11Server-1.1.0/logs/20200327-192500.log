@@ -1,0 +1,19 @@
+2020/03/27 19:25:00 - Loaded game module: Reversi
+2020/03/27 19:25:00 - Loaded game module: Tic-tac-toe
+2020/03/27 19:25:00 - Server listening on port 7789
+2020/03/27 19:25:00 - Application started
+2020/03/27 19:25:11 - Handling command: action=ÿûÿû, argument=ÿûÿû'ÿýÿûÿýdsfsa
+2020/03/27 19:25:12 - Handling command: action=ÿþÿþ'asdfdasf, argument=
+2020/03/27 19:25:12 - Handling command: action=ÿû$asdfasdf, argument=
+2020/03/27 19:25:13 - Handling command: action=ÿþ$asdfdas, argument=
+2020/03/27 19:25:14 - Handling command: action=asdf, argument=
+2020/03/27 19:25:17 - Handling command: action=login, argument=bob
+2020/03/27 19:25:17 - Client logged in: bob
+2020/03/27 19:25:25 - Handling command: action=get, argument=gamelist
+2020/03/27 19:25:28 - Handling command: action=login, argument=rene
+2020/03/27 19:25:28 - Client logged in: rene
+2020/03/27 19:25:29 - Handling command: action=subscribe, argument=Reversi
+2020/03/27 19:25:55 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/27 19:25:55 - Disconnecting client
+2020/03/27 19:25:55 - Closing client socket connection
+2020/03/27 19:25:55 - Client disconnected, removing input buffer
