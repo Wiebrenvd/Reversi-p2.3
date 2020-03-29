@@ -1,15 +1,20 @@
 package framework.controllers;
 
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import framework.controllers.LoginController;
 import framework.server.ServerConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Control;
@@ -51,14 +56,14 @@ public class LoginController extends Controller implements Initializable {
     @FXML
     void login(ActionEvent event) {
         String command = "login ";
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        if (nameInput.getText().trim().length() == 0){
-            showTooltip(stage,loginBtn,"Please fill in a login name!", null);
+        if (nameInput.getText().trim().length() == 0) {
+            showTooltip(stage, loginBtn, "Please fill in a login name!", null);
             return;
         } else {
-            if (status_lbl.getText().equals("Offline")){
-                showTooltip(stage,loginBtn,"Please check if you are online!", null);
+            if (status_lbl.getText().equals("Offline")) {
+                showTooltip(stage, loginBtn, "Please check if you are online!", null);
                 return;
             } else {
                 String loginName = nameInput.getText();
@@ -68,11 +73,11 @@ public class LoginController extends Controller implements Initializable {
             }
         }
 
-        if (!sc.showLastResponse().equals("OK")){
-            showTooltip(stage,loginBtn,"Cannot connect to the Server... \nPlease restart the application", null);
+        if (!sc.showLastResponse().equals("OK")) {
+            showTooltip(stage, loginBtn, "Cannot connect to the Server... \nPlease restart the application", null);
         } else {
-            if (gameChoiceBox.getValue().contains("Please select")){
-                showTooltip(stage,loginBtn,"Please select a game!", null);
+            if (gameChoiceBox.getValue().contains("Please select")) {
+                showTooltip(stage, loginBtn, "Please select a game!", null);
                 return;
             }
 
@@ -86,8 +91,8 @@ public class LoginController extends Controller implements Initializable {
     void connectToServer(ActionEvent event) {
         String host = hostIP_input.getText();
         int port = Integer.parseInt(port_input.getText());
-        if (status_lbl.getText().equals("Offline")){
-            if (sc.startConnection(host,port)){
+        if (status_lbl.getText().equals("Offline")) {
+            if (sc.startConnection(host, port)) {
                 status_lbl.setText("Online");
                 status_lbl.setTextFill(Color.GREEN);
                 getGamelist();
@@ -95,8 +100,33 @@ public class LoginController extends Controller implements Initializable {
         }
     }
 
-    public void loginSucceed(ActionEvent event){
-        changeScene(event, "/reversi/reversi.fxml", new GameController(sc));
+    public void loginSucceed(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        String gName = this.getGamename(gameChoiceBox.getSelectionModel().getSelectedItem());
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + gName + "/GameView.fxml"));
+
+        try {
+            changeScene(event, "/reversi/GameView.fxml", new GameController(sc));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public String getGamename(String key) {
+        String name = "";
+        String[] words = key.split("[_-]");
+
+        for (String sWord : words) {
+            name += sWord.substring(0, 1).toUpperCase();
+            name += sWord.substring(1);
+        }
+
+        return name.toLowerCase();
     }
 
     private void getGamelist() {
@@ -104,12 +134,10 @@ public class LoginController extends Controller implements Initializable {
         String response = sc.showLastResponse();
 
         String[] gamelist = sc.getDicOrArr(response);
-        for (String game : gamelist){
-            gameChoiceBox.getItems().add(game.substring(1,game.length()-1));
+        for (String game : gamelist) {
+            gameChoiceBox.getItems().add(game.substring(1, game.length() - 1));
         }
     }
-
-
 
     //https://stackoverflow.com/questions/17405688/javafx-activate-a-tooltip-with-a-button
     public static void showTooltip(Stage owner, Control control, String tooltipText,
@@ -127,8 +155,4 @@ public class LoginController extends Controller implements Initializable {
                 + control.getScene().getY() + control.getScene().getWindow().getY());
 
     }
-
-
-
-
 }
