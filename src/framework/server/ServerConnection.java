@@ -1,9 +1,6 @@
 package framework.server;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,7 +54,7 @@ public class ServerConnection{
 
     public String showLastResponse(){
         try {
-            Thread.sleep(100);
+            Thread.sleep(500);
         } catch (InterruptedException e){
             System.out.println("Fail to sleep");
         }

@@ -53,6 +53,7 @@ public class InputListener implements Runnable {
     }
 
     public String getLastResponse() {
+
         return serverResponses.get(serverResponses.size()-1);
     }
 }
