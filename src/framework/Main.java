@@ -5,11 +5,14 @@ import java.io.IOException;
 import framework.controllers.Controller;
 import framework.server.ServerConnection;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import framework.controllers.LoginController;
+import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
@@ -26,7 +29,12 @@ public class Main extends Application {
 
             rScene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
 
-            primaryStage.setTitle("Group ONE: reversi Client");
+            primaryStage.setOnCloseRequest((EventHandler<WindowEvent>) event -> {
+                Platform.exit();
+                System.exit(0);
+            }); // Stops process when exiting application
+
+                    primaryStage.setTitle("Group ONE: reversi Client");
             primaryStage.setScene(rScene);
             primaryStage.show();
         } catch (IOException e) {

@@ -24,6 +24,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import reversi.controllers.GameController;
 
 public class LoginController extends Controller implements Initializable {
 
@@ -55,14 +56,14 @@ public class LoginController extends Controller implements Initializable {
     @FXML
     void login(ActionEvent event) {
         String command = "login ";
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        if (nameInput.getText().trim().length() == 0){
-            showTooltip(stage,loginBtn,"Please fill in a login name!", null);
+        if (nameInput.getText().trim().length() == 0) {
+            showTooltip(stage, loginBtn, "Please fill in a login name!", null);
             return;
         } else {
-            if (status_lbl.getText().equals("Offline")){
-                showTooltip(stage,loginBtn,"Please check if you are online!", null);
+            if (status_lbl.getText().equals("Offline")) {
+                showTooltip(stage, loginBtn, "Please check if you are online!", null);
                 return;
             } else {
                 String loginName = nameInput.getText();
@@ -72,11 +73,11 @@ public class LoginController extends Controller implements Initializable {
             }
         }
 
-        if (!sc.showLastResponse().equals("OK")){
-            showTooltip(stage,loginBtn,"Cannot connect to the Server... \nPlease restart the application", null);
+        if (!sc.showLastResponse().equals("OK")) {
+            showTooltip(stage, loginBtn, "Cannot connect to the Server... \nPlease restart the application", null);
         } else {
-            if (gameChoiceBox.getValue().contains("Please select")){
-                showTooltip(stage,loginBtn,"Please select a game!", null);
+            if (gameChoiceBox.getValue().contains("Please select")) {
+                showTooltip(stage, loginBtn, "Please select a game!", null);
                 return;
             }
 
@@ -90,8 +91,8 @@ public class LoginController extends Controller implements Initializable {
     void connectToServer(ActionEvent event) {
         String host = hostIP_input.getText();
         int port = Integer.parseInt(port_input.getText());
-        if (status_lbl.getText().equals("Offline")){
-            if (sc.startConnection(host,port)){
+        if (status_lbl.getText().equals("Offline")) {
+            if (sc.startConnection(host, port)) {
                 status_lbl.setText("Online");
                 status_lbl.setTextFill(Color.GREEN);
                 getGamelist();
@@ -100,42 +101,32 @@ public class LoginController extends Controller implements Initializable {
     }
 
     public void loginSucceed(ActionEvent event) {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         String gName = this.getGamename(gameChoiceBox.getSelectionModel().getSelectedItem());
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + gName + "/View.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + gName + "/GameView.fxml"));
 
         try {
-            Class<?> Controllers = Class.forName(gName + ".controllers.GameController");
-            Constructor<?> cons = Controllers.getConstructor(ServerConnection.class);
+            changeScene(event, "/reversi/GameView.fxml", new GameController(sc));
 
-            loader.setController(cons.newInstance(sc));
 
-            Parent root = (Parent)loader.load();
-            Scene rScene = new Scene(root);
-
-            rScene.getStylesheets().add(getClass().getResource("/" + gName + "/Style.css").toExternalForm());
-
-            stage.setScene(rScene);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        //changeScene(event, "/reversi/View.fxml", new GameController(sc));
+
     }
 
-    public String getGamename(String key){
+    public String getGamename(String key) {
         String name = "";
         String[] words = key.split("[_-]");
 
-        for(String sWord : words){
+        for (String sWord : words) {
             name += sWord.substring(0, 1).toUpperCase();
             name += sWord.substring(1);
         }
 
-        return name;
+        return name.toLowerCase();
     }
 
     private void getGamelist() {
@@ -143,8 +134,8 @@ public class LoginController extends Controller implements Initializable {
         String response = sc.showLastResponse();
 
         String[] gamelist = sc.getDicOrArr(response);
-        for (String game : gamelist){
-            gameChoiceBox.getItems().add(game.substring(1,game.length()-1));
+        for (String game : gamelist) {
+            gameChoiceBox.getItems().add(game.substring(1, game.length() - 1));
         }
     }
 

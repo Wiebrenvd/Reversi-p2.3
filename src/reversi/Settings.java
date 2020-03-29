@@ -1,4 +1,4 @@
-package Reversi;
+package reversi;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -20,6 +20,7 @@ public class Settings {
     public static Color Player2Color = Color.WHITE;
 
     public static double PlayerSize = 24.0;
+
 
     public static HashMap<Point, Integer> SpawnPoints = new HashMap<Point, Integer>() {{
         put(new Point(3, 3), PLAYER1);
