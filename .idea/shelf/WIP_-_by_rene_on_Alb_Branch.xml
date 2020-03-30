@@ -1,0 +1,14 @@
+<changelist name="WIP_-_by_rene_on_Alb_Branch" date="1585434234926" recycled="false">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/WIP_-_by_rene_on_Alb_Branch/shelved.patch" />
+  <option name="DESCRIPTION" value="WIP - by rene on Alb Branch" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/reversiClient/framework/controllers/LoginController.class" />
+    <option name="AFTER_PATH" value="out/production/reversiClient/framework/controllers/LoginController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/WIP_-_by_rene_on_Alb_Branch/LoginController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/reversiClient/framework/server/ServerConnection.class" />
+    <option name="AFTER_PATH" value="out/production/reversiClient/framework/server/ServerConnection.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/WIP_-_by_rene_on_Alb_Branch/ServerConnection.class" />
+  </binary>
+</changelist>

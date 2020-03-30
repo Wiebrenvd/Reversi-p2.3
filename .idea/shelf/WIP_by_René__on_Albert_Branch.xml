@@ -1,0 +1,9 @@
+<changelist name="WIP_by_René,_on_Albert_Branch" date="1585494796635" recycled="false">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/WIP_by_René,_on_Albert_Branch/shelved.patch" />
+  <option name="DESCRIPTION" value="WIP by René, on Albert Branch" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/reversiClient/framework/server/ServerConnection.class" />
+    <option name="AFTER_PATH" value="out/production/reversiClient/framework/server/ServerConnection.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/WIP_by_René,_on_Albert_Branch/ServerConnection.class" />
+  </binary>
+</changelist>
