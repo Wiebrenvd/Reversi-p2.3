@@ -1,4 +1,4 @@
-package TicTacToe.controllers;
+package tictactoe.controllers;
 
 import framework.controllers.Controller;
 import framework.server.ServerConnection;
@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-import TicTacToe.Settings;
+import tictactoe.Settings;
 
 public class GameController extends Controller implements Initializable {
     @FXML
@@ -63,13 +63,13 @@ public class GameController extends Controller implements Initializable {
         RowConstraints rowConstraints;
         ColumnConstraints colConstraints;
 
-        for (int i = 0; i < TicTacToe.Settings.tilesX ; i++) {
+        for (int i = 0; i < tictactoe.Settings.tilesX ; i++) {
             colConstraints = new ColumnConstraints();
             colConstraints.setHgrow(Priority.SOMETIMES);
             gameTable.getColumnConstraints().add(colConstraints);
         }
 
-        for (int i = 0; i < TicTacToe.Settings.tilesY ; i++) {
+        for (int i = 0; i < tictactoe.Settings.tilesY ; i++) {
             rowConstraints = new RowConstraints();
             rowConstraints.setVgrow(Priority.SOMETIMES);
             gameTable.getRowConstraints().add(rowConstraints);

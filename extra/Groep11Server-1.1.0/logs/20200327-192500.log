@@ -1,19 +1,292 @@
-2020/03/27 19:25:00 - Loaded game module: Reversi
+2020/03/27 19:25:00 - Loaded game module: reversi
 2020/03/27 19:25:00 - Loaded game module: Tic-tac-toe
 2020/03/27 19:25:00 - Server listening on port 7789
 2020/03/27 19:25:00 - Application started
-2020/03/27 19:25:11 - Handling command: action=ÿûÿû, argument=ÿûÿû'ÿýÿûÿýdsfsa
-2020/03/27 19:25:12 - Handling command: action=ÿþÿþ'asdfdasf, argument=
-2020/03/27 19:25:12 - Handling command: action=ÿû$asdfasdf, argument=
-2020/03/27 19:25:13 - Handling command: action=ÿþ$asdfdas, argument=
+2020/03/27 19:25:11 - Handling command: action=ï¿½ï¿½ï¿½ï¿½, argument=ï¿½ï¿½ï¿½ï¿½'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½dsfsa
+2020/03/27 19:25:12 - Handling command: action=ï¿½ï¿½ï¿½ï¿½'asdfdasf, argument=
+2020/03/27 19:25:12 - Handling command: action=ï¿½ï¿½$asdfasdf, argument=
+2020/03/27 19:25:13 - Handling command: action=ï¿½ï¿½$asdfdas, argument=
 2020/03/27 19:25:14 - Handling command: action=asdf, argument=
 2020/03/27 19:25:17 - Handling command: action=login, argument=bob
 2020/03/27 19:25:17 - Client logged in: bob
 2020/03/27 19:25:25 - Handling command: action=get, argument=gamelist
 2020/03/27 19:25:28 - Handling command: action=login, argument=rene
 2020/03/27 19:25:28 - Client logged in: rene
-2020/03/27 19:25:29 - Handling command: action=subscribe, argument=Reversi
+2020/03/27 19:25:29 - Handling command: action=subscribe, argument=reversi
 2020/03/27 19:25:55 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
 2020/03/27 19:25:55 - Disconnecting client
 2020/03/27 19:25:55 - Closing client socket connection
 2020/03/27 19:25:55 - Client disconnected, removing input buffer
+2020/03/28 20:46:14 - Handling command: action=get, argument=gamelist
+2020/03/28 20:47:07 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/28 20:47:07 - Disconnecting client
+2020/03/28 20:47:07 - Closing client socket connection
+2020/03/28 20:47:07 - Client disconnected, removing input buffer
+2020/03/28 20:47:16 - Handling command: action=get, argument=gamelist
+2020/03/28 20:47:28 - Handling command: action=login, argument=rene
+2020/03/28 20:47:28 - Client logged in: rene
+2020/03/28 20:47:38 - Handling command: action=login, argument=rene
+2020/03/28 20:47:45 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/28 20:47:45 - Disconnecting client
+2020/03/28 20:47:45 - Closing client socket connection
+2020/03/28 20:47:45 - Client disconnected, removing input buffer
+2020/03/28 20:52:18 - Handling command: action=get, argument=gamelist
+2020/03/28 20:52:31 - Handling command: action=login, argument=rene
+2020/03/28 20:52:31 - Client logged in: rene
+2020/03/28 20:52:32 - Handling command: action=subscribe, argument=reversi
+2020/03/28 20:52:39 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/28 20:52:39 - Disconnecting client
+2020/03/28 20:52:39 - Closing client socket connection
+2020/03/28 20:52:39 - Client disconnected, removing input buffer
+2020/03/28 23:31:46 - Handling command: action=get, argument=gamelist
+2020/03/28 23:31:54 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/28 23:31:54 - Disconnecting client
+2020/03/28 23:31:54 - Closing client socket connection
+2020/03/28 23:31:54 - Client disconnected, removing input buffer
+2020/03/28 23:32:50 - Handling command: action=get, argument=gamelist
+2020/03/28 23:32:56 - Handling command: action=login, argument=rene
+2020/03/28 23:32:56 - Client logged in: rene
+2020/03/28 23:32:56 - Handling command: action=subscribe, argument=reversi
+2020/03/28 23:33:16 - Handling command: action=move, argument=19
+2020/03/28 23:33:24 - Handling command: action=move, argument=18
+2020/03/28 23:33:29 - Handling command: action=move, argument=17
+2020/03/28 23:33:40 - Handling command: action=move, argument=9
+2020/03/28 23:33:45 - Handling command: action=move, argument=1
+2020/03/28 23:33:51 - Handling command: action=move, argument=0
+2020/03/28 23:34:08 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/28 23:34:08 - Disconnecting client
+2020/03/28 23:34:08 - Closing client socket connection
+2020/03/28 23:34:08 - Client disconnected, removing input buffer
+2020/03/29 17:22:48 - Handling command: action=get, argument=gamelist
+2020/03/29 17:22:53 - Handling command: action=login, argument=rene
+2020/03/29 17:22:53 - Client logged in: rene
+2020/03/29 17:22:53 - Handling command: action=subscribe, argument=reversi
+2020/03/29 17:23:10 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 17:23:10 - Disconnecting client
+2020/03/29 17:23:10 - Closing client socket connection
+2020/03/29 17:23:10 - Client disconnected, removing input buffer
+2020/03/29 17:41:32 - Handling command: action=get, argument=gamelist
+2020/03/29 17:42:08 - Handling command: action=login, argument=rene
+2020/03/29 17:42:08 - Client logged in: rene
+2020/03/29 17:42:08 - Handling command: action=subscribe, argument=reversi
+2020/03/29 17:42:43 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 17:42:43 - Disconnecting client
+2020/03/29 17:42:43 - Closing client socket connection
+2020/03/29 17:42:43 - Client disconnected, removing input buffer
+2020/03/29 17:42:54 - Handling command: action=get, argument=gamelist
+2020/03/29 17:42:59 - Handling command: action=login, argument=rene
+2020/03/29 17:42:59 - Client logged in: rene
+2020/03/29 17:42:59 - Handling command: action=subscribe, argument=Tic-tac-toe
+2020/03/29 17:43:07 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 17:43:07 - Disconnecting client
+2020/03/29 17:43:07 - Closing client socket connection
+2020/03/29 17:43:07 - Client disconnected, removing input buffer
+2020/03/29 18:17:45 - Handl2020/03/29 18:54:20 - Handling command: action=get, argument=gamelist
+2020/03/29 18:54:50 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 18:54:50 - Disconnecting client
+2020/03/29 18:54:50 - Closing client socket connection
+2020/03/29 18:54:50 - Client disconnected, removing input buffer
+2020/03/29 19:16:31 - Handling command: action=get, argument=gamelist
+2020/03/29 19:16:37 - Handling command: action=login, argument=rene
+2020/03/29 19:16:37 - Client logged in: rene
+2020/03/29 19:16:37 - Handling command: action=subscribe, argument=Reversi
+2020/03/29 19:16:43 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 19:16:43 - Disconnecting client
+2020/03/29 19:16:43 - Closing client socket connection
+2020/03/29 19:16:43 - Client disconnected, removing input buffer
+2020/03/29 20:48:46 - Handling command: action=get, argument=gamelist
+2020/03/29 20:48:53 - Handling command: action=login, argument=rene
+2020/03/29 20:48:53 - Client logged in: rene
+2020/03/29 20:48:53 - Handling command: action=subscribe, argument=Reversi
+2020/03/29 20:51:41 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 20:51:41 - Disconnecting client
+2020/03/29 20:51:41 - Closing client socket connection
+2020/03/29 20:51:41 - Client disconnected, removing input buffer
+2020/03/29 20:51:51 - Handling command: action=get, argument=gamelist
+2020/03/29 20:51:54 - Handling command: action=login, argument=rene
+2020/03/29 20:51:54 - Client logged in: rene
+2020/03/29 20:51:55 - Handling command: action=subscribe, argument=Reversi
+2020/03/29 20:54:23 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 20:54:23 - Disconnecting client
+2020/03/29 20:54:23 - Closing client socket connection
+2020/03/29 20:54:23 - Client disconnected, removing input buffer
+2020/03/29 20:54:29 - Handling command: action=get, argument=gamelist
+2020/03/29 20:54:35 - Handling command: action=login, argument=rene
+2020/03/29 20:54:35 - Client logged in: rene
+2020/03/29 20:54:35 - Handling command: action=subscribe, argument=Reversi
+2020/03/29 20:54:38 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 20:54:38 - Disconnecting client
+2020/03/29 20:54:38 - Closing client socket connection
+2020/03/29 20:54:38 - Client disconnected, removing input buffer
+2020/03/29 20:57:34 - Handling command: action=get, argument=gamelist
+2020/03/29 20:57:39 - Handling command: action=login, argument=lol
+2020/03/29 20:57:39 - Client logged in: lol
+2020/03/29 20:57:39 - Handling command: action=subscribe, argument=Reversi
+2020/03/29 20:59:38 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 20:59:38 - Disconnecting client
+2020/03/29 20:59:38 - Closing client socket connection
+2020/03/29 20:59:38 - Client disconnected, removing input buffer
+2020/03/29 20:59:46 - Handling command: action=get, argument=gamelist
+2020/03/29 20:59:52 - Handling command: action=login, argument=lol
+2020/03/29 20:59:52 - Client logged in: lol
+2020/03/29 20:59:53 - Handling command: action=subscribe, argument=Reversi
+2020/03/29 21:00:09 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 21:00:09 - Disconnecting client
+2020/03/29 21:00:09 - Closing client socket connection
+2020/03/29 21:00:09 - Client disconnected, removing input buffer
+2020/03/29 21:00:30 - Handling command: action=get, argument=gamelist
+2020/03/29 21:00:35 - Handling command: action=login, argument=rene
+2020/03/29 21:00:35 - Client logged in: rene
+2020/03/29 21:00:36 - Handling command: action=subscribe, argument=Reversi
+2020/03/29 21:25:55 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 21:25:55 - Disconnecting client
+2020/03/29 21:25:55 - Closing client socket connection
+2020/03/29 21:25:55 - Client disconnected, removing input buffer
+2020/03/29 21:31:53 - Handling command: action=get, argument=gamelist
+2020/03/29 21:31:59 - Handling command: action=login, argument=lol
+2020/03/29 21:31:59 - Client logged in: lol
+2020/03/29 21:31:59 - Handling command: action=subscribe, argument=Reversi
+2020/03/29 21:32:24 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 21:32:24 - Disconnecting client
+2020/03/29 21:32:24 - Closing client socket connection
+2020/03/29 21:32:24 - Client disconnected, removing input buffer
+2020/03/29 21:34:12 - Handling command: action=get, argument=gamelist
+2020/03/29 21:34:18 - Handling command: action=login, argument=rene
+2020/03/29 21:34:18 - Client logged in: rene
+2020/03/29 21:34:18 - Handling command: action=subscribe, argument=Reversi
+2020/03/29 21:34:45 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 21:34:45 - Disconnecting client
+2020/03/29 21:34:45 - Closing client socket connection
+2020/03/29 21:34:45 - Client disconnected, removing input buffer
+2020/03/29 21:38:40 - Handling command: action=get, argument=gamelist
+2020/03/29 21:38:44 - Handling command: action=login, argument=lol
+2020/03/29 21:38:44 - Client logged in: lol
+2020/03/29 21:38:45 - Handling command: action=subscribe, argument=Reversi
+2020/03/29 21:39:02 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 21:39:02 - Disconnecting client
+2020/03/29 21:39:02 - Closing client socket connection
+2020/03/29 21:39:02 - Client disconnected, removing input buffer
+2020/03/29 21:39:28 - Handling command: action=get, argument=gamelist
+2020/03/29 21:39:33 - Handling command: action=login, argument=lol
+2020/03/29 21:39:33 - Client logged in: lol
+2020/03/29 21:39:34 - Handling command: action=subscribe, argument=Reversi
+2020/03/29 21:39:38 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 21:39:38 - Disconnecting client
+2020/03/29 21:39:38 - Client disconnected, removing input buffer
+2020/03/29 21:39:38 - Closing client socket connection
+2020/03/29 21:40:48 - Handling command: action=get, argument=gamelist
+2020/03/29 21:40:53 - Handling command: action=login, argument=rene
+2020/03/29 21:40:53 - Client logged in: rene
+2020/03/29 21:40:54 - Handling command: action=subscribe, argument=Reversi
+2020/03/29 21:41:14 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 21:41:14 - Disconnecting client
+2020/03/29 21:41:14 - Closing client socket connection
+2020/03/29 21:41:14 - Client disconnected, removing input buffer
+2020/03/29 21:47:42 - Handling command: action=get, argument=gamelist
+2020/03/29 21:47:47 - Handling command: action=login, argument=hoi
+2020/03/29 21:47:47 - Client logged in: hoi
+2020/03/29 21:47:48 - Handling command: action=subscribe, argument=Reversi
+2020/03/29 21:47:57 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 21:47:57 - Disconnecting client
+2020/03/29 21:47:57 - Closing client socket connection
+2020/03/29 21:47:57 - Client disconnected, removing input buffer
+2020/03/29 21:49:30 - Handling command: action=get, argument=gamelist
+2020/03/29 21:49:36 - Handling command: action=login, argument=rene
+2020/03/29 21:49:36 - Client logged in: rene
+2020/03/29 21:49:37 - Handling command: action=subscribe, argument=Reversi
+2020/03/29 21:49:50 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/29 21:49:50 - Disconnecting client
+2020/03/29 21:49:50 - Closing client socket connection
+2020/03/29 21:49:50 - Client disconnected, removing input buffer
+2020/03/30 12:37:51 - Handling command: action=get, argument=gamelist
+2020/03/30 12:37:57 - Handling command: action=login, argument=rene
+2020/03/30 12:37:57 - Client logged in: rene
+2020/03/30 12:37:58 - Handling command: action=subscribe, argument=Reversi
+2020/03/30 12:38:11 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/30 12:38:11 - Disconnecting client
+2020/03/30 12:38:11 - Closing client socket connection
+2020/03/30 12:38:11 - Client disconnected, removing input buffer
+2020/03/30 12:38:51 - Handling command: action=get, argument=gamelist
+2020/03/30 12:38:57 - Handling command: action=login, argument=rene
+2020/03/30 12:38:57 - Client logged in: rene
+2020/03/30 12:38:57 - Handling command: action=subscribe, argument=Reversi
+2020/03/30 12:39:27 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/30 12:39:27 - Disconnecting client
+2020/03/30 12:39:27 - Closing client socket connection
+2020/03/30 12:39:27 - Client disconnected, removing input buffer
+2020/03/30 12:48:42 - Handling command: action=get, argument=gamelist
+2020/03/30 12:48:47 - Handling command: action=login, argument=lol
+2020/03/30 12:48:47 - Client logged in: lol
+2020/03/30 12:48:48 - Handling command: action=subscribe, argument=Reversi
+2020/03/30 12:49:11 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/30 12:49:11 - Disconnecting client
+2020/03/30 12:49:11 - Closing client socket connection
+2020/03/30 12:49:11 - Client disconnected, removing input buffer
+2020/03/30 12:54:00 - Handling command: action=get, argument=gamelist
+2020/03/30 12:54:06 - Handling command: action=login, argument=rene
+2020/03/30 12:54:06 - Client logged in: rene
+2020/03/30 12:54:06 - Handling command: action=subscribe, argument=Reversi
+2020/03/30 12:54:54 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/30 12:54:54 - Disconnecting client
+2020/03/30 12:54:54 - Closing client socket connection
+2020/03/30 12:54:54 - Client disconnected, removing input buffer
+2020/03/30 12:55:04 - Handling command: action=get, argument=gamelist
+2020/03/30 12:55:09 - Handling command: action=login, argument=rene
+2020/03/30 12:55:09 - Client logged in: rene
+2020/03/30 12:55:10 - Handling command: action=subscribe, argument=Reversi
+2020/03/30 12:55:51 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/30 12:55:51 - Disconnecting client
+2020/03/30 12:55:51 - Closing client socket connection
+2020/03/30 12:55:51 - Client disconnected, removing input buffer
+2020/03/30 12:56:14 - Handling command: action=get, argument=gamelist
+2020/03/30 12:56:19 - Handling command: action=login, argument=lol
+2020/03/30 12:56:19 - Client logged in: lol
+2020/03/30 12:56:19 - Handling command: action=subscribe, argument=Reversi
+2020/03/30 12:56:30 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/30 12:56:30 - Disconnecting client
+2020/03/30 12:56:30 - Closing client socket connection
+2020/03/30 12:56:30 - Client disconnected, removing input buffer
+2020/03/30 12:57:16 - Handling command: action=get, argument=gamelist
+2020/03/30 12:57:21 - Handling command: action=login, argument=rene
+2020/03/30 12:57:21 - Client logged in: rene
+2020/03/30 12:57:21 - Handling command: action=subscribe, argument=Reversi
+2020/03/30 12:58:02 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/30 12:58:02 - Disconnecting client
+2020/03/30 12:58:02 - Closing client socket connection
+2020/03/30 12:58:02 - Client disconnected, removing input buffer
+2020/03/30 13:20:35 - Handling command: action=get, argument=gamelist
+2020/03/30 13:20:41 - Handling command: action=login, argument=rene
+2020/03/30 13:20:41 - Client logged in: rene
+2020/03/30 13:20:41 - Handling command: action=subscribe, argument=Reversi
+2020/03/30 13:21:06 - Handling command: action=move, argument=19
+2020/03/30 13:21:09 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/30 13:21:09 - Disconnecting client
+2020/03/30 13:21:09 - Closing client socket connection
+2020/03/30 13:21:09 - Client disconnected, removing input buffer
+2020/03/30 14:18:11 - Handling command: action=get, argument=gamelist
+2020/03/30 14:18:17 - Handling command: action=login, argument=rene
+2020/03/30 14:18:17 - Client logged in: rene
+2020/03/30 14:18:17 - Handling command: action=subscribe, argument=Reversi
+2020/03/30 14:18:55 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/30 14:18:55 - Disconnecting client
+2020/03/30 14:18:55 - Closing client socket connection
+2020/03/30 14:18:55 - Client disconnected, removing input buffer
+2020/03/30 14:20:08 - Handling command: action=get, argument=gamelist
+2020/03/30 14:24:07 - Handling command: action=login, argument=rene
+2020/03/30 14:24:07 - Client logged in: rene
+2020/03/30 14:24:07 - Handling command: action=subscribe, argument=Reversi
+2020/03/30 14:24:37 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/30 14:24:37 - Disconnecting client
+2020/03/30 14:24:37 - Closing client socket connection
+2020/03/30 14:24:37 - Client disconnected, removing input buffer
+2020/03/30 14:27:05 - Handling command: action=get, argument=gamelist
+2020/03/30 14:27:10 - Handling command: action=login, argument=rene
+2020/03/30 14:27:10 - Client logged in: rene
+2020/03/30 14:27:10 - Handling command: action=subscribe, argument=Reversi
+2020/03/30 14:27:27 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/30 14:27:27 - Disconnecting client
+2020/03/30 14:27:27 - Closing client socket connection
+2020/03/30 14:27:27 - Client disconnected, removing input buffer
+2020/03/30 14:30:31 - IOException while processing key: java.io.IOException: De externe host heeft een verbinding verbroken
+2020/03/30 14:30:31 - Disconnecting client
+2020/03/30 14:30:31 - Closing client socket connection

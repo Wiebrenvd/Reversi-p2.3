@@ -23,9 +23,9 @@ public class Settings {
 
 
     public static HashMap<Point, Integer> SpawnPoints = new HashMap<Point, Integer>() {{
-        put(new Point(3, 3), PLAYER1);
-        put(new Point(4, 3), PLAYER2);
-        put(new Point(3, 4), PLAYER2);
-        put(new Point(4, 4), PLAYER1);
+        put(new Point(3, 3), PLAYER2);
+        put(new Point(4, 3), PLAYER1);
+        put(new Point(3, 4), PLAYER1);
+        put(new Point(4, 4), PLAYER2);
     }};
 }
