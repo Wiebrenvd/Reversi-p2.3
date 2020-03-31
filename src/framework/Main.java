@@ -34,7 +34,7 @@ public class Main extends Application {
                 System.exit(0);
             }); // Stops process when exiting application
 
-                    primaryStage.setTitle("Group ONE: reversi Client");
+            primaryStage.setTitle("Group ONE: reversi Client");
             primaryStage.setScene(rScene);
             primaryStage.show();
         } catch (IOException e) {

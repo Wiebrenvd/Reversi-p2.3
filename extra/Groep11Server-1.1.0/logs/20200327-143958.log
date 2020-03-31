@@ -1,11 +1,11 @@
-2020/03/27 14:39:58 - Loaded game module: Reversi
+2020/03/27 14:39:58 - Loaded game module: reversi
 2020/03/27 14:39:58 - Loaded game module: Tic-tac-toe
 2020/03/27 14:39:58 - Server listening on port 7789
 2020/03/27 14:39:58 - Application started
 2020/03/27 14:40:17 - Handling command: action=get, argument=gamelist
 2020/03/27 14:40:21 - Handling command: action=login, argument=asdf
 2020/03/27 14:40:21 - Client logged in: asdf
-2020/03/27 14:40:21 - Handling command: action=subscribe, argument=Reversi
+2020/03/27 14:40:21 - Handling command: action=subscribe, argument=reversi
 2020/03/27 14:40:22 - Handling command: action=move, argument=20
 2020/03/27 14:40:22 - Handling command: action=move, argument=19
 2020/03/27 14:40:22 - Handling command: action=move, argument=27

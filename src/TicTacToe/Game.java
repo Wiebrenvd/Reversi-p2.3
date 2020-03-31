@@ -1,4 +1,4 @@
-package TicTacToe;
+package tictactoe;
 
 
 import framework.server.ServerConnection;

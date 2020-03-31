@@ -7,14 +7,18 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
+
 public class Board {
 
-    private final Cell[][] grid;
+    public final Cell[][] grid;
 
-    private ServerConnection sc;
+    public ServerConnection sc;
 
-    public Board(GridPane gameTable) {
+    private Game currentGame;
 
+    public Board(GridPane gameTable, Game game, ServerConnection sc) {
+        this.sc = sc;
+        this.currentGame = game;
         this.grid = new Cell[Settings.tilesX][Settings.tilesY];
 
         RowConstraints rowConstraints;
@@ -38,15 +42,17 @@ public class Board {
         }
 
         // Voegt een paneel in elke cell die klikbaar is
-        // Kijkt daarna of de paneel een spawnpoint is en zet daar een pion neer
         for (int x = 0; x < Settings.tilesX; x++) {
             for (int y = 0; y < Settings.tilesY; y++) {
                 Point point = new Point(x, y);
-                grid[x][y] = new Cell(gameTable, point);
+                grid[x][y] = new Cell(gameTable, point, currentGame.user, this);
 
 
-                if (Settings.SpawnPoints.containsKey(point))
-                    setMove(point, Settings.SpawnPoints.get(point), false);
+                // Kijkt of het paneel een spawnpoint is en zet daar een pion neer
+                if (Settings.SpawnPoints.containsKey(point)) {
+                    setMove(point, game.getPlayerById(Settings.SpawnPoints.get(point)), false, true);
+                }
+
             }
 
 
@@ -54,32 +60,36 @@ public class Board {
     }
 
     @SuppressWarnings("Duplicates")
-    public void setMove(Point pos, int player, boolean update) {
+    public void setMove(Point pos, ReversiPlayer player, boolean update, boolean begin) {
         if (pos.x < 0 || pos.y < 0 || pos.x >= Settings.tilesX || pos.y >= Settings.tilesY) {
             System.out.printf("position: [%d,%d] is outside the board!", pos.x, pos.y);
             return;
         }
 
-        if (grid[pos.x][pos.y].getPlayer() != null) {
-            System.out.printf("position: [%d,%d] is already taken!", pos.x, pos.y);
-            return;
-        }
+        //Steentje moet uiteindelijk van kleur veranderen
+//        if (grid[pos.x][pos.y].getPlayer() != null) {
+//            System.out.printf("position: [%d,%d] is already taken!", pos.x, pos.y);
+//            return;
+//        }
 
         if (update) {
             sc.sendCommand("move " + getMoveParameter(pos.x, pos.y));
+
         }
 
+        if (!begin) {
+            grid[pos.x][pos.y].checkCell(4,pos.x,pos.y,player.getColor(),false);
+        }
 
-        grid[pos.x][pos.y].putPiece();
-//      grid[pos.x][pos.y].putPiece(player); // TODO
-
+        grid[pos.x][pos.y].putPiece(player);
 
     }
+
+
 
 
     public int getMoveParameter(int colIndex, int rowIndex) {
         return rowIndex * Settings.tilesY + colIndex;
     }
-
 
 }

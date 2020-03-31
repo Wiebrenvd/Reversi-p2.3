@@ -1,9 +1,6 @@
-package TicTacToe;
+package tictactoe;
 
 import javafx.scene.paint.Color;
-
-import java.awt.*;
-import java.util.HashMap;
 
 public class Settings {
     public static int PLAYER1 = 0;
