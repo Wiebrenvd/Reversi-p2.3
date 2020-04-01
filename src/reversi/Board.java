@@ -1,6 +1,7 @@
 package reversi;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import framework.server.ServerConnection;
 import javafx.scene.layout.ColumnConstraints;
@@ -10,14 +11,17 @@ import javafx.scene.layout.RowConstraints;
 
 public class Board {
 
-    public final Cell[][] grid;
-
     public ServerConnection sc;
+
+    protected final Cell[][] grid;
+
+    protected ArrayList<ReversiPlayer> players; //index 0 = ALWAYS userPlayer & Index 1 = ALWAYS oppenentPlayer
 
     private Game currentGame;
 
-    public Board(GridPane gameTable, Game game, ServerConnection sc) {
-        this.sc = sc;
+    public Board(GridPane gameTable, Game game, ArrayList<ReversiPlayer> players) {
+        this.players = players;
+        this.sc = game.sc;
         this.currentGame = game;
         this.grid = new Cell[Settings.tilesX][Settings.tilesY];
 
@@ -45,7 +49,7 @@ public class Board {
         for (int x = 0; x < Settings.tilesX; x++) {
             for (int y = 0; y < Settings.tilesY; y++) {
                 Point point = new Point(x, y);
-                grid[x][y] = new Cell(gameTable, point, currentGame.user, this);
+                grid[x][y] = new Cell(gameTable, point, null, this);
 
 
                 // Kijkt of het paneel een spawnpoint is en zet daar een pion neer
@@ -78,10 +82,11 @@ public class Board {
         }
 
         if (!begin) {
-            grid[pos.x][pos.y].checkCell(4,pos.x,pos.y,player.getColor(),false);
+            grid[pos.x][pos.y].putPiece(4,pos.x,pos.y,player,false);
+            return;
         }
 
-        grid[pos.x][pos.y].putPiece(player);
+        grid[pos.x][pos.y].setPlayer(player);
 
     }
 

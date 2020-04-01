@@ -31,11 +31,13 @@ public class Cell {
             int y = (int) point.getY();
             System.out.printf("Mouse clicked cell [%d, %d]%n", x, y);
 
-            if (player.isPlayersTurn() && checkCell(4,x,y,player.getColor(),false)) {
+            if (board.players.get(0).isPlayersTurn() && putPiece(4,x,y,board.players.get(0),true)) {
                 sc.sendCommand("move "+ getMoveParameter(x, y));
-                if (sc.lastRespContains("OK")!= null) putPiece(player);
-                player.setPlayersTurn(false);
-
+                if (sc.lastRespContains("OK")!= null) {
+                    putPiece(4,x,y,board.players.get(0),false);
+                    board.players.get(0).setPlayersTurn(false);
+                    board.players.get(1).setPlayersTurn(true);
+                }
             }
         });
 
@@ -49,11 +51,18 @@ public class Cell {
 
 
 
-    public void setPlayer(ReversiPlayer player){this.player = player;}
-
-    public void putPiece(ReversiPlayer player) {
-        addCircle(player);
+    public void setPlayer(ReversiPlayer player){
+        this.player = player;
+        giveColor(player);
     }
+
+    public ReversiPlayer getPlayer(){
+        return this.player;
+    }
+
+//    public void putPiece(ReversiPlayer player) {
+//        addCircle(player);
+//    }
 
     @SuppressWarnings("Duplicates")
     public Circle addCircle(ReversiPlayer player) {
@@ -87,30 +96,32 @@ public class Cell {
      *
      * @return true if cell is possible to click
      */
-    public boolean checkCell(int direction, int x, int y, Color getter, boolean check){
-        if (board.grid[x][y].getCircleOK()!= null && direction==4) return false;
+    public boolean putPiece(int direction, int x, int y, ReversiPlayer getter, boolean check){
+        if (board.grid[x][y].getPlayer()!= null && direction==4) return false;
+        if (!check) setPlayer(getter);
         int counter = 0;
         boolean changable = false;
         for (int s = y-1; s < y+2; s++){
             for (int z = x-1; z < x+2; z++){
                 if (s >= 0 && z >= 0 && s < Settings.tilesX && z < Settings.tilesY && counter != 4) {
-                    Circle tmpCir = board.grid[z][s].getCircleOK();
-                    if (direction==4 && tmpCir != null){
-                        if (!tmpCir.getFill().equals(getter) && checkCell(counter,z,s,getter,true)){
+                    ReversiPlayer tmpPlayer = board.grid[z][s].getPlayer();
+                    Cell tmpCell = board.grid[z][s];
+                    if (direction==4 && tmpPlayer != null){
+                        if (!tmpPlayer.equals(getter) && putPiece(counter,z,s,getter,true)){
                             changable = true;
                             if (!check) {
-                                board.grid[z][s].changeColor();
-                                checkCell(counter,z,s,getter,false);
+                                tmpCell.setPlayer(getter);
+                                putPiece(counter,z,s,getter,false);
                             }
                         }
-                    } else if (counter==direction && tmpCir != null){
-                        if (tmpCir.getFill().equals(getter)){
+                    } else if (counter==direction && tmpPlayer != null){
+                        if (tmpPlayer.equals(getter)){
                             return true;
                         } else{
-                            if (check) return checkCell(counter,z,s,getter,check);
+                            if (check) return putPiece(counter,z,s,getter,true);
                             else {
-                                board.grid[z][s].changeColor();
-                                checkCell(counter,z,s,getter,check);
+                                tmpCell.setPlayer(getter);
+                                putPiece(counter,z,s,getter,false);
                             }
                         }
                     }
@@ -136,11 +147,12 @@ public class Cell {
     /**
      * This method will change te color of the Cell Object
      */
-    public void changeColor(){
-        if (clickablePane.getChildren().size()>0) {
+    public void giveColor(ReversiPlayer player){
+        if (clickablePane.getChildren().size()==0) {
+            addCircle(player);
+        } else {
             Circle tmp = (Circle) clickablePane.getChildren().get(0);
-            if (tmp.getFill().equals(Color.WHITE)) tmp.setFill(Color.BLACK);
-            else tmp.setFill(Color.WHITE);
+            tmp.setFill(player.getColor());
         }
     }
 }

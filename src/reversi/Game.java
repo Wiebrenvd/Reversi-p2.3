@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class Game implements Runnable {
 
-    private ServerConnection sc;
+    public ServerConnection sc;
     private GameController gc;
 
     private GameTimer gameTimer;
@@ -73,6 +73,7 @@ public class Game implements Runnable {
                     gc.getLblPlayer2().setText(sc.getLoginName());
                     user = new ReversiPlayer(Settings.PLAYER2, sc.getLoginName(), Settings.Player2Color);
                     opp = new ReversiPlayer(Settings.PLAYER1, tmp.get("OPPONENT"), Settings.Player1Color);
+                    opp.setPlayersTurn(true);
                 } else {
                     gc.getLblPlayer2().setText(tmp.get("OPPONENT"));
                     gc.getLblPlayer1().setText(sc.getLoginName());
@@ -87,7 +88,7 @@ public class Game implements Runnable {
 
                 startTimer();
 
-                board = new Board(gc.gameTable, this, sc);
+                board = new Board(gc.gameTable, this, players);
                 return;
             }
 
@@ -116,6 +117,7 @@ public class Game implements Runnable {
                         int[] xy = getMoveParameterEnemy(Integer.parseInt(tmp.get("MOVE")));
                         Point point = new Point(xy[0], xy[1]);
                         board.setMove(point, opp, false, false);
+                        opp.setPlayersTurn(false);
                         user.setPlayersTurn(true);
                     }
                 }
