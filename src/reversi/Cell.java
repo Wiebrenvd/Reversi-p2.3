@@ -1,28 +1,24 @@
 package reversi;
 
 import java.awt.Point;
-import java.util.ArrayList;
 
-import framework.controllers.LoginController;
 import framework.server.ServerConnection;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 
 public class Cell {
 
-    private Player player;
+    private ReversiPlayer player;
 
     private Point point;
     private StackPane clickablePane;
     private ServerConnection sc;
     private Board board;
 
-    public Cell(GridPane gameTable, Point point, Player player, Board board) {
+    public Cell(GridPane gameTable, Point point, ReversiPlayer player, Board board) {
         this.player = player;
         this.point = point;
         this.board = board;
@@ -35,9 +31,9 @@ public class Cell {
             int y = (int) point.getY();
             System.out.printf("Mouse clicked cell [%d, %d]%n", x, y);
 
-            if (player.isPlayersTurn() && checkCell(4,x,y,player.getPlayerColor(),false)) {
+            if (player.isPlayersTurn() && checkCell(4,x,y,player.getColor(),false)) {
                 sc.sendCommand("move "+ getMoveParameter(x, y));
-                if (sc.lastRespContains("OK")!= null) putPiece(player.getPlayer());
+                if (sc.lastRespContains("OK")!= null) putPiece(player);
                 player.setPlayersTurn(false);
 
             }
@@ -53,20 +49,19 @@ public class Cell {
 
 
 
-    public void setPlayer(Player player){this.player = player;}
+    public void setPlayer(ReversiPlayer player){this.player = player;}
 
-    public void putPiece(int player) {
+    public void putPiece(ReversiPlayer player) {
         addCircle(player);
     }
 
     @SuppressWarnings("Duplicates")
-    public Circle addCircle(int player) {
+    public Circle addCircle(ReversiPlayer player) {
 
-        Color color = Settings.PlayerColors[player]; // TODO get player color from player class
 
         Circle circle = new Circle(0, 0, 12);
 
-        circle.setFill(color);
+        circle.setFill(player.getColor());
         circle.setStroke(Color.BLACK);
 
 
@@ -87,7 +82,7 @@ public class Cell {
      * @param direction see table above x -> number, will go that direction to check. if number=4, it will check if the cell is possible to click.
      * @param x Integer, give here the x-coordinates of point X.
      * @param y Integer, give here the y-coordinates of point X.
-     * @param getter Color, give here the color of the Player, who has the turn.
+     * @param getter Color, give here the color of the ReversiPlayer, who has the turn.
      * @param check boolean, set true if you only want to check if move is possible.
      *
      * @return true if cell is possible to click

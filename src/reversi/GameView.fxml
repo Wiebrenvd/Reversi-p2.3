@@ -30,26 +30,6 @@
          <Font name="Montserrat Regular" size="16.0" />
       </font>
    </Label>
-    <Label fx:id="textscorep1" layoutX="447.0" layoutY="300.0" text="Score player 1:">
-        <font>
-            <Font name="Montserrat Regular" size="16.0" />
-        </font>
-    </Label>
-    <Label fx:id="scorep1" layoutX="560.0" layoutY="300.0" text="0">
-        <font>
-            <Font name="Montserrat Regular" size="16.0" />
-        </font>
-    </Label>
-    <Label fx:id="textscorep2" layoutX="447.0" layoutY="318.0" text="Score player 2:">
-        <font>
-            <Font name="Montserrat Regular" size="16.0" />
-        </font>
-    </Label>
-    <Label fx:id="scorep2" layoutX="560.0" layoutY="318.0" text="0">
-        <font>
-            <Font name="Montserrat Regular" size="16.0" />
-        </font>
-    </Label>
    <Label fx:id="lblStatus" layoutX="380.0" layoutY="410.0" text="Status: Searching Oppenent...">
       <font>
          <Font name="Montserrat Regular" size="12.0" />

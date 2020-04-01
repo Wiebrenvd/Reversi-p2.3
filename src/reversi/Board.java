@@ -13,7 +13,7 @@ public class Board {
     public final Cell[][] grid;
 
     public ServerConnection sc;
-//    private Player user;
+
     private Game currentGame;
 
     public Board(GridPane gameTable, Game game, ServerConnection sc) {
@@ -42,15 +42,17 @@ public class Board {
         }
 
         // Voegt een paneel in elke cell die klikbaar is
-        // Kijkt daarna of de paneel een spawnpoint is en zet daar een pion neer
         for (int x = 0; x < Settings.tilesX; x++) {
             for (int y = 0; y < Settings.tilesY; y++) {
                 Point point = new Point(x, y);
                 grid[x][y] = new Cell(gameTable, point, currentGame.user, this);
 
-    
-                if (Settings.SpawnPoints.containsKey(point))
-                    setMove(point, Settings.SpawnPoints.get(point), false, true);
+
+                // Kijkt of het paneel een spawnpoint is en zet daar een pion neer
+                if (Settings.SpawnPoints.containsKey(point)) {
+                    setMove(point, game.getPlayerById(Settings.SpawnPoints.get(point)), false, true);
+                }
+
             }
 
 
@@ -58,7 +60,7 @@ public class Board {
     }
 
     @SuppressWarnings("Duplicates")
-    public void setMove(Point pos, int player, boolean update, boolean begin) {
+    public void setMove(Point pos, ReversiPlayer player, boolean update, boolean begin) {
         if (pos.x < 0 || pos.y < 0 || pos.x >= Settings.tilesX || pos.y >= Settings.tilesY) {
             System.out.printf("position: [%d,%d] is outside the board!", pos.x, pos.y);
             return;
@@ -76,11 +78,11 @@ public class Board {
         }
 
         if (!begin) {
-            grid[pos.x][pos.y].checkCell(4,pos.x,pos.y,Settings.PlayerColors[player],false);
+            grid[pos.x][pos.y].checkCell(4,pos.x,pos.y,player.getColor(),false);
         }
 
         grid[pos.x][pos.y].putPiece(player);
-        currentGame.showPlayerScore();
+
     }
 
 

@@ -48,6 +48,8 @@ public class LoginController extends Controller implements Initializable {
         String regularChoice = "Please select a game";
         gameChoiceBox.getItems().add(regularChoice);
         gameChoiceBox.setValue(regularChoice);
+
+        connectToServer();
     }
 
     @FXML
@@ -84,7 +86,7 @@ public class LoginController extends Controller implements Initializable {
 
 
     @FXML
-    void connectToServer(ActionEvent event) {
+    private void connectToServer() {
         String host = hostIP_input.getText();
         int port = Integer.parseInt(port_input.getText());
         if (status_lbl.getText().equals("Offline")) {

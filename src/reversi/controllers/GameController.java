@@ -26,9 +26,6 @@ public class GameController extends Controller implements Initializable {
     public Label lblPlayer1, lblPlayer2;
 
     @FXML
-    public Label scorep1,scorep2;
-
-    @FXML
     public Label lblStatus;
 
     @FXML
@@ -59,11 +56,37 @@ public class GameController extends Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        this.board = new Board(gameTable);
-        this.game = new Game(this,serverConnection);
+        this.game = new Game(this, serverConnection);
         Thread gameThread = new Thread(this.game);
         gameThread.start();
     }
 
+    public void turnToPlayerOne(boolean bool) {
+        lblPlayer1.setUnderline(bool);
+        lblPlayer2.setUnderline(!bool);
+    }
 
+    public void setStatus(String s) {
+        lblStatus.setText(s);
+    }
 
+    public String getStatus() {
+        return lblStatus.getText();
+    }
+
+    public Label getLblPlayer1() {
+        return lblPlayer1;
+    }
+
+    public void setLblPlayer1(Label lblPlayer1) {
+        this.lblPlayer1 = lblPlayer1;
+    }
+
+    public Label getLblPlayer2() {
+        return lblPlayer2;
+    }
+
+    public void setLblPlayer2(Label lblPlayer2) {
+        this.lblPlayer2 = lblPlayer2;
+    }
 }

@@ -24,6 +24,6 @@
         <jarDirectory url="file://C:/Program Files/Java/javafx-sdk-11.0.2/lib" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="javafx-sdk-11.0" level="application" />
+    <orderEntry type="library" exported="" name="javafx-sdk-11.0" level="application" />
   </component>
 </module>
