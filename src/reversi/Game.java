@@ -2,12 +2,14 @@ package reversi;
 
 import framework.server.ServerConnection;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Light;
 import reversi.controllers.GameController;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -162,6 +164,25 @@ public class Game implements Runnable{
         int[] output = {colIndex, rowIndex};
         return output;
     }
+
+    @FXML
+    public void showPlayerScore() {
+        int scoreP1 = 0;
+        int scoreP2 = 0;
+        Iterator it = Settings.SpawnPoints.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            int currentValue = (int) pair.getValue();
+            if(currentValue == 1){
+                scoreP1 +=1;
+            }else
+                scoreP2 +=1;
+        }
+        System.out.println(scoreP1 + "  " + scoreP2);
+        gc.scorep1.setText(String.valueOf(scoreP1));
+        gc.scorep2.setText(String.valueOf(scoreP2));
+    }
+
 
     /**
      * It will shows who's turn it is.

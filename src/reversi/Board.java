@@ -48,7 +48,7 @@ public class Board {
                 Point point = new Point(x, y);
                 grid[x][y] = new Cell(gameTable, point, currentGame.user, this);
 
-
+    
                 if (Settings.SpawnPoints.containsKey(point))
                     setMove(point, Settings.SpawnPoints.get(point), false, true);
             }
@@ -80,7 +80,7 @@ public class Board {
         }
 
         grid[pos.x][pos.y].putPiece(player);
-
+        currentGame.showPlayerScore();
     }
 
 

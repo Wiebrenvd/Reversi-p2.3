@@ -26,6 +26,9 @@ public class GameController extends Controller implements Initializable {
     public Label lblPlayer1, lblPlayer2;
 
     @FXML
+    public Label scorep1,scorep2;
+
+    @FXML
     public Label lblStatus;
 
     @FXML
