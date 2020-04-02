@@ -4,6 +4,7 @@ import framework.GameTimer;
 import framework.Player;
 import framework.server.ServerConnection;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import reversi.controllers.GameController;
 
 import java.awt.*;
@@ -101,6 +102,28 @@ public class Game implements Runnable {
         });
     }
 
+    @FXML
+    public void showPlayerScore() {
+        int scoreP1 = 0;
+        int scoreP2 = 0;
+        Cell[][] grid = board.grid;
+        for(int i =0;i<grid.length-1;i++){
+            for(int j =0;j<grid[i].length-1;j++) {
+                System.out.println(grid[i][j].getPlayer());
+                if(grid[i][j].getPlayer() != null) {
+                    if (grid[i][j].getPlayer().equals(user)) {
+                        scoreP1 += 1;
+                    } else {
+                        scoreP2 += 1;
+                    }
+                }
+            }
+        }
+        System.out.println(scoreP1 + "  " + scoreP2);
+        gc.scorep1.setText(String.valueOf(scoreP1));
+        gc.scorep2.setText(String.valueOf(scoreP2));
+    }
+
     /**
      * This function wait for a response from the server if it's not the players turn.
      * If there is a "MOVE" response from server, it will do the move in the GUI.
@@ -117,6 +140,7 @@ public class Game implements Runnable {
                         int[] xy = getMoveParameterEnemy(Integer.parseInt(tmp.get("MOVE")));
                         Point point = new Point(xy[0], xy[1]);
                         board.setMove(point, opp, false, false);
+                        showPlayerScore();
                         opp.setPlayersTurn(false);
                         user.setPlayersTurn(true);
                     }
@@ -180,6 +204,10 @@ public class Game implements Runnable {
 
     public void startTimer() {
         new Thread(gameTimer).start();
+    }
+    public void startGameScore(){
+        gc.scorep1.setText("2");
+        gc.scorep2.setText("2");
     }
 
     // Overbodig als arraylist Players een hashmap wordt.
