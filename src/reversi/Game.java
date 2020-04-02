@@ -204,6 +204,7 @@ public class Game implements Runnable {
 
     public void startTimer() {
         new Thread(gameTimer).start();
+        startGameScore();
     }
     public void startGameScore(){
         gc.scorep1.setText("2");
