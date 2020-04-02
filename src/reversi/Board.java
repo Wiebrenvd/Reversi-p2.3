@@ -17,7 +17,7 @@ public class Board {
 
     protected ArrayList<ReversiPlayer> players; //index 0 = ALWAYS userPlayer & Index 1 = ALWAYS oppenentPlayer
 
-    private Game currentGame;
+    protected Game currentGame;
 
     public Board(GridPane gameTable, Game game, ArrayList<ReversiPlayer> players) {
         this.players = players;

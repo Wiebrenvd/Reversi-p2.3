@@ -37,6 +37,7 @@ public class Cell {
                     putPiece(4,x,y,board.players.get(0),false);
                     board.players.get(0).setPlayersTurn(false);
                     board.players.get(1).setPlayersTurn(true);
+                    board.currentGame.showPlayerScore();
                 }
             }
         });
