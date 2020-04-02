@@ -1,5 +1,6 @@
 package framework.controllers;
 
+import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -10,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Control;
@@ -99,27 +102,51 @@ public class LoginController extends Controller implements Initializable {
     }
 
     public void loginSucceed(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         String gName = this.getGamename(gameChoiceBox.getSelectionModel().getSelectedItem());
+        gName = getGamename(gName);
+        System.out.println(gName);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + gName + "/GameView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + gName + "/views/GameView.fxml"));
 
         try {
-            changeScene(event, "/reversi/GameView.fxml", new reversi.controllers.GameController(sc));
-        } catch (Exception e) {
+            Class<?> Controllers = Class.forName(gName + ".controllers.GameController");
+            Constructor<?> cons = Controllers.getConstructor(ServerConnection.class);
+
+            loader.setController(cons.newInstance(sc));
+
+            Parent root = (Parent)loader.load();
+            Scene rScene = new Scene(root);
+
+            rScene.getStylesheets().add(getClass().getResource("/" + gName + "/styles/Style.css").toExternalForm());
+
+            stage.setScene(rScene);
+            stage.show();
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
+//        try {
+//            changeScene(event, "/reversi/GameView.fxml", new reversi.controllers.GameController(sc));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 
     }
 
     public String getGamename(String key) {
         String name = "";
-        String[] words = key.split("[_-]");
+        if (key.contains("-")) {
+            String[] words = key.split("[_-]");
 
-        for (String sWord : words) {
-            name += sWord.substring(0, 1).toUpperCase();
-            name += sWord.substring(1);
+            for (String sWord : words) {
+                name += sWord.substring(0, 1).toUpperCase();
+                name += sWord.substring(1);
+            }
+        } else {
+            name = key;
         }
 
         return name.toLowerCase();
