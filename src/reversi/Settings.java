@@ -5,24 +5,25 @@ import java.util.HashMap;
 import javafx.scene.paint.Color;
 
 public class Settings {
+
+    public static String host = "localhost";
+    public static int port = 7789;
+
+    public final static int MULTIPLAYER = 0;
+    public final static int EASY = 1;
+    public final static int HARD = 2;
+
     public static int PLAYER1 = 0;
     public static int PLAYER2 = 1;
 
-    public static int tilesX = 8;
-    public static int tilesY = 8;
+    public static int TILESX = 8;
+    public static int TILESY = 8;
 
-    public static double boardWidth = 800f;
-    public static double boardHeight = 600f;
-
-    public static Color[] PlayerColors = { Color.BLACK, Color.WHITE };
-
-    public static Color Player1Color = Color.BLACK;
-    public static Color Player2Color = Color.WHITE;
-
-    public static double PlayerSize = 24.0;
+    public static Color PLAYER1COLOR = Color.BLACK;
+    public static Color PLAYER2COLOR = Color.WHITE;
 
 
-    public static HashMap<Point, Integer> SpawnPoints = new HashMap<Point, Integer>() {{
+    public static HashMap<Point, Integer> SPAWNPOINTS = new HashMap<>() {{
         put(new Point(3, 3), PLAYER2);
         put(new Point(4, 3), PLAYER1);
         put(new Point(3, 4), PLAYER1);

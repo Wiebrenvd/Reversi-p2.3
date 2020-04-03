@@ -82,8 +82,7 @@ public class LoginController extends Controller implements Initializable {
         if (!sc.showLastResponse().equals("OK")) {
             showTooltip(stage, loginBtn, "Cannot connect to the Server... \nPlease restart the application", null);
         } else {
-            sc.sendCommand("subscribe " + gameChoiceBox.getValue());
-            loginSucceed(event);
+            changeScene(event, "/framework/views/gamemode.fxml", new GamemodeController(sc, this.getGamename(gameChoiceBox.getSelectionModel().getSelectedItem())));
         }
     }
 
@@ -99,41 +98,6 @@ public class LoginController extends Controller implements Initializable {
                 getGamelist();
             }
         }
-    }
-
-    public void loginSucceed(ActionEvent event) {
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        String gName = this.getGamename(gameChoiceBox.getSelectionModel().getSelectedItem());
-        gName = getGamename(gName);
-        System.out.println(gName);
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + gName + "/views/GameView.fxml"));
-
-        try {
-            Class<?> Controllers = Class.forName(gName + ".controllers.GameController");
-            Constructor<?> cons = Controllers.getConstructor(ServerConnection.class);
-
-            loader.setController(cons.newInstance(sc));
-
-            Parent root = (Parent)loader.load();
-            Scene rScene = new Scene(root);
-
-            rScene.getStylesheets().add(getClass().getResource("/" + gName + "/styles/Style.css").toExternalForm());
-
-            stage.setScene(rScene);
-            stage.show();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-//        try {
-//            changeScene(event, "/reversi/GameView.fxml", new reversi.controllers.GameController(sc));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-
     }
 
     public String getGamename(String key) {

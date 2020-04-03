@@ -2,6 +2,7 @@ package reversi;
 
 import java.awt.Point;
 
+import framework.actors.Player;
 import framework.server.ServerConnection;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
@@ -11,14 +12,14 @@ import javafx.scene.shape.Circle;
 
 public class Cell {
 
-    private ReversiPlayer player;
+    private Player player;
 
     private Point point;
     private StackPane clickablePane;
     private ServerConnection sc;
     private Board board;
 
-    public Cell(GridPane gameTable, Point point, ReversiPlayer player, Board board) {
+    public Cell(GridPane gameTable, Point point, Player player, Board board) {
         this.player = player;
         this.point = point;
         this.board = board;
@@ -47,26 +48,26 @@ public class Cell {
     }
 
     public int getMoveParameter(int colIndex, int rowIndex) {
-        return rowIndex * Settings.tilesY + colIndex;
+        return rowIndex * Settings.TILESY + colIndex;
     }
 
 
 
-    public void setPlayer(ReversiPlayer player){
+    public void setPlayer(Player player){
         this.player = player;
         giveColor(player);
     }
 
-    public ReversiPlayer getPlayer(){
+    public Player getPlayer(){
         return this.player;
     }
 
-//    public void putPiece(ReversiPlayer player) {
+//    public void putPiece(Player player) {
 //        addCircle(player);
 //    }
 
     @SuppressWarnings("Duplicates")
-    public Circle addCircle(ReversiPlayer player) {
+    public Circle addCircle(Player player) {
 
 
         Circle circle = new Circle(0, 0, 12);
@@ -92,20 +93,20 @@ public class Cell {
      * @param direction see table above x -> number, will go that direction to check. if number=4, it will check if the cell is possible to click.
      * @param x Integer, give here the x-coordinates of point X.
      * @param y Integer, give here the y-coordinates of point X.
-     * @param getter Color, give here the color of the ReversiPlayer, who has the turn.
+     * @param getter Color, give here the color of the Player, who has the turn.
      * @param check boolean, set true if you only want to check if move is possible.
      *
      * @return true if cell is possible to click
      */
-    public boolean putPiece(int direction, int x, int y, ReversiPlayer getter, boolean check){
+    public boolean putPiece(int direction, int x, int y, Player getter, boolean check){
         if (board.grid[x][y].getPlayer()!= null && direction==4) return false;
         if (!check) setPlayer(getter);
         int counter = 0;
         boolean changable = false;
         for (int s = y-1; s < y+2; s++){
             for (int z = x-1; z < x+2; z++){
-                if (s >= 0 && z >= 0 && s < Settings.tilesX && z < Settings.tilesY && counter != 4) {
-                    ReversiPlayer tmpPlayer = board.grid[z][s].getPlayer();
+                if (s >= 0 && z >= 0 && s < Settings.TILESX && z < Settings.TILESY && counter != 4) {
+                    Player tmpPlayer = board.grid[z][s].getPlayer();
                     Cell tmpCell = board.grid[z][s];
                     if (direction==4 && tmpPlayer != null){
                         if (!tmpPlayer.equals(getter) && putPiece(counter,z,s,getter,true)){
@@ -147,8 +148,9 @@ public class Cell {
 
     /**
      * This method will change te color of the Cell Object
+     * @param player
      */
-    public void giveColor(ReversiPlayer player){
+    public void giveColor(Player player){
         if (clickablePane.getChildren().size()==0) {
             addCircle(player);
         } else {

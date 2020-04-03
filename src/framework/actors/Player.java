@@ -1,4 +1,4 @@
-package framework;
+package framework.actors;
 
 import javafx.scene.paint.Color;
 

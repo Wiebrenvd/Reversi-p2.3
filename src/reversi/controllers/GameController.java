@@ -16,9 +16,14 @@ import java.util.ResourceBundle;
 
 
 import reversi.Board;
-import reversi.Game;
+import reversi.Settings;
+import reversi.ai.EasyAI;
+import reversi.ai.HardAI;
+import reversi.games.AIGame;
+import reversi.games.Game;
 
 public class GameController extends Controller implements Initializable {
+    private final int gamemode;
     @FXML
     public GridPane gameTable;
 
@@ -36,37 +41,56 @@ public class GameController extends Controller implements Initializable {
 
     public ArrayList<Label> labels;
 
-    private ServerConnection serverConnection;
+    private ServerConnection sc;
     private Board board;
     private Game game;
 
 
-    @FXML
-    void forfeitGame(ActionEvent event) {
-        serverConnection.sendCommand("forfeit");
-        Platform.runLater(()->{
-            game.endGame();
-        });
 
+
+    public GameController(ServerConnection sc, int gamemode){
+        this.sc = sc;
+        this.gamemode = gamemode;
+        this.game = null;
     }
 
-    public GameController(ServerConnection sc){
-        this.serverConnection = sc;
 
-    }
-
-    //Bron: https://stackoverflow.com/questions/50012463/how-can-i-click-a-gridpane-cell-and-have-it-perform-an-action
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        this.board = new Board(gameTable);
-        this.game = new Game(this, serverConnection);
-        Thread gameThread = new Thread(this.game);
-        gameThread.start();
+        AIGame aiGame = null;
+        switch (gamemode) {
+            case Settings.MULTIPLAYER:
+                this.game = new Game(this, sc);
+                break;
+            case Settings.EASY:
+                aiGame = new AIGame(this, new ServerConnection(), new EasyAI());
+                this.game = new Game(this, sc);
+                break;
+            case Settings.HARD:
+                aiGame = new AIGame(this, new ServerConnection(), new HardAI());
+                this.game = new Game(this, sc);
+                break;
+        }
+
+        if (aiGame != null) {
+            new Thread(aiGame).start(); // Start een game in de achtergrond voor de ai
+        }
+        new Thread(this.game).start();
     }
+
 
     public void turnToPlayerOne(boolean bool) {
         lblPlayer1.setUnderline(bool);
         lblPlayer2.setUnderline(!bool);
+    }
+
+    @FXML
+    void forfeitGame(ActionEvent event) {
+        sc.sendCommand("forfeit");
+        Platform.runLater(()->{
+            game.endGame();
+        });
+
     }
 
     public void setStatus(String s) {

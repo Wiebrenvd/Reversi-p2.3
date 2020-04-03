@@ -3,33 +3,35 @@ package reversi;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import framework.actors.Player;
 import framework.server.ServerConnection;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import reversi.games.Game;
 
 
 public class Board {
 
     public ServerConnection sc;
 
-    protected final Cell[][] grid;
+    public final Cell[][] grid;
 
-    protected ArrayList<ReversiPlayer> players; //index 0 = ALWAYS userPlayer & Index 1 = ALWAYS oppenentPlayer
+    protected ArrayList<Player> players; //index 0 = ALWAYS userPlayer & Index 1 = ALWAYS oppenentPlayer
 
     protected Game currentGame;
 
-    public Board(GridPane gameTable, Game game, ArrayList<ReversiPlayer> players) {
+    public Board(GridPane gameTable, Game game, ArrayList<Player> players) {
         this.players = players;
         this.sc = game.sc;
         this.currentGame = game;
-        this.grid = new Cell[Settings.tilesX][Settings.tilesY];
+        this.grid = new Cell[Settings.TILESX][Settings.TILESY];
 
         RowConstraints rowConstraints;
         ColumnConstraints colConstraints;
 
         // Maakt alle kolommen
-        for (int i = 0; i < Settings.tilesX; i++) {
+        for (int i = 0; i < Settings.TILESX; i++) {
             colConstraints = new ColumnConstraints();
             colConstraints.setMinWidth(40);
             colConstraints.setMaxWidth(40);
@@ -38,7 +40,7 @@ public class Board {
         }
 
         // Maakt alle rows
-        for (int i = 0; i < Settings.tilesY; i++) {
+        for (int i = 0; i < Settings.TILESY; i++) {
             rowConstraints = new RowConstraints();
             rowConstraints.setMinHeight(40);
             rowConstraints.setMaxHeight(40);
@@ -46,15 +48,15 @@ public class Board {
         }
 
         // Voegt een paneel in elke cell die klikbaar is
-        for (int x = 0; x < Settings.tilesX; x++) {
-            for (int y = 0; y < Settings.tilesY; y++) {
+        for (int x = 0; x < Settings.TILESX; x++) {
+            for (int y = 0; y < Settings.TILESY; y++) {
                 Point point = new Point(x, y);
                 grid[x][y] = new Cell(gameTable, point, null, this);
 
 
                 // Kijkt of het paneel een spawnpoint is en zet daar een pion neer
-                if (Settings.SpawnPoints.containsKey(point)) {
-                    setMove(point, game.getPlayerById(Settings.SpawnPoints.get(point)), false, true);
+                if (Settings.SPAWNPOINTS.containsKey(point)) {
+                    setMove(point, (Player) game.getPlayerById(Settings.SPAWNPOINTS.get(point)), false, true);
                 }
 
             }
@@ -64,8 +66,8 @@ public class Board {
     }
 
     @SuppressWarnings("Duplicates")
-    public void setMove(Point pos, ReversiPlayer player, boolean update, boolean begin) {
-        if (pos.x < 0 || pos.y < 0 || pos.x >= Settings.tilesX || pos.y >= Settings.tilesY) {
+    public void setMove(Point pos, Player player, boolean update, boolean begin) {
+        if (pos.x < 0 || pos.y < 0 || pos.x >= Settings.TILESX || pos.y >= Settings.TILESY) {
             System.out.printf("position: [%d,%d] is outside the board!", pos.x, pos.y);
             return;
         }
@@ -94,7 +96,7 @@ public class Board {
 
 
     public int getMoveParameter(int colIndex, int rowIndex) {
-        return rowIndex * Settings.tilesY + colIndex;
+        return rowIndex * Settings.TILESY + colIndex;
     }
 
 }
