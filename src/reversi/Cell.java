@@ -29,7 +29,7 @@ public class Cell {
         this.clickablePane.setOnMouseClicked(e -> {
             int x = (int) point.getX();
             int y = (int) point.getY();
-            System.out.printf("Mouse clicked cell [%d, %d]%n", x, y);
+//            System.out.printf("Mouse clicked cell [%d, %d]%n", x, y);
 
             if (board.players.get(0).isPlayersTurn() && putPiece(4,x,y,board.players.get(0),true)) {
                 sc.sendCommand("move "+ getMoveParameter(x, y));
@@ -37,11 +37,11 @@ public class Cell {
                     putPiece(4,x,y,board.players.get(0),false);
                     board.players.get(0).setPlayersTurn(false);
                     board.players.get(1).setPlayersTurn(true);
-                    board.currentGame.showPlayerScore();
                 }
             }
         });
 
+        this.clickablePane.getStyleClass().add("cell");
         gameTable.add(clickablePane, point.x, point.y);
 
     }
@@ -51,7 +51,10 @@ public class Cell {
     }
 
 
-
+    /**
+     * This method set a player to this Cell object.
+     * @param player Player, add this player to the Cell object.
+     */
     public void setPlayer(ReversiPlayer player){
         this.player = player;
         giveColor(player);
@@ -61,14 +64,12 @@ public class Cell {
         return this.player;
     }
 
-//    public void putPiece(ReversiPlayer player) {
-//        addCircle(player);
-//    }
 
-    @SuppressWarnings("Duplicates")
-    public Circle addCircle(ReversiPlayer player) {
-
-
+    /**
+     * This method will add a circle to a plane.
+     * @param player Player, the circle takes the color of this player.
+     */
+    public void addCircle(ReversiPlayer player) {
         Circle circle = new Circle(0, 0, 12);
 
         circle.setFill(player.getColor());
@@ -76,8 +77,6 @@ public class Cell {
 
 
         clickablePane.getChildren().add(circle);
-
-        return circle;
     }
 
     /**
@@ -130,8 +129,8 @@ public class Cell {
                 counter++;
             }
         }
-        if (!changable) System.out.println("Move "+direction+" Not Available!");
-        else System.out.println("Move "+direction+" is Available!");
+//        if (!changable) System.out.println("Move "+direction+" Not Available!");
+//        else System.out.println("Move "+direction+" is Available!");
         return changable;
     }
 

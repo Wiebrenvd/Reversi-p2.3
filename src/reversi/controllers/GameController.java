@@ -23,30 +23,30 @@ public class GameController extends Controller implements Initializable {
     public GridPane gameTable;
 
     @FXML
-    public Label lblPlayer1, lblPlayer2;
+    public Label lblPlayer1, lblPlayer2, lblStatus, scorep1, scorep2;
 
     @FXML
-    public Label scorep1, scorep2;
+    public Button btnForfeit;
 
-    @FXML
-    public Label lblStatus;
-
-    @FXML
-    private Button btnForfeit;
-
-    public ArrayList<Label> labels;
-
-    private ServerConnection serverConnection;
-    private Board board;
+    public ServerConnection serverConnection;
     private Game game;
+    private Thread gameThread;
 
 
     @FXML
     void forfeitGame(ActionEvent event) {
-        serverConnection.sendCommand("forfeit");
-        Platform.runLater(()->{
+        if (btnForfeit.getText().equals("Search New Game")){
+            if (gameThread==null || !gameThread.isAlive()) {
+                this.game = new Game(this, serverConnection);
+                gameThread = new Thread(this.game);
+                gameThread.start();
+            }
+        } else {
+            serverConnection.sendCommand("forfeit");
             game.endGame();
-        });
+            this.game = null;
+            this.gameThread = null;
+        }
 
     }
 
@@ -58,10 +58,11 @@ public class GameController extends Controller implements Initializable {
     //Bron: https://stackoverflow.com/questions/50012463/how-can-i-click-a-gridpane-cell-and-have-it-perform-an-action
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        this.board = new Board(gameTable);
-        this.game = new Game(this, serverConnection);
-        Thread gameThread = new Thread(this.game);
-        gameThread.start();
+        if (gameThread==null || !gameThread.isAlive()) {
+            this.game = new Game(this, serverConnection);
+            gameThread = new Thread(this.game);
+            gameThread.start();
+        }
     }
 
     public void turnToPlayerOne(boolean bool) {

@@ -30,33 +30,33 @@
          <Font name="Montserrat Regular" size="16.0" />
       </font>
    </Label>
-    <Label fx:id="textscorep1" layoutX="408.0" layoutY="305.0" text="Score player 1:">
+    <Label fx:id="textscorep1" layoutX="412.0" layoutY="305.0" text="Punten Gebruiker:">
         <font>
             <Font name="Montserrat Regular" size="16.0" />
         </font>
     </Label>
-    <Label fx:id="scorep1" layoutX="535.0" layoutY="304.0" text="0">
+    <Label fx:id="scorep1" layoutX="567.0" layoutY="305.0" text="0">
         <font>
             <Font name="Montserrat Regular" size="16.0" />
         </font>
     </Label>
-    <Label fx:id="textscorep2" layoutX="408.0" layoutY="323.0" text="Score player 2:">
+    <Label fx:id="textscorep2" layoutX="379.0" layoutY="324.0" text="Punten Tegenstander:">
         <font>
             <Font name="Montserrat Regular" size="16.0" />
         </font>
     </Label>
-    <Label fx:id="scorep2" layoutX="535.0" layoutY="323.0" text="0">
+    <Label fx:id="scorep2" layoutX="567.0" layoutY="324.0" text="0">
         <font>
             <Font name="Montserrat Regular" size="16.0" />
         </font>
     </Label>
-   <Label fx:id="lblStatus" layoutX="380.0" layoutY="410.0" text="Status: Searching Oppenent...">
+   <Label fx:id="lblStatus" layoutX="380.0" layoutY="410.0" text="Status: Searching Oppenent">
       <font>
          <Font name="Montserrat Regular" size="12.0" />
       </font>
    </Label>
    <Separator layoutY="69.0" prefHeight="0.0" prefWidth="600.0" />
-   <Separator layoutX="355.0" layoutY="69.0" orientation="VERTICAL" prefHeight="380.0" prefWidth="2.0" />
+   <Separator layoutX="355.0" layoutY="69.0" orientation="VERTICAL" prefHeight="380.0" prefWidth="11.0" />
    <Button fx:id="btnForfeit" layoutX="426.0" layoutY="369.0" mnemonicParsing="false" onAction="#forfeitGame" text="Forfeit Game" />
     <stylesheets>
         <URL value="@../styles/Style.css" />

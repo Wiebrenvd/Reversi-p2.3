@@ -19,10 +19,13 @@ public class Board {
 
     protected Game currentGame;
 
+    protected GridPane gameTable;
+
     public Board(GridPane gameTable, Game game, ArrayList<ReversiPlayer> players) {
         this.players = players;
         this.sc = game.sc;
         this.currentGame = game;
+        this.gameTable = gameTable;
         this.grid = new Cell[Settings.tilesX][Settings.tilesY];
 
         RowConstraints rowConstraints;
@@ -58,36 +61,30 @@ public class Board {
                 }
 
             }
-
-
         }
+
+        gameTable.getStyleClass().add("grid");
     }
 
     @SuppressWarnings("Duplicates")
-    public void setMove(Point pos, ReversiPlayer player, boolean update, boolean begin) {
+    public boolean setMove(Point pos, ReversiPlayer player, boolean check, boolean begin) {
         if (pos.x < 0 || pos.y < 0 || pos.x >= Settings.tilesX || pos.y >= Settings.tilesY) {
             System.out.printf("position: [%d,%d] is outside the board!", pos.x, pos.y);
-            return;
+            return false;
         }
 
-        //Steentje moet uiteindelijk van kleur veranderen
-//        if (grid[pos.x][pos.y].getPlayer() != null) {
-//            System.out.printf("position: [%d,%d] is already taken!", pos.x, pos.y);
-//            return;
-//        }
+        if (check) {
+            return grid[pos.x][pos.y].putPiece(4,pos.x,pos.y,player,true);
 
-        if (update) {
-            sc.sendCommand("move " + getMoveParameter(pos.x, pos.y));
-
+        } else if (!check && !begin) {
+            return grid[pos.x][pos.y].putPiece(4,pos.x,pos.y,player,false);
         }
 
-        if (!begin) {
-            grid[pos.x][pos.y].putPiece(4,pos.x,pos.y,player,false);
-            return;
+        if (begin) {
+            grid[pos.x][pos.y].setPlayer(player);
         }
 
-        grid[pos.x][pos.y].setPlayer(player);
-
+        return false;
     }
 
 
