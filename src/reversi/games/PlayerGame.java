@@ -2,48 +2,61 @@ package reversi.games;
 
 import java.util.Map;
 
+import framework.GameTimer;
 import framework.actors.Player;
 import framework.server.ServerConnection;
 import javafx.application.Platform;
-import reversi.boards.AIBoard;
 import reversi.Settings;
-import reversi.ai.AI;
+import reversi.boards.PlayerBoard;
 import reversi.controllers.GameController;
 
-/*
- * Game voor de ai
- * */
-public class AIGame extends Game {
+public class PlayerGame extends Game {
 
-    private AI ai;
 
-    String loginName = "AI";
+    public GameTimer gameTimer;
 
-    public AIGame(GameController gc, ServerConnection sc, AI ai) {
+    public PlayerGame(GameController gc, ServerConnection sc) {
         super(gc, sc);
-        sc.startConnection(Settings.host, Settings.port);
-        AIlogin();
-        this.ai = ai;
+        this.gameTimer = new GameTimer();
     }
 
-    private void AIlogin() {
-        sc.sendCommand("login " + loginName);
-        sc.sendCommand("subscribe Reversi");
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                Thread.sleep(700);
+                if (!gameFound) {
+                    searchingEnemy();
+                    continue;
+                } else {
+                    Platform.runLater(() -> {
+                        gc.setStatus(gameTimer.getGameTime());
+                    });
+                    gameRunning();
+                    showPlayerTurn();
+//                    checkForFinish();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void startTimer() {
+        new Thread(gameTimer).start();
+        startGameScore();
     }
 
     /**
      * This method will rewind if gameFound = false.
      * It will look into the last responses from the server if there is match with the word "MATCH".
-     * If there is a match, it will create a new PlayerBoard object and starts the game.
+     * If there is a match, it will create a new board object and starts the game.
      */
-    @Override
     @SuppressWarnings("Duplicates")
     protected void searchingEnemy() {
         Platform.runLater(() -> {
             String matchResponse = sc.lastRespContains("MATCH");
             if (matchResponse != null) {
-
-                // TODO Wordt 2x aangeroepen!! 
                 Map<String, String> tmp = sc.getMap(matchResponse);
 
                 if (tmp.get("PLAYERTOMOVE").equals(tmp.get("OPPONENT"))) {
@@ -64,32 +77,13 @@ public class AIGame extends Game {
 
                 gameFound = true;
 
-                board = new AIBoard(this);
+                startTimer();
+
+                board = new PlayerBoard(gc.getGameTable(), this);
                 return;
             }
             gameFound = false;
         });
     }
-
-    @Override
-    public void run() {
-        while (true) {
-            try {
-                Thread.sleep(700);
-                if (!gameFound) {
-                    searchingEnemy();
-                    continue;
-                } else {
-                    gameRunning();
-                    showPlayerTurn();
-//                    checkForFinish();
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
 
 }

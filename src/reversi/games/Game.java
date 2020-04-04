@@ -10,19 +10,17 @@ import framework.actors.Player;
 import framework.server.ServerConnection;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import reversi.Board;
-import reversi.Cell;
+import reversi.boards.Board;
+import reversi.cells.Cell;
+import reversi.boards.PlayerBoard;
 import reversi.Settings;
 
 import reversi.controllers.GameController;
 
-public class Game implements Runnable {
+public abstract class Game implements Runnable {
 
     public ServerConnection sc;
     public GameController gc;
-
-    private GameTimer gameTimer;
-
     protected boolean gameFound;
     public Player user;
     public Player opp;
@@ -35,75 +33,11 @@ public class Game implements Runnable {
         this.gc = gc;
         this.gameFound = false;
         this.sc = sc;
-        this.gameTimer = new GameTimer();
     }
 
-    @Override
-    public void run() {
-        while (true) {
-            try {
-                Thread.sleep(700);
-                if (!gameFound) {
-                    searchingEnemy();
-                    continue;
-                } else {
-                    Platform.runLater(() -> {
-                        gc.setStatus(gameTimer.getGameTime());
-                    });
-                    gameRunning();
-                    showPlayerTurn();
-//                    checkForFinish();
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
-    /**
-     * This method will rewind if gameFound = false.
-     * It will look into the last responses from the server if there is match with the word "MATCH".
-     * If there is a match, it will create a new Board object and starts the game.
-     */
-    private void searchingEnemy() {
-        Platform.runLater(() -> {
-            String matchResponse = sc.lastRespContains("MATCH");
-            if (matchResponse != null) {
-                Map<String, String> tmp = sc.getMap(matchResponse);
-                System.out.println(tmp.toString());
 
-                if (tmp.get("PLAYERTOMOVE").equals(tmp.get("OPPONENT"))) {
-                    gc.getLblPlayer1().setText(tmp.get("OPPONENT"));
-                    gc.getLblPlayer2().setText(sc.getLoginName());
-                    user = new Player(Settings.PLAYER2, sc.getLoginName(), Settings.PLAYER2COLOR);
-                    opp = new Player(Settings.PLAYER1, tmp.get("OPPONENT"), Settings.PLAYER1COLOR);
-                    opp.setPlayersTurn(true);
-                } else {
-                    gc.getLblPlayer2().setText(tmp.get("OPPONENT"));
-                    gc.getLblPlayer1().setText(sc.getLoginName());
-                    user = new Player(Settings.PLAYER1, sc.getLoginName(), Settings.PLAYER1COLOR);
-                    opp = new Player(Settings.PLAYER2, tmp.get("OPPONENT"), Settings.PLAYER2COLOR);
-                    user.setPlayersTurn(true);
-                }
-                players.add(user); // Voegt de 2 spelers toe aan speler lijst
-                players.add(opp);
 
-                gameFound = true;
-
-                startTimer();
-
-                board = new Board(gc.gameTable, this, players); // TODO Als AIGame dit aanroept, moet hij geen board tekenen.
-                return;
-            }
-
-//            if (gc.getStatus().equals("Status: Searching Opponent...")){ // Dit glitchte beetje
-//                gc.setStatus("Status: Searching Opponent");
-//            } else {
-//                gc.setStatus(gc.getStatus()+".");
-//            }
-            gameFound = false;
-        });
-    }
 
     @FXML
     public void showPlayerScore() {
@@ -205,14 +139,13 @@ public class Game implements Runnable {
 
 
 
-    public void startTimer() {
-        new Thread(gameTimer).start();
-        startGameScore();
-    }
+
     public void startGameScore(){
         gc.scorep1.setText("2");
         gc.scorep2.setText("2");
     }
+
+    protected abstract void searchingEnemy();
 
     // Overbodig als arraylist Players een hashmap wordt.
     public Player getPlayerById(int id) {
@@ -227,4 +160,7 @@ public class Game implements Runnable {
     }
 
 
+    public ArrayList<Player> getPlayers() {
+    return players;
+    }
 }

@@ -5,15 +5,11 @@ import java.io.IOException;
 import framework.server.ServerConnection;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import reversi.Game;
-import reversi.controllers.GameController;
 
 public class Controller {
 

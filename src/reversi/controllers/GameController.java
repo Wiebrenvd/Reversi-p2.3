@@ -15,12 +15,13 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-import reversi.Board;
+import reversi.boards.PlayerBoard;
 import reversi.Settings;
 import reversi.ai.EasyAI;
 import reversi.ai.HardAI;
 import reversi.games.AIGame;
 import reversi.games.Game;
+import reversi.games.PlayerGame;
 
 public class GameController extends Controller implements Initializable {
     private final int gamemode;
@@ -42,7 +43,7 @@ public class GameController extends Controller implements Initializable {
     public ArrayList<Label> labels;
 
     private ServerConnection sc;
-    private Board board;
+    private PlayerBoard playerBoard;
     private Game game;
 
 
@@ -60,15 +61,15 @@ public class GameController extends Controller implements Initializable {
         AIGame aiGame = null;
         switch (gamemode) {
             case Settings.MULTIPLAYER:
-                this.game = new Game(this, sc);
+                this.game = new PlayerGame(this, sc);
                 break;
             case Settings.EASY:
                 aiGame = new AIGame(this, new ServerConnection(), new EasyAI());
-                this.game = new Game(this, sc);
+                this.game = new PlayerGame(this, sc);
                 break;
             case Settings.HARD:
                 aiGame = new AIGame(this, new ServerConnection(), new HardAI());
-                this.game = new Game(this, sc);
+                this.game = new PlayerGame(this, sc);
                 break;
         }
 
@@ -115,5 +116,9 @@ public class GameController extends Controller implements Initializable {
 
     public void setLblPlayer2(Label lblPlayer2) {
         this.lblPlayer2 = lblPlayer2;
+    }
+
+    public GridPane getGameTable() {
+        return gameTable;
     }
 }
