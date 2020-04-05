@@ -93,6 +93,7 @@ public class Game implements Runnable {
                 startTimer();
 
                 board = new Board(gc.gameTable, this, players); // TODO Als AIGame dit aanroept, moet hij geen board tekenen.
+                gc.aiGame.setBoard(board);
                 return;
             }
 
@@ -112,7 +113,6 @@ public class Game implements Runnable {
         Cell[][] grid = board.grid;
         for(int i =0;i<grid.length-1;i++){
             for(int j =0;j<grid[i].length-1;j++) {
-                System.out.println(grid[i][j].getPlayer());
                 if(grid[i][j].getPlayer() != null) {
                     if (grid[i][j].getPlayer().equals(user)) {
                         scoreP1 += 1;
@@ -122,7 +122,6 @@ public class Game implements Runnable {
                 }
             }
         }
-        System.out.println(scoreP1 + "  " + scoreP2);
         gc.scorep1.setText(String.valueOf(scoreP1));
         gc.scorep2.setText(String.valueOf(scoreP2));
     }

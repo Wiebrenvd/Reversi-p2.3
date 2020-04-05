@@ -43,7 +43,8 @@ public class GameController extends Controller implements Initializable {
 
     private ServerConnection sc;
     private Board board;
-    private Game game;
+    public Game game;
+    public AIGame aiGame;
 
 
 
@@ -57,7 +58,7 @@ public class GameController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        AIGame aiGame = null;
+        aiGame = null;
         switch (gamemode) {
             case Settings.MULTIPLAYER:
                 this.game = new Game(this, sc);
@@ -74,8 +75,9 @@ public class GameController extends Controller implements Initializable {
 
         if (aiGame != null) {
             new Thread(aiGame).start(); // Start een game in de achtergrond voor de ai
+        }else {
+            new Thread(this.game).start();
         }
-        new Thread(this.game).start();
     }
 
 

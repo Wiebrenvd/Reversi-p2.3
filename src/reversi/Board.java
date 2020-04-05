@@ -17,9 +17,9 @@ public class Board {
 
     public final Cell[][] grid;
 
-    protected ArrayList<Player> players; //index 0 = ALWAYS userPlayer & Index 1 = ALWAYS oppenentPlayer
+    public ArrayList<Player> players; //index 0 = ALWAYS userPlayer & Index 1 = ALWAYS oppenentPlayer
 
-    protected Game currentGame;
+    public Game currentGame;
 
     public Board(GridPane gameTable, Game game, ArrayList<Player> players) {
         this.players = players;

@@ -12,7 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import reversi.Game;
+import reversi.games.Game;
 import reversi.controllers.GameController;
 
 public class Controller {

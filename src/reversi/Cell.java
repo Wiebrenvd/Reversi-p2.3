@@ -39,6 +39,7 @@ public class Cell {
                     board.players.get(0).setPlayersTurn(false);
                     board.players.get(1).setPlayersTurn(true);
                     board.currentGame.showPlayerScore();
+                    board.currentGame.gc.aiGame.SetMove();
                 }
             }
         });
