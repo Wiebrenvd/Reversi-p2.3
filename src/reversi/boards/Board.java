@@ -37,19 +37,22 @@ public class Board {
 
         // Maakt alle kolommen
         for (int i = 0; i < Settings.TILESX; i++) {
-            colConstraints = new ColumnConstraints();
-            colConstraints.setMinWidth(40);
-            colConstraints.setMaxWidth(40);
-            gameTable.getColumnConstraints().add(colConstraints);
-
+            if (gameTable.getColumnConstraints().size()<Settings.TILESX) {
+                colConstraints = new ColumnConstraints();
+                colConstraints.setMinWidth(40);
+                colConstraints.setMaxWidth(40);
+                gameTable.getColumnConstraints().add(colConstraints);
+            }
         }
 
         // Maakt alle rows
         for (int i = 0; i < Settings.TILESY; i++) {
-            rowConstraints = new RowConstraints();
-            rowConstraints.setMinHeight(40);
-            rowConstraints.setMaxHeight(40);
-            gameTable.getRowConstraints().add(rowConstraints);
+            if (gameTable.getRowConstraints().size()<Settings.TILESY) {
+                rowConstraints = new RowConstraints();
+                rowConstraints.setMinHeight(40);
+                rowConstraints.setMaxHeight(40);
+                gameTable.getRowConstraints().add(rowConstraints);
+            }
         }
 
         // Voegt een paneel in elke cell die klikbaar is

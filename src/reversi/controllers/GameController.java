@@ -47,6 +47,8 @@ public class GameController extends Controller implements Initializable {
     private Board playerBoard;
     private final int gamemode;
     private Game game;
+    private Player opp;
+    private Player user;
 
     private boolean setThisAI;
 
@@ -62,29 +64,7 @@ public class GameController extends Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        AIGame aiGame = null;
-        Player user;
-        if (setThisAI){
-            user = new HardAIPlayer(sc.getLoginName()+" (HARD AI)");
-        } else {
-            user = new OfflinePlayer(sc.getLoginName());
-        }
-        Player opp;
-        switch (gamemode) {
-            case Settings.MULTIPLAYER:
-                opp = new OnlinePlayer(sc);
-                this.game = new Game(this, sc, user, opp);
-                break;
-            case Settings.EASY:
-                opp = new EasyAIPlayer("Makkelijke Computer");
-                this.game = new Game(this, sc, user, opp);
-                break;
-            case Settings.HARD:
-                opp = new HardAIPlayer("Moeilijke Computer");
-                this.game = new Game(this, sc, user, opp);
-                break;
-        }
-
-        new Thread(this.game).start();
+        startGame();
     }
 
 
@@ -93,9 +73,36 @@ public class GameController extends Controller implements Initializable {
         lblPlayer2.setUnderline(!bool);
     }
 
+    public void startGame(){
+        if (setThisAI){
+            user = new HardAIPlayer(sc.getLoginName()+" (HARD AI)");
+        } else {
+            user = new OfflinePlayer(sc.getLoginName());
+        }
+        switch (gamemode) {
+            case Settings.MULTIPLAYER:
+                opp = new OnlinePlayer(sc);
+                break;
+            case Settings.EASY:
+                opp = new EasyAIPlayer("Makkelijke Computer");
+                break;
+            case Settings.HARD:
+                opp = new HardAIPlayer("Moeilijke Computer");
+                break;
+        }
+
+        this.game = new Game(this, sc, user, opp);
+        new Thread(this.game).start();
+    }
+
     @FXML
     void forfeitGame(ActionEvent event) {
-        sc.sendCommand("forfeit");
+        if (btnForfeit.getText().equals("Zoek Nieuw Spel")){
+            startGame();
+            btnForfeit.setText("Verlaat game");
+            return;
+        }
+        if (opp instanceof OnlinePlayer)sc.sendCommand("forfeit");
         Platform.runLater(()->{
             game.endGame();
         });

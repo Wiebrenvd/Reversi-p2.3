@@ -34,7 +34,7 @@ public class Cell {
         this.clickablePane.setOnMouseClicked(e -> {
             int x = (int) point.getX();
             int y = (int) point.getY();
-            System.out.printf("Mouse clicked cell [%d, %d]%n", x, y);
+//            System.out.printf("Mouse clicked cell [%d, %d]%n", x, y);
 
             if (board.players.get(0).isPlayersTurn() && putPiece(4,x,y,board.players.get(0),true)) {
                 boolean online = board.players.get(1) instanceof OnlinePlayer;

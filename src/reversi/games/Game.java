@@ -6,6 +6,7 @@ import framework.server.ServerConnection;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import reversi.Settings;
 import reversi.boards.Board;
 import reversi.cells.Cell;
@@ -15,6 +16,7 @@ import reversi.players.OfflinePlayer;
 import reversi.players.OnlinePlayer;
 import reversi.players.EasyAIPlayer;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
@@ -258,15 +260,15 @@ public class Game implements Runnable {
         this.gameTimerThread.stop();
         board = null;
         Platform.runLater(() -> {
-            gc.gameTable.getChildren().clear();
-            gc.gameTable = null;
-            gc.gameTable = new GridPane();
+            gc.gameTable.getChildren().removeIf(node -> node instanceof StackPane);
+//            gc.gameTable = null;
+//            gc.gameTable = new GridPane();
             gc.setStatus("Status: Searching Opponent...");
             gc.getLblPlayer1().setText("ReversiPlayer ONE");
             gc.getLblPlayer2().setText("ReversiPlayer TWO");
             gc.scorep1.setText("0");
             gc.scorep2.setText("0");
-            gc.btnForfeit.setText("Search New Game");
+            gc.btnForfeit.setText("Zoek Nieuw Spel");
         });
         players.removeAll(players);
         startGame = false;

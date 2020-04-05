@@ -55,7 +55,7 @@ public class LoginController extends Controller implements Initializable {
             gameChoiceBox.getItems().add(regularChoice);
             gameChoiceBox.setValue(regularChoice);
 
-            connectToServer();
+//            connectToServer();
         } else {
             String regularChoice = "Reversi";
             gameChoiceBox.getItems().add(regularChoice);
