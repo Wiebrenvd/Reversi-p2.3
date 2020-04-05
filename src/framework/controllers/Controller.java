@@ -29,7 +29,10 @@ public class Controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             loader.setController(controller);
             Parent parent = loader.load();
-            stage.setScene(new Scene(parent));
+            Scene rScene = new Scene(parent);
+            rScene.getStylesheets().add(getClass().getResource("../Style.css").toExternalForm());
+
+            stage.setScene(rScene);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,5 +1,6 @@
 package reversi.controllers;
 
+import framework.actors.Player;
 import framework.controllers.Controller;
 import framework.server.ServerConnection;
 import javafx.application.Platform;
@@ -15,16 +16,16 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-import reversi.boards.PlayerBoard;
+import reversi.boards.Board;
 import reversi.Settings;
-import reversi.ai.EasyAI;
-import reversi.ai.HardAI;
-import reversi.games.AIGame;
+//import reversi.games.AIGame;
 import reversi.games.Game;
-import reversi.games.PlayerGame;
+import reversi.players.EasyAIPlayer;
+import reversi.players.HardAIPlayer;
+import reversi.players.OfflinePlayer;
+import reversi.players.OnlinePlayer;
 
 public class GameController extends Controller implements Initializable {
-    private final int gamemode;
     @FXML
     public GridPane gameTable;
 
@@ -38,44 +39,51 @@ public class GameController extends Controller implements Initializable {
     public Label lblStatus;
 
     @FXML
-    private Button btnForfeit;
+    public Button btnForfeit;
 
     public ArrayList<Label> labels;
 
     private ServerConnection sc;
-    private PlayerBoard playerBoard;
+    private Board playerBoard;
+    private final int gamemode;
     private Game game;
 
+    private boolean setThisAI;
 
 
-
-    public GameController(ServerConnection sc, int gamemode){
+    public GameController(ServerConnection sc, int gamemode, boolean aiOn){
         this.sc = sc;
         this.gamemode = gamemode;
         this.game = null;
+        this.setThisAI = aiOn;
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        AIGame aiGame = null;
+//        AIGame aiGame = null;
+        Player user;
+        if (setThisAI){
+            user = new HardAIPlayer(sc.getLoginName()+" (HARD AI)");
+        } else {
+            user = new OfflinePlayer(sc.getLoginName());
+        }
+        Player opp;
         switch (gamemode) {
             case Settings.MULTIPLAYER:
-                this.game = new PlayerGame(this, sc);
+                opp = new OnlinePlayer(sc);
+                this.game = new Game(this, sc, user, opp);
                 break;
             case Settings.EASY:
-                aiGame = new AIGame(this, new ServerConnection(), new EasyAI());
-                this.game = new PlayerGame(this, sc);
+                opp = new EasyAIPlayer("Makkelijke Computer");
+                this.game = new Game(this, sc, user, opp);
                 break;
             case Settings.HARD:
-                aiGame = new AIGame(this, new ServerConnection(), new HardAI());
-                this.game = new PlayerGame(this, sc);
+                opp = new HardAIPlayer("Moeilijke Computer");
+                this.game = new Game(this, sc, user, opp);
                 break;
         }
 
-        if (aiGame != null) {
-            new Thread(aiGame).start(); // Start een game in de achtergrond voor de ai
-        }
         new Thread(this.game).start();
     }
 

@@ -2,18 +2,29 @@ package framework.actors;
 
 import javafx.scene.paint.Color;
 
-public class Player {
+import java.awt.*;
+import java.util.ArrayList;
+
+public abstract class Player {
 
     protected int id;
     protected boolean playersTurn;
     protected String name;
     protected Color color;
+    protected ArrayList<Point> possibleMoves;
 
-    public Player(int id, String name, Color color) {
-        this.id = id;
+    public Player(String name) {
         this.name = name;
-        this.color = color;
         this.playersTurn = false;
+        this.possibleMoves = new ArrayList<>();
+    }
+
+    public void setPossibleMoves(ArrayList<Point> moves){
+        this.possibleMoves = moves;
+    }
+
+    public Point doMove(){
+        return null;
     }
 
     public int getId() {

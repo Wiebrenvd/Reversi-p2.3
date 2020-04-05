@@ -3,6 +3,7 @@ package framework;
 import java.io.IOException;
 
 import framework.controllers.Controller;
+import framework.controllers.IntroScreenController;
 import framework.server.ServerConnection;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -19,10 +20,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/framework/views/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/framework/views/introScreen.fxml"));
         ServerConnection sc = new ServerConnection();
-        Controller lc = new LoginController(sc);
-        loader.setController(lc);
+        Controller introControl = new IntroScreenController(sc);
+        loader.setController(introControl);
         try {
             Parent root = loader.load();
             Scene rScene = new Scene(root);

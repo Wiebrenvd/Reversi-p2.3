@@ -13,12 +13,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -42,29 +37,49 @@ public class LoginController extends Controller implements Initializable {
     @FXML
     private ChoiceBox<String> gameChoiceBox;
 
-    public LoginController(ServerConnection sc) {
+    @FXML
+    private CheckBox setAI;
+
+    private int gamemode;
+    private String gName;
+
+    public LoginController(ServerConnection sc, int gamemode) {
+        this.gamemode = gamemode;
         this.sc = sc;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String regularChoice = "Please select a game";
-        gameChoiceBox.getItems().add(regularChoice);
-        gameChoiceBox.setValue(regularChoice);
+        if (gamemode==0) {
+            String regularChoice = "Please select a game";
+            gameChoiceBox.getItems().add(regularChoice);
+            gameChoiceBox.setValue(regularChoice);
 
-        connectToServer();
+            connectToServer();
+        } else {
+            String regularChoice = "Reversi";
+            gameChoiceBox.getItems().add(regularChoice);
+            gameChoiceBox.setValue(regularChoice);
+            gameChoiceBox.setDisable(true);
+            hostIP_input.setDisable(true);
+            port_input.setDisable(true);
+            connect_btn.setDisable(true);
+        }
     }
 
     @FXML
     void login(ActionEvent event) {
         String command = "login ";
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        boolean aiON = setAI.isSelected();
 
         if (nameInput.getText().trim().length() == 0) {
             showTooltip(stage, loginBtn, "Please fill in a login name!", null);
             return;
         } else {
-            if (status_lbl.getText().equals("Offline")) {
+            System.out.println(gamemode);
+            if (status_lbl.getText().equals("Offline") && gamemode == 0) {
+
                 showTooltip(stage, loginBtn, "Please check if you are online!", null);
                 return;
             } else {
@@ -73,16 +88,21 @@ public class LoginController extends Controller implements Initializable {
                     return;
                 }
                 String loginName = nameInput.getText();
+                gName = getGamename(gameChoiceBox.getValue());
+
                 command += loginName;
                 sc.setLoginName(loginName);
-                sc.sendCommand(command);
+                if (gamemode == 0) sc.sendCommand(command);
             }
         }
 
-        if (!sc.showLastResponse().equals("OK")) {
+        if (gamemode== 0 && !sc.showLastResponse().equals("OK")) {
             showTooltip(stage, loginBtn, "Cannot connect to the Server... \nPlease restart the application", null);
         } else {
-            changeScene(event, "/framework/views/gamemode.fxml", new GamemodeController(sc, this.getGamename(gameChoiceBox.getSelectionModel().getSelectedItem())));
+            if (gamemode == 0) sc.sendCommand("subscribe " + gName.substring(0, 1).toUpperCase() + gName.substring(1));
+
+//            changeScene(event, "/framework/views/introScreen.fxml", new IntroScreenController(sc, this.getGamename(gameChoiceBox.getSelectionModel().getSelectedItem())));
+            startGamemode(event, this.gamemode, aiON);
         }
     }
 
@@ -141,5 +161,28 @@ public class LoginController extends Controller implements Initializable {
                 + control.getScene().getX() + control.getScene().getWindow().getX(), p.getY()
                 + control.getScene().getY() + control.getScene().getWindow().getY());
 
+    }
+
+    public void startGamemode(ActionEvent event, int gamemode, boolean aiON) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + gName + "/views/GameView.fxml"));
+
+        try {
+            Class<?> Controllers = Class.forName(gName + ".controllers.GameController");
+            Constructor<?> cons = Controllers.getConstructor(ServerConnection.class, int.class, boolean.class);
+
+            loader.setController(cons.newInstance(sc, gamemode, aiON));
+
+            Parent root = (Parent) loader.load();
+            Scene rScene = new Scene(root);
+
+            rScene.getStylesheets().add(getClass().getResource("/" + gName + "/styles/Style.css").toExternalForm());
+
+            stage.setScene(rScene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
