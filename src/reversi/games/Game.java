@@ -185,6 +185,14 @@ public class Game implements Runnable {
             gc.scorep1.setText(String.valueOf(finalScoreP1));
             gc.scorep2.setText(String.valueOf(finalScoreP2));
         });
+        if ((scoreP1+scoreP2)==64) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            endGame();
+        }
     }
 
     /**
