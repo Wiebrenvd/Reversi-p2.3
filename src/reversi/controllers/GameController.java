@@ -1,5 +1,6 @@
 package reversi.controllers;
 
+import framework.actors.Player;
 import framework.controllers.Controller;
 import framework.server.ServerConnection;
 import javafx.application.Platform;
@@ -15,59 +16,97 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-import reversi.Board;
-import reversi.Game;
+import reversi.boards.Board;
+import reversi.Settings;
+//import reversi.games.AIGame;
+import reversi.games.Game;
+import reversi.players.EasyAIPlayer;
+import reversi.players.HardAIPlayer;
+import reversi.players.OfflinePlayer;
+import reversi.players.OnlinePlayer;
 
 public class GameController extends Controller implements Initializable {
     @FXML
     public GridPane gameTable;
 
     @FXML
-    public Label lblPlayer1, lblPlayer2, lblStatus, scorep1, scorep2;
+    public Label lblPlayer1, lblPlayer2;
+
+    @FXML
+    public Label scorep1, scorep2;
+
+    @FXML
+    public Label lblStatus;
 
     @FXML
     public Button btnForfeit;
 
-    public ServerConnection serverConnection;
+    public ArrayList<Label> labels;
+
+    private ServerConnection sc;
+    private Board playerBoard;
+    private final int gamemode;
     private Game game;
-    private Thread gameThread;
+    private Player opp;
+    private Player user;
+
+    private boolean setThisAI;
 
 
-    @FXML
-    void forfeitGame(ActionEvent event) {
-        if (btnForfeit.getText().equals("Search New Game")){
-            if (gameThread==null || !gameThread.isAlive()) {
-                this.game = new Game(this, serverConnection);
-                gameThread = new Thread(this.game);
-                gameThread.start();
-            }
-        } else {
-            serverConnection.sendCommand("forfeit");
-            game.endGame();
-            this.game = null;
-            this.gameThread = null;
-        }
-
+    public GameController(ServerConnection sc, int gamemode, boolean aiOn){
+        this.sc = sc;
+        this.gamemode = gamemode;
+        this.game = null;
+        this.setThisAI = aiOn;
     }
 
-    public GameController(ServerConnection sc){
-        this.serverConnection = sc;
 
-    }
-
-    //Bron: https://stackoverflow.com/questions/50012463/how-can-i-click-a-gridpane-cell-and-have-it-perform-an-action
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (gameThread==null || !gameThread.isAlive()) {
-            this.game = new Game(this, serverConnection);
-            gameThread = new Thread(this.game);
-            gameThread.start();
-        }
+//        AIGame aiGame = null;
+        startGame();
     }
+
 
     public void turnToPlayerOne(boolean bool) {
         lblPlayer1.setUnderline(bool);
         lblPlayer2.setUnderline(!bool);
+    }
+
+    public void startGame(){
+        if (setThisAI){
+            user = new HardAIPlayer(sc.getLoginName()+" (HARD AI)");
+        } else {
+            user = new OfflinePlayer(sc.getLoginName());
+        }
+        switch (gamemode) {
+            case Settings.MULTIPLAYER:
+                opp = new OnlinePlayer(sc);
+                break;
+            case Settings.EASY:
+                opp = new EasyAIPlayer("Makkelijke Computer");
+                break;
+            case Settings.HARD:
+                opp = new HardAIPlayer("Moeilijke Computer");
+                break;
+        }
+
+        this.game = new Game(this, sc, user, opp);
+        new Thread(this.game).start();
+    }
+
+    @FXML
+    void forfeitGame(ActionEvent event) {
+        if (btnForfeit.getText().equals("Zoek Nieuw Spel")){
+            startGame();
+            btnForfeit.setText("Verlaat game");
+            return;
+        }
+        if (opp instanceof OnlinePlayer)sc.sendCommand("forfeit");
+        Platform.runLater(()->{
+            game.endGame();
+        });
+
     }
 
     public void setStatus(String s) {
@@ -92,5 +131,9 @@ public class GameController extends Controller implements Initializable {
 
     public void setLblPlayer2(Label lblPlayer2) {
         this.lblPlayer2 = lblPlayer2;
+    }
+
+    public GridPane getGameTable() {
+        return gameTable;
     }
 }

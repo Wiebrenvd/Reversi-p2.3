@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+      <VBox alignment="CENTER" prefHeight="236.0" prefWidth="420.0" spacing="30.0">
+         <children>
+            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Moeilijkheidsgraad">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Button alignment="CENTER" maxWidth="1.7976931348623157E308" fx:id="easy_button" onAction="#playEasyMode" mnemonicParsing="false" text="Makkelijk" textAlignment="CENTER">
+               <VBox.margin>
+                  <Insets left="100.0" right="100.0" />
+               </VBox.margin>
+            </Button>
+            <Button alignment="CENTER" maxWidth="1.7976931348623157E308" fx:id="hard_button" onAction="#playHardMode" mnemonicParsing="false" text="Moeilijk" textAlignment="CENTER">
+               <VBox.margin>
+                  <Insets left="100.0" right="100.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+    </children>
+</GridPane>

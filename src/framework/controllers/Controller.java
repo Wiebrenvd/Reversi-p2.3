@@ -5,15 +5,11 @@ import java.io.IOException;
 import framework.server.ServerConnection;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import reversi.Game;
-import reversi.controllers.GameController;
 
 public class Controller {
 
@@ -33,7 +29,10 @@ public class Controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             loader.setController(controller);
             Parent parent = loader.load();
-            stage.setScene(new Scene(parent));
+            Scene rScene = new Scene(parent);
+            rScene.getStylesheets().add(getClass().getResource("../Style.css").toExternalForm());
+
+            stage.setScene(rScene);
         } catch (IOException e) {
             e.printStackTrace();
         }

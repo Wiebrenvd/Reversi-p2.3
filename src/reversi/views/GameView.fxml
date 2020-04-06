@@ -13,50 +13,50 @@
     <GridPane fx:id="gameTable" gridLinesVisible="true" layoutX="25.0" layoutY="103.0" prefHeight="243.0" prefWidth="320.0">
 
     </GridPane>
-    <Label fx:id="title" layoutX="33.0" layoutY="22.0" text="The Othello Game">
+    <Label fx:id="title" layoutX="33.0" layoutY="22.0" text="Reversi ☺☻">
         <font>
           <Font name="Montserrat Regular" size="38.0" />
         </font>
     </Label>
-    <Circle fx:id="blackCir" layoutX="426.0" layoutY="110.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
-    <Circle fx:id="whiteCir" fill="WHITE" layoutX="426.0" layoutY="140.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
-   <Label fx:id="lblPlayer1" layoutX="447.0" layoutY="99.0" text="Player One">
+    <Circle fx:id="blackCir" layoutX="378.0" layoutY="114.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+    <Circle fx:id="whiteCir" fill="WHITE" layoutX="378.0" layoutY="144.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+   <Label fx:id="lblPlayer1" layoutX="399.0" layoutY="103.0" text="Speler Één">
       <font>
          <Font name="Montserrat Regular" size="16.0" />
       </font>
    </Label>
-   <Label fx:id="lblPlayer2" layoutX="447.0" layoutY="129.0" text="Player Two">
+   <Label fx:id="lblPlayer2" layoutX="399.0" layoutY="133.0" text="Speler Twee">
       <font>
          <Font name="Montserrat Regular" size="16.0" />
       </font>
    </Label>
-    <Label fx:id="textscorep1" layoutX="412.0" layoutY="305.0" text="Punten Gebruiker:">
+    <Label fx:id="textscorep1" layoutX="432.0" layoutY="307.0" text="Jouw Score:">
         <font>
             <Font name="Montserrat Regular" size="16.0" />
         </font>
     </Label>
-    <Label fx:id="scorep1" layoutX="567.0" layoutY="305.0" text="0">
+    <Label fx:id="scorep1" layoutX="540.0" layoutY="307.0" text="0">
         <font>
             <Font name="Montserrat Regular" size="16.0" />
         </font>
     </Label>
-    <Label fx:id="textscorep2" layoutX="379.0" layoutY="324.0" text="Punten Tegenstander:">
+    <Label fx:id="textscorep2" layoutX="363.0" layoutY="322.0" text="Tegenstander Score:">
         <font>
             <Font name="Montserrat Regular" size="16.0" />
         </font>
     </Label>
-    <Label fx:id="scorep2" layoutX="567.0" layoutY="324.0" text="0">
+    <Label fx:id="scorep2" layoutX="540.0" layoutY="326.0" text="0">
         <font>
             <Font name="Montserrat Regular" size="16.0" />
         </font>
     </Label>
-   <Label fx:id="lblStatus" layoutX="380.0" layoutY="410.0" text="Status: Searching Oppenent">
+   <Label fx:id="lblStatus" layoutX="380.0" layoutY="410.0" text="Status: Searching Oppenent...">
       <font>
          <Font name="Montserrat Regular" size="12.0" />
       </font>
    </Label>
    <Separator layoutY="69.0" prefHeight="0.0" prefWidth="600.0" />
-   <Separator layoutX="355.0" layoutY="69.0" orientation="VERTICAL" prefHeight="380.0" prefWidth="11.0" />
+   <Separator layoutX="355.0" layoutY="69.0" orientation="VERTICAL" prefHeight="380.0" prefWidth="2.0" />
    <Button fx:id="btnForfeit" layoutX="426.0" layoutY="369.0" mnemonicParsing="false" onAction="#forfeitGame" text="Forfeit Game" />
     <stylesheets>
         <URL value="@../styles/Style.css" />
