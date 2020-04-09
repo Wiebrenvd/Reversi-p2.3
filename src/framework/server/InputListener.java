@@ -41,7 +41,7 @@ public class InputListener implements Runnable {
                 System.out.println("Failed to read from server...");
             }
             if (inputFromServer.length() != 0){
-                System.out.println(inputFromServer);
+                System.out.println("Input:" + inputFromServer);
                 serverResponses.add(inputFromServer);
                 inputFromServer = "";
             }

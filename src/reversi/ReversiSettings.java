@@ -2,16 +2,11 @@ package reversi;
 
 import java.awt.*;
 import java.util.HashMap;
+
+import framework.Settings;
 import javafx.scene.paint.Color;
 
-public class Settings {
-
-    public static String host = "localhost";
-    public static int port = 7789;
-
-    public final static int MULTIPLAYER = 0;
-    public final static int EASY = 1;
-    public final static int HARD = 2;
+public class ReversiSettings extends Settings {
 
     public static int PLAYER1 = 0;
     public static int PLAYER2 = 1;

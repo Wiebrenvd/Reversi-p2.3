@@ -49,6 +49,7 @@ public class ServerConnection{
     }
 
     public void sendCommand(String str){
+        System.out.println("Output: " + str);
         outputSender.sendCommand(str);
     }
 
@@ -70,6 +71,7 @@ public class ServerConnection{
      * @return The array that is found.
      **/
     public String[] getArr(String response){
+        System.out.println("Response: " + response);
         String tmp = response.split(" ",3)[2];
         return tmp.substring(1,tmp.length()-1).split(", ");
     }
@@ -109,12 +111,15 @@ public class ServerConnection{
     **/
     public String lastRespContains(String key){
         ArrayList<String> tmp = getLastResponses();
-        if (tmp.size() >= 2) {
+        if (tmp.size() >= 3) {
             if (tmp.get(tmp.size()-1).contains(key)) return tmp.get(tmp.size()-1);
             if (tmp.get(tmp.size()-2).contains(key)) return tmp.get(tmp.size()-2);
+            if (tmp.get(tmp.size()-3).contains(key)) return tmp.get(tmp.size()-3);
         }
         else if (tmp.size() == 1 && tmp.get(0).contains(key)) {
             return tmp.get(0);
+        } else if (tmp.size() == 2 && tmp.get(1).contains(key)) {
+            return tmp.get(1);
         }
         return null;
     }

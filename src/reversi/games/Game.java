@@ -1,24 +1,23 @@
 package reversi.games;
 
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
 import framework.GameTimer;
 import framework.actors.Player;
 import framework.server.ServerConnection;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import reversi.Settings;
+import reversi.ReversiSettings;
 import reversi.boards.Board;
 import reversi.cells.Cell;
 import reversi.controllers.GameController;
-import reversi.players.HardAIPlayer;
-import reversi.players.OfflinePlayer;
-import reversi.players.OnlinePlayer;
 import reversi.players.EasyAIPlayer;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
+import reversi.players.HardAIPlayer;
+import reversi.players.OnlinePlayer;
 
 public class Game implements Runnable {
 
@@ -87,20 +86,20 @@ public class Game implements Runnable {
     private void createPlayers() {
         if (opp.getName().length()>0){
             if (!opp.isPlayersTurn()) {
-                user.setId(Settings.PLAYER1);
-                user.setColor(Settings.PLAYER1COLOR);
-                opp.setId(Settings.PLAYER2);
-                opp.setColor(Settings.PLAYER2COLOR);
+                user.setId(ReversiSettings.PLAYER1);
+                user.setColor(ReversiSettings.PLAYER1COLOR);
+                opp.setId(ReversiSettings.PLAYER2);
+                opp.setColor(ReversiSettings.PLAYER2COLOR);
                 Platform.runLater(() -> {
                     gc.getLblPlayer1().setText(user.getName());
                     gc.getLblPlayer2().setText(opp.getName());
                 });
                 setTurnToUser(true);
             } else {
-                user.setId(Settings.PLAYER2);
-                user.setColor(Settings.PLAYER2COLOR);
-                opp.setId(Settings.PLAYER1);
-                opp.setColor(Settings.PLAYER1COLOR);
+                user.setId(ReversiSettings.PLAYER2);
+                user.setColor(ReversiSettings.PLAYER2COLOR);
+                opp.setId(ReversiSettings.PLAYER1);
+                opp.setColor(ReversiSettings.PLAYER1COLOR);
                 Platform.runLater(() -> {
                     gc.getLblPlayer1().setText(opp.getName());
                     gc.getLblPlayer2().setText(user.getName());
@@ -265,7 +264,7 @@ public class Game implements Runnable {
      * This method will end the game
      */
     public void endGame() {
-        this.gameTimerThread.stop();
+//        this.gameTimerThread.stop();
         board = null;
         Platform.runLater(() -> {
             gc.gameTable.getChildren().removeIf(node -> node instanceof StackPane);

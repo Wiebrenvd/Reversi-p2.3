@@ -45,7 +45,7 @@ public class HardAIPlayer extends Player {
     public Point doMove(){
         Point output = null;
         try {
-            Thread.sleep(500);
+            Thread.sleep(100);
             if (counter == delay && playersTurn && possibleMoves != null && possibleMoves.size()>0){
                 output = getBestMove(possibleMoves);
                 counter = 0;

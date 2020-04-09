@@ -18,7 +18,7 @@ public class EasyAIPlayer extends Player {
     public Point doMove(){
         Point output = null;
         try {
-            Thread.sleep(300);
+            Thread.sleep(50);
             if (counter == delay && playersTurn && possibleMoves != null && possibleMoves.size()>0){
                 int move = new Random().nextInt(possibleMoves.size());
                 output = possibleMoves.get(move);

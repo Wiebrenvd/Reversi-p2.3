@@ -1,5 +1,10 @@
 package reversi.controllers;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import framework.Settings;
 import framework.actors.Player;
 import framework.controllers.Controller;
 import framework.server.ServerConnection;
@@ -9,21 +14,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-
-
+import javafx.scene.layout.GridPane;
 import reversi.boards.Board;
-import reversi.Settings;
-//import reversi.games.AIGame;
 import reversi.games.Game;
 import reversi.players.EasyAIPlayer;
 import reversi.players.HardAIPlayer;
 import reversi.players.OfflinePlayer;
 import reversi.players.OnlinePlayer;
+
+//import reversi.games.AIGame;
 
 public class GameController extends Controller implements Initializable {
     @FXML
@@ -43,7 +42,6 @@ public class GameController extends Controller implements Initializable {
 
     public ArrayList<Label> labels;
 
-    private ServerConnection sc;
     private Board playerBoard;
     private final int gamemode;
     private Game game;
@@ -54,7 +52,7 @@ public class GameController extends Controller implements Initializable {
 
 
     public GameController(ServerConnection sc, int gamemode, boolean aiOn){
-        this.sc = sc;
+        super(sc);
         this.gamemode = gamemode;
         this.game = null;
         this.setThisAI = aiOn;

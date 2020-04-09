@@ -4,13 +4,12 @@ import java.awt.Point;
 
 import framework.actors.Player;
 import framework.server.ServerConnection;
-import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import reversi.Settings;
+import reversi.ReversiSettings;
 import reversi.boards.Board;
 import reversi.players.OnlinePlayer;
 
@@ -52,7 +51,7 @@ public class Cell {
     }
 
     public int getMoveParameter(int colIndex, int rowIndex) {
-        return rowIndex * Settings.TILESY + colIndex;
+        return rowIndex * ReversiSettings.TILESY + colIndex;
     }
 
 
@@ -108,7 +107,7 @@ public class Cell {
         boolean changable = false;
         for (int s = y-1; s < y+2; s++){
             for (int z = x-1; z < x+2; z++){
-                if (s >= 0 && z >= 0 && s < Settings.TILESX && z < Settings.TILESY && counter != 4) {
+                if (s >= 0 && z >= 0 && s < ReversiSettings.TILESX && z < ReversiSettings.TILESY && counter != 4) {
                     Player tmpPlayer = board.grid[z][s].getPlayer();
                     Cell tmpCell = board.grid[z][s];
                     if (direction==4 && tmpPlayer != null){

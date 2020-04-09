@@ -3,7 +3,7 @@ package framework;
 import java.io.IOException;
 
 import framework.controllers.Controller;
-import framework.controllers.IntroScreenController;
+import framework.controllers.OptionsController;
 import framework.server.ServerConnection;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -12,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import framework.controllers.LoginController;
 import javafx.stage.WindowEvent;
 
 public class Main extends Application {
@@ -20,9 +19,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/framework/views/introScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/framework/views/connection.fxml"));
         ServerConnection sc = new ServerConnection();
-        Controller introControl = new IntroScreenController(sc);
+        Controller introControl = new OptionsController(sc);
         loader.setController(introControl);
         try {
             Parent root = loader.load();
@@ -35,7 +34,7 @@ public class Main extends Application {
                 System.exit(0);
             }); // Stops process when exiting application
 
-            primaryStage.setTitle("Group ONE: reversi Client");
+            primaryStage.setTitle("ITV2B1 Reversi");
             primaryStage.setScene(rScene);
             primaryStage.show();
         } catch (IOException e) {
