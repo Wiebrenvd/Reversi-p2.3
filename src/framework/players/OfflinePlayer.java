@@ -1,7 +1,6 @@
-package reversi.players;
+package framework.players;
 
 import framework.actors.Player;
-import javafx.scene.paint.Color;
 
 import java.awt.*;
 

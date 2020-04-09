@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class Player {
 
@@ -13,10 +14,13 @@ public abstract class Player {
     protected Color color;
     protected ArrayList<Point> possibleMoves;
 
+    protected HashMap<Point,Integer> possibleMoveGain;
+
     public Player(String name) {
         this.name = name;
         this.playersTurn = false;
         this.possibleMoves = new ArrayList<>();
+        this.possibleMoveGain = new HashMap<>();
     }
 
     public void setPossibleMoves(ArrayList<Point> moves){
@@ -25,6 +29,10 @@ public abstract class Player {
 
     public Point doMove(){
         return null;
+    }
+
+    public void setPossibleMoveGain(HashMap<Point, Integer> possibleMoveGain) {
+        this.possibleMoveGain = possibleMoveGain;
     }
 
     public int getId() {

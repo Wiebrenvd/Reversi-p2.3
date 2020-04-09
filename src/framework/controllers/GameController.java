@@ -1,7 +1,6 @@
-package reversi.controllers;
+package framework.controllers;
 
 import framework.actors.Player;
-import framework.controllers.Controller;
 import framework.server.ServerConnection;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -12,18 +11,18 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-import reversi.boards.Board;
-import reversi.Settings;
-//import reversi.games.AIGame;
-import reversi.games.Game;
-import reversi.players.EasyAIPlayer;
-import reversi.players.HardAIPlayer;
-import reversi.players.OfflinePlayer;
-import reversi.players.OnlinePlayer;
+import framework.settings.ReversiSettings;
+//import framework.games.AIGame;
+import framework.games.Game;
+import framework.players.EasyAIPlayer;
+import framework.players.HardAIPlayer;
+import framework.players.OfflinePlayer;
+import framework.players.OnlinePlayer;
+import framework.settings.Settings;
+import framework.settings.TicTacToeSettings;
 
 public class GameController extends Controller implements Initializable {
     @FXML
@@ -41,10 +40,9 @@ public class GameController extends Controller implements Initializable {
     @FXML
     public Button btnForfeit;
 
-    public ArrayList<Label> labels;
+    public Settings settings;
 
     private ServerConnection sc;
-    private Board playerBoard;
     private final int gamemode;
     private Game game;
     private Player opp;
@@ -53,11 +51,19 @@ public class GameController extends Controller implements Initializable {
     private boolean setThisAI;
 
 
-    public GameController(ServerConnection sc, int gamemode, boolean aiOn){
+    public GameController(ServerConnection sc, int gamemode, boolean aiOn, String gameName){
         this.sc = sc;
         this.gamemode = gamemode;
         this.game = null;
         this.setThisAI = aiOn;
+        System.out.println("hier "+gameName);
+        if (gameName.equals("reversi")) {
+            this.settings = new ReversiSettings();
+        }else if (gameName.equals("tictactoe")){
+            System.out.println("Yeah");
+            this.settings = new TicTacToeSettings();
+        }
+
     }
 
 
@@ -80,13 +86,13 @@ public class GameController extends Controller implements Initializable {
             user = new OfflinePlayer(sc.getLoginName());
         }
         switch (gamemode) {
-            case Settings.MULTIPLAYER:
+            case ReversiSettings.MULTIPLAYER:
                 opp = new OnlinePlayer(sc);
                 break;
-            case Settings.EASY:
+            case ReversiSettings.EASY:
                 opp = new EasyAIPlayer("Makkelijke Computer");
                 break;
-            case Settings.HARD:
+            case ReversiSettings.HARD:
                 opp = new HardAIPlayer("Moeilijke Computer");
                 break;
         }

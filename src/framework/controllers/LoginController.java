@@ -18,7 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-//import reversi.controllers.GameController;
+//import framework.controllers.GameController;
 
 
 public class LoginController extends Controller implements Initializable {
@@ -59,8 +59,9 @@ public class LoginController extends Controller implements Initializable {
         } else {
             String regularChoice = "Reversi";
             gameChoiceBox.getItems().add(regularChoice);
+            gameChoiceBox.getItems().add("Tic-Tac-Toe");
             gameChoiceBox.setValue(regularChoice);
-            gameChoiceBox.setDisable(true);
+//            gameChoiceBox.setDisable(true);
             hostIP_input.setDisable(true);
             port_input.setDisable(true);
             connect_btn.setDisable(true);
@@ -88,6 +89,7 @@ public class LoginController extends Controller implements Initializable {
                     return;
                 }
                 String loginName = nameInput.getText();
+                System.out.println(gameChoiceBox.getValue());
                 gName = getGamename(gameChoiceBox.getValue());
 
                 command += loginName;
@@ -99,7 +101,7 @@ public class LoginController extends Controller implements Initializable {
         if (gamemode== 0 && !sc.showLastResponse().equals("OK")) {
             showTooltip(stage, loginBtn, "Cannot connect to the Server... \nPlease restart the application", null);
         } else {
-            if (gamemode == 0) sc.sendCommand("subscribe " + gName.substring(0, 1).toUpperCase() + gName.substring(1));
+            if (gamemode == 0) sc.sendCommand("subscribe " + gameChoiceBox.getValue());
 
 //            changeScene(event, "/framework/views/introScreen.fxml", new IntroScreenController(sc, this.getGamename(gameChoiceBox.getSelectionModel().getSelectedItem())));
             startGamemode(event, this.gamemode, aiON);
@@ -166,18 +168,18 @@ public class LoginController extends Controller implements Initializable {
     public void startGamemode(ActionEvent event, int gamemode, boolean aiON) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + gName + "/views/GameView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/framework/views/GameView.fxml"));
 
         try {
-            Class<?> Controllers = Class.forName(gName + ".controllers.GameController");
-            Constructor<?> cons = Controllers.getConstructor(ServerConnection.class, int.class, boolean.class);
+            Class<?> Controllers = Class.forName("framework.controllers.GameController");
+            Constructor<?> cons = Controllers.getConstructor(ServerConnection.class, int.class, boolean.class, String.class);
 
-            loader.setController(cons.newInstance(sc, gamemode, aiON));
+            loader.setController(cons.newInstance(sc, gamemode, aiON, gName));
 
             Parent root = (Parent) loader.load();
             Scene rScene = new Scene(root);
 
-            rScene.getStylesheets().add(getClass().getResource("/" + gName + "/styles/Style.css").toExternalForm());
+            rScene.getStylesheets().add(getClass().getResource("/framework/styles/Style.css").toExternalForm());
 
             stage.setScene(rScene);
             stage.show();

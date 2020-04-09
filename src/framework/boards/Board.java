@@ -1,4 +1,4 @@
-package reversi.boards;
+package framework.boards;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -8,9 +8,8 @@ import framework.server.ServerConnection;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import reversi.Settings;
-import reversi.cells.Cell;
-import reversi.games.Game;
+import framework.cells.Cell;
+import framework.games.Game;
 
 
 public class Board {
@@ -30,43 +29,44 @@ public class Board {
         this.sc = game.sc;
         this.currentGame = game;
         this.gameTable = gameTable;
-        this.grid = new Cell[Settings.TILESX][Settings.TILESY];
+        this.grid = new Cell[currentGame.settings.TILESX][currentGame.settings.TILESY];
 
         RowConstraints rowConstraints;
         ColumnConstraints colConstraints;
 
         // Maakt alle kolommen
-        for (int i = 0; i < Settings.TILESX; i++) {
-            if (gameTable.getColumnConstraints().size()<Settings.TILESX) {
+        for (int i = 0; i < currentGame.settings.TILESX; i++) {
+            if (gameTable.getColumnConstraints().size()< currentGame.settings.TILESX) {
                 colConstraints = new ColumnConstraints();
-                colConstraints.setMinWidth(40);
-                colConstraints.setMaxWidth(40);
+                colConstraints.setMinWidth(currentGame.settings.WIDTH);
+                colConstraints.setMaxWidth(currentGame.settings.WIDTH);
                 gameTable.getColumnConstraints().add(colConstraints);
             }
         }
 
         // Maakt alle rows
-        for (int i = 0; i < Settings.TILESY; i++) {
-            if (gameTable.getRowConstraints().size()<Settings.TILESY) {
+        for (int i = 0; i < currentGame.settings.TILESY; i++) {
+            if (gameTable.getRowConstraints().size()< currentGame.settings.TILESY) {
                 rowConstraints = new RowConstraints();
-                rowConstraints.setMinHeight(40);
-                rowConstraints.setMaxHeight(40);
+                rowConstraints.setMinHeight(currentGame.settings.HEIGHT);
+                rowConstraints.setMaxHeight(currentGame.settings.HEIGHT);
                 gameTable.getRowConstraints().add(rowConstraints);
             }
         }
 
         // Voegt een paneel in elke cell die klikbaar is
-        for (int x = 0; x < Settings.TILESX; x++) {
-            for (int y = 0; y < Settings.TILESY; y++) {
+        for (int x = 0; x < currentGame.settings.TILESX; x++) {
+            for (int y = 0; y < currentGame.settings.TILESY; y++) {
                 Point point = new Point(x, y);
                 grid[x][y] = new Cell(gameTable, point, null, this);
 
 
                 // Kijkt of het paneel een spawnpoint is en zet daar een pion neer
-                if (Settings.SPAWNPOINTS.containsKey(point)) {
-                    setMove(point, game.getPlayerById(Settings.SPAWNPOINTS.get(point)), false, true,false);
+                if (currentGame.settings.SPAWNPOINTS != null) {
+                    if (currentGame.settings.SPAWNPOINTS.containsKey(point)) {
+                        setMove(point, game.getPlayerById(currentGame.settings.SPAWNPOINTS.get(point)), false, true, false);
+                    }
                 }
-
             }
         }
 
@@ -75,16 +75,16 @@ public class Board {
 
     @SuppressWarnings("Duplicates")
     public boolean setMove(Point pos, Player player, boolean check, boolean begin, boolean toServer) {
-        if (pos.x < 0 || pos.y < 0 || pos.x >= Settings.TILESX || pos.y >= Settings.TILESY) {
+        if (pos.x < 0 || pos.y < 0 || pos.x >= currentGame.settings.TILESX || pos.y >= currentGame.settings.TILESY) {
             System.out.printf("position: [%d,%d] is outside the board!", pos.x, pos.y);
             return false;
         }
 
         if (check) {
-            return grid[pos.x][pos.y].putPiece(4,pos.x,pos.y,player,true);
+            return grid[pos.x][pos.y].putPiece(this,4,pos.x,pos.y,player,true);
 
         } else if (!check && !begin) {
-            boolean done = grid[pos.x][pos.y].putPiece(4,pos.x,pos.y,player,false);
+            boolean done = grid[pos.x][pos.y].putPiece(this,4,pos.x,pos.y,player,false);
             if (done){
                 if (toServer) sc.sendCommand("move "+getMoveParameter(pos.x,pos.y));
                 return done;
@@ -102,7 +102,7 @@ public class Board {
 
 
     public int getMoveParameter(int colIndex, int rowIndex) {
-        return rowIndex * Settings.TILESY + colIndex;
+        return rowIndex * currentGame.settings.TILESY + colIndex;
     }
 
 }

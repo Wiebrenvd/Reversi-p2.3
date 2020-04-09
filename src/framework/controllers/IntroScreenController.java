@@ -1,16 +1,9 @@
 package framework.controllers;
 
-import java.lang.reflect.Constructor;
-
 import framework.server.ServerConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import reversi.Settings;
+import framework.settings.ReversiSettings;
 
 public class IntroScreenController extends Controller {
 
@@ -27,20 +20,20 @@ public class IntroScreenController extends Controller {
 
     @FXML
     public void playMultiplayer(ActionEvent event) {
-        Controller controller = new LoginController(sc,Settings.MULTIPLAYER);
+        Controller controller = new LoginController(sc, ReversiSettings.MULTIPLAYER);
         changeScene(event,"/framework/views/login.fxml", controller);
     }
 
 
     @FXML
     public void playEasyMode(ActionEvent event) {
-        Controller controller = new LoginController(sc,Settings.EASY);
+        Controller controller = new LoginController(sc, ReversiSettings.EASY);
         changeScene(event,"/framework/views/login.fxml", controller);
     }
 
     @FXML
     public void playHardMode(ActionEvent event) {
-        Controller controller = new LoginController(sc,Settings.HARD);
+        Controller controller = new LoginController(sc, ReversiSettings.HARD);
         changeScene(event,"/framework/views/login.fxml", controller);
     }
 

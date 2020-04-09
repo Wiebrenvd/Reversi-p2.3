@@ -1,18 +1,18 @@
-package reversi.cells;
+package framework.cells;
 
 import java.awt.Point;
 
 import framework.actors.Player;
 import framework.server.ServerConnection;
-import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import reversi.Settings;
-import reversi.boards.Board;
-import reversi.players.OnlinePlayer;
+import framework.games.Game;
+import framework.settings.ReversiSettings;
+import framework.boards.Board;
+import framework.players.OnlinePlayer;
 
 public class Cell {
 
@@ -22,24 +22,26 @@ public class Cell {
     private StackPane clickablePane;
     private ServerConnection sc;
     private Board board;
+    private Game currentGame;
 
     public Cell(GridPane gameTable, Point point, Player player, Board board) {
         this.player = player;
         this.point = point;
         this.board = board;
         this.sc = board.sc;
+        this.currentGame = board.currentGame;
 
         this.clickablePane = new StackPane();
         this.clickablePane.setAlignment(Pos.CENTER);
         this.clickablePane.setOnMouseClicked(e -> {
             int x = (int) point.getX();
             int y = (int) point.getY();
-//            System.out.printf("Mouse clicked cell [%d, %d]%n", x, y);
+            System.out.printf("Mouse clicked cell [%d, %d]%n", x, y);
 
-            if (board.players.get(0).isPlayersTurn() && putPiece(4,x,y,board.players.get(0),true)) {
+            if (board.players.get(0).isPlayersTurn() && putPiece(this.board,4,x,y,board.players.get(0),true)) {
                 boolean online = board.players.get(1) instanceof OnlinePlayer;
                 if (online) sc.sendCommand("move "+ getMoveParameter(x, y));
-                if (putPiece(4,x,y,board.players.get(0),false)){
+                if (putPiece(this.board,4,x,y,board.players.get(0),false)){
                     board.players.get(0).setPlayersTurn(false);
                     board.players.get(1).setPlayersTurn(true);
                 }
@@ -52,7 +54,7 @@ public class Cell {
     }
 
     public int getMoveParameter(int colIndex, int rowIndex) {
-        return rowIndex * Settings.TILESY + colIndex;
+        return rowIndex * ReversiSettings.TILESY + colIndex;
     }
 
 
@@ -75,7 +77,7 @@ public class Cell {
      * @param player Player, the circle takes the color of this player.
      */
     public void addCircle(Player player) {
-        Circle circle = new Circle(0, 0, 12);
+        Circle circle = new Circle(0, 0, ((currentGame.settings.HEIGHT/2)-3));
 
         circle.setFill(player.getColor());
         circle.setStroke(Color.BLACK);
@@ -101,42 +103,8 @@ public class Cell {
      *
      * @return true if cell is possible to click
      */
-    public boolean putPiece(int direction, int x, int y, Player getter, boolean check){
-        if (board.grid[x][y].getPlayer()!= null && direction==4) return false;
-        if (!check) setPlayer(getter);
-        int counter = 0;
-        boolean changable = false;
-        for (int s = y-1; s < y+2; s++){
-            for (int z = x-1; z < x+2; z++){
-                if (s >= 0 && z >= 0 && s < Settings.TILESX && z < Settings.TILESY && counter != 4) {
-                    Player tmpPlayer = board.grid[z][s].getPlayer();
-                    Cell tmpCell = board.grid[z][s];
-                    if (direction==4 && tmpPlayer != null){
-                        if (!tmpPlayer.equals(getter) && putPiece(counter,z,s,getter,true)){
-                            changable = true;
-                            if (!check) {
-                                tmpCell.setPlayer(getter);
-                                putPiece(counter,z,s,getter,false);
-                            }
-                        }
-                    } else if (counter==direction && tmpPlayer != null){
-                        if (tmpPlayer.equals(getter)){
-                            return true;
-                        } else{
-                            if (check) return putPiece(counter,z,s,getter,true);
-                            else {
-                                tmpCell.setPlayer(getter);
-                                putPiece(counter,z,s,getter,false);
-                            }
-                        }
-                    }
-                }
-                counter++;
-            }
-        }
-//        if (!changable) System.out.println("Move "+direction+" Not Available!");
-//        else System.out.println("Move "+direction+" is Available!");
-        return changable;
+    public boolean putPiece(Board board, int direction, int x, int y, Player getter, boolean check){
+        return currentGame.settings.putPiece(this,board,direction,x,y,getter,check);
     }
 
     /**

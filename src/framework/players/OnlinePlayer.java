@@ -1,10 +1,8 @@
-package reversi.players;
+package framework.players;
 
 import framework.actors.Player;
 import framework.server.ServerConnection;
-import javafx.application.Platform;
-import javafx.scene.paint.Color;
-import reversi.Settings;
+import framework.settings.ReversiSettings;
 
 import java.awt.*;
 import java.util.Map;
@@ -69,8 +67,8 @@ public class OnlinePlayer extends Player {
      * @return [X, Y] coordinations
      */
     public int[] getMoveParameterEnemy(int move) {
-        int rowIndex = (int) move / Settings.TILESY;
-        int colIndex = move % Settings.TILESX;
+        int rowIndex = (int) move / ReversiSettings.TILESY;
+        int colIndex = move % ReversiSettings.TILESX;
         int[] output = {colIndex, rowIndex};
         return output;
     }

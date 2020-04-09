@@ -1,4 +1,4 @@
-package reversi.players;
+package framework.players;
 
 import framework.actors.Player;
 
@@ -58,6 +58,8 @@ public class HardAIPlayer extends Player {
     }
 
     public Point getBestMove(ArrayList<Point> arr){
+        System.out.println("Begin "+arr.size());
+        ArrayList<Point> tmpArr = arr;
         if (arr.size()==1) return arr.get(0);
         for (Point p : firstmoves){
             for (Point point : arr){
@@ -69,10 +71,16 @@ public class HardAIPlayer extends Player {
                 if (point.equals(p)) return point;
             }
         }
-        ArrayList<Point> tmpArr = arr;
-        tmpArr.removeAll(badMoves);
-        if (tmpArr.size()<1) tmpArr = arr;
-        int random = new Random().nextInt(tmpArr.size());
+        arr.removeAll(badMoves);
+        System.out.println("Midden arr "+ arr.size());
+        System.out.println("Midden tmparr "+ arr.size());
+
+        int size = 1;
+        if (arr.size()<1) size = tmpArr.size();
+        else size = arr.size();
+
+        System.out.println("Einde "+size);
+        int random = new Random().nextInt(size);
 
         return tmpArr.get(random);
     }

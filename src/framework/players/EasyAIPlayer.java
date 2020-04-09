@@ -1,4 +1,4 @@
-package reversi.players;
+package framework.players;
 
 import framework.actors.Player;
 
@@ -20,6 +20,7 @@ public class EasyAIPlayer extends Player {
         try {
             Thread.sleep(300);
             if (counter == delay && playersTurn && possibleMoves != null && possibleMoves.size()>0){
+                System.out.println(possibleMoves.toString());
                 int move = new Random().nextInt(possibleMoves.size());
                 output = possibleMoves.get(move);
                 counter = 0;

@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane fx:id="gameTable" gridLinesVisible="true" layoutX="25.0" layoutY="103.0" prefHeight="243.0" prefWidth="320.0">
+    <GridPane fx:id="gameTable" gridLinesVisible="true" layoutX="25.0" layoutY="103.0" prefHeight="155.0" prefWidth="178.0">
 
     </GridPane>
     <Label fx:id="title" layoutX="33.0" layoutY="22.0" text="Reversi ☺☻">

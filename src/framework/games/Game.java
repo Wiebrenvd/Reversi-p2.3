@@ -1,22 +1,19 @@
-package reversi.games;
+package framework.games;
 
 import framework.GameTimer;
 import framework.actors.Player;
 import framework.server.ServerConnection;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import reversi.Settings;
-import reversi.boards.Board;
-import reversi.cells.Cell;
-import reversi.controllers.GameController;
-import reversi.players.HardAIPlayer;
-import reversi.players.OfflinePlayer;
-import reversi.players.OnlinePlayer;
-import reversi.players.EasyAIPlayer;
+import framework.boards.Board;
+import framework.cells.Cell;
+import framework.controllers.GameController;
+import framework.players.HardAIPlayer;
+import framework.players.OnlinePlayer;
+import framework.players.EasyAIPlayer;
+import framework.settings.Settings;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
@@ -31,11 +28,14 @@ public class Game implements Runnable {
     private boolean startGame;
     public Player user;
     private Player opp;
-    public boolean doingTurn;
+    public boolean gameStarted;
     public Point tmpPoint;
-
+    public Settings settings;
 
     private HashMap<Player,ArrayList<Point>> possibleMoves;
+
+    private HashMap<Point,Integer> possMovesUser;
+    private HashMap<Point,Integer> possMovesOpp;
 
     private Board board;
     private String[] endAnswers = {"GAME WIN", "GAME LOSS", "GAME DRAW", "ERR NOT"};
@@ -43,15 +43,19 @@ public class Game implements Runnable {
 
     private boolean running;
 
+    int scoreP1 = 0;
+    int scoreP2 = 0;
+
     public Game(GameController gc, ServerConnection sc, Player user, Player opp) {
         this.gc = gc;
+        this.settings = gc.settings;
         this.startGame = false;
+        this.gameStarted = false;
         this.sc = sc;
         this.possibleMoves = new HashMap<>();
         this.running = true;
         this.user = user;
         this.opp = opp;
-        this.doingTurn = false;
     }
 
     @Override
@@ -70,6 +74,7 @@ public class Game implements Runnable {
                         showPlayerScore();
                     }catch (NullPointerException e){
                         System.out.println("Can't read score..");
+//                        e.printStackTrace();
                     }
                     checkForFinish();
                 }
@@ -87,20 +92,20 @@ public class Game implements Runnable {
     private void createPlayers() {
         if (opp.getName().length()>0){
             if (!opp.isPlayersTurn()) {
-                user.setId(Settings.PLAYER1);
-                user.setColor(Settings.PLAYER1COLOR);
-                opp.setId(Settings.PLAYER2);
-                opp.setColor(Settings.PLAYER2COLOR);
+                user.setId(settings.PLAYER1);
+                user.setColor(settings.PLAYER1COLOR);
+                opp.setId(settings.PLAYER2);
+                opp.setColor(settings.PLAYER2COLOR);
                 Platform.runLater(() -> {
                     gc.getLblPlayer1().setText(user.getName());
                     gc.getLblPlayer2().setText(opp.getName());
                 });
                 setTurnToUser(true);
             } else {
-                user.setId(Settings.PLAYER2);
-                user.setColor(Settings.PLAYER2COLOR);
-                opp.setId(Settings.PLAYER1);
-                opp.setColor(Settings.PLAYER1COLOR);
+                user.setId(settings.PLAYER2);
+                user.setColor(settings.PLAYER2COLOR);
+                opp.setId(settings.PLAYER1);
+                opp.setColor(settings.PLAYER1COLOR);
                 Platform.runLater(() -> {
                     gc.getLblPlayer1().setText(opp.getName());
                     gc.getLblPlayer2().setText(user.getName());
@@ -151,8 +156,8 @@ public class Game implements Runnable {
      */
     @FXML
     public void showPlayerScore() throws NullPointerException {
-        int scoreP1 = 0;
-        int scoreP2 = 0;
+        scoreP1 = 0;
+        scoreP2 = 0;
         Cell[][] grid = board.grid;
         ArrayList<Point> movesUser = new ArrayList<>();
         ArrayList<Point> movesOpp = new ArrayList<>();
@@ -173,6 +178,11 @@ public class Game implements Runnable {
             }
         }
 
+        possMovesUser = settings.checkForMoves(user,board);
+        possMovesOpp = settings.checkForMoves(opp,board);
+
+        gameStarted = true;
+
         if (user.isPlayersTurn() && movesUser.size() == 0) setTurnToUser(false);
         if (opp.isPlayersTurn() && movesOpp.size() == 0) setTurnToUser(true);
 
@@ -181,17 +191,11 @@ public class Game implements Runnable {
 
         int finalScoreP2 = scoreP2;
         int finalScoreP1 = scoreP1;
-        Platform.runLater(() -> {
-            gc.scorep1.setText(String.valueOf(finalScoreP1));
-            gc.scorep2.setText(String.valueOf(finalScoreP2));
-        });
-        if ((scoreP1+scoreP2)==64) {
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            endGame();
+        if (settings.showScore){
+            Platform.runLater(() -> {
+                gc.scorep1.setText(String.valueOf(finalScoreP1));
+                gc.scorep2.setText(String.valueOf(finalScoreP2));
+            });
         }
     }
 
@@ -200,19 +204,25 @@ public class Game implements Runnable {
      * If there is a "MOVE" response from server, it will do the move in the GUI.
      */
     private void updateGame() {
+        System.out.println("Hallo");
         Player playerSetMove;
 
         if (tmpPoint!= null) return;
 
         if (user.isPlayersTurn()){
             playerSetMove = user;
-            if (user instanceof HardAIPlayer) user.setPossibleMoves(possibleMoves.get(user));
+            if (user instanceof HardAIPlayer) {
+                user.setPossibleMoves(possibleMoves.get(user));
+                user.setPossibleMoveGain(possMovesUser);
+            }
             tmpPoint = user.doMove();
         }
         else {
             playerSetMove = opp;
-            if (opp instanceof EasyAIPlayer) opp.setPossibleMoves(possibleMoves.get(opp));
-            if (opp instanceof HardAIPlayer) opp.setPossibleMoves(possibleMoves.get(opp));
+            if ((opp instanceof EasyAIPlayer) || (opp instanceof HardAIPlayer)) {
+                opp.setPossibleMoves(possibleMoves.get(opp));
+                opp.setPossibleMoveGain(possMovesOpp);
+            }
             tmpPoint = opp.doMove();
         }
 
@@ -234,6 +244,16 @@ public class Game implements Runnable {
      * This method will check if the server had finished a game.
      */
     public void checkForFinish() {
+
+        if (possMovesOpp == null && possMovesUser == null && gameStarted) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            endGame();
+        }
+
         if (opp instanceof OnlinePlayer) {
             String endResponse = sc.lastRespContains("SVR GAME");
             for (String end : endAnswers) {
@@ -269,11 +289,9 @@ public class Game implements Runnable {
         board = null;
         Platform.runLater(() -> {
             gc.gameTable.getChildren().removeIf(node -> node instanceof StackPane);
-//            gc.gameTable = null;
-//            gc.gameTable = new GridPane();
-            gc.setStatus("Status: Searching Opponent...");
-            gc.getLblPlayer1().setText("ReversiPlayer ONE");
-            gc.getLblPlayer2().setText("ReversiPlayer TWO");
+            gc.setStatus("Status: Spel is geëindigd");
+            gc.getLblPlayer1().setText("Speler Één");
+            gc.getLblPlayer2().setText("Speler Twee");
             gc.scorep1.setText("0");
             gc.scorep2.setText("0");
             gc.btnForfeit.setText("Zoek Nieuw Spel");
@@ -300,8 +318,8 @@ public class Game implements Runnable {
      * This method start the scores of the players
      */
     public void startGameScore(){
-        gc.scorep1.setText("2");
-        gc.scorep2.setText("2");
+        gc.scorep1.setText("0");
+        gc.scorep2.setText("0");
     }
 
     // Overbodig als arraylist Players een hashmap wordt.
