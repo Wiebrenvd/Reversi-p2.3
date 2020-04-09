@@ -18,9 +18,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-//import framework.controllers.GameController;
-
-
 public class LoginController extends Controller implements Initializable {
 
     ServerConnection sc;
@@ -171,10 +168,9 @@ public class LoginController extends Controller implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/framework/views/GameView.fxml"));
 
         try {
-            Class<?> Controllers = Class.forName("framework.controllers.GameController");
-            Constructor<?> cons = Controllers.getConstructor(ServerConnection.class, int.class, boolean.class, String.class);
+            GameController gameController = new GameController(sc, gamemode, aiON, gName);
 
-            loader.setController(cons.newInstance(sc, gamemode, aiON, gName));
+            loader.setController(gameController);
 
             Parent root = (Parent) loader.load();
             Scene rScene = new Scene(root);
