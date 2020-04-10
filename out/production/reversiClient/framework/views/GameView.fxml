@@ -57,7 +57,7 @@
    </Label>
    <Separator layoutY="69.0" prefHeight="0.0" prefWidth="600.0" />
    <Separator layoutX="355.0" layoutY="69.0" orientation="VERTICAL" prefHeight="380.0" prefWidth="2.0" />
-   <Button fx:id="btnForfeit" layoutX="426.0" layoutY="369.0" mnemonicParsing="false" onAction="#forfeitGame" text="Forfeit Game" />
+   <Button fx:id="btnForfeit" layoutX="426.0" layoutY="369.0" mnemonicParsing="false" onAction="#forfeitGame" text="Eindig Spel" />
     <stylesheets>
         <URL value="@../styles/Style.css" />
     </stylesheets>

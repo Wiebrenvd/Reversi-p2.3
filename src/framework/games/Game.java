@@ -66,16 +66,16 @@ public class Game implements Runnable {
                     createPlayers();
                 } else {
                     Platform.runLater(() -> {
-                        gc.setStatus("Status: In Game( "+gameTimer.getGameTime()+" ) Against "+opp.getName());
+                        gc.setStatus("Status: In Game( "+gameTimer.getGameTime()+" ) Tegen "+opp.getName());
                     });
-                    showPlayerTurn();
-                    updateGame();
                     try {
                         showPlayerScore();
                     }catch (NullPointerException e){
                         System.out.println("Can't read score..");
 //                        e.printStackTrace();
                     }
+                    showPlayerTurn();
+                    updateGame();
                     checkForFinish();
                 }
             } catch (Exception e) {
@@ -120,6 +120,7 @@ public class Game implements Runnable {
 
             Platform.runLater(() -> {
                 this.board = new Board(gc.gameTable, this, players);
+                gc.btnForfeit.setText("Eindig Spel");
                 startTimer();
             });
 
@@ -179,7 +180,10 @@ public class Game implements Runnable {
         }
 
         possMovesUser = settings.checkForMoves(user,board);
+        System.out.println("--------------------------Moves User----------------------------\n"+possMovesUser.toString());
         possMovesOpp = settings.checkForMoves(opp,board);
+        System.out.println("--------------------------Moves Opp----------------------------\n"+possMovesOpp.toString());
+
 
         gameStarted = true;
 
@@ -204,7 +208,6 @@ public class Game implements Runnable {
      * If there is a "MOVE" response from server, it will do the move in the GUI.
      */
     private void updateGame() {
-        System.out.println("Hallo");
         Player playerSetMove;
 
         if (tmpPoint!= null) return;
@@ -251,13 +254,19 @@ public class Game implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            System.out.println("Door geen Moves");
             endGame();
         }
 
         if (opp instanceof OnlinePlayer) {
             String endResponse = sc.lastRespContains("SVR GAME");
-            for (String end : endAnswers) {
-                if (endResponse.contains(end)) endGame();
+            if (endResponse!=null) {
+                for (String end : endAnswers) {
+                    if (endResponse.contains(end)) {
+                        endGame();
+                        gc.startGame();
+                    }
+                }
             }
         }
     }

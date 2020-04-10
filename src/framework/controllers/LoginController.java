@@ -98,7 +98,7 @@ public class LoginController extends Controller implements Initializable {
         if (gamemode== 0 && !sc.showLastResponse().equals("OK")) {
             showTooltip(stage, loginBtn, "Cannot connect to the Server... \nPlease restart the application", null);
         } else {
-            if (gamemode == 0) sc.sendCommand("subscribe " + gameChoiceBox.getValue());
+//            if (gamemode == 0) sc.sendCommand("subscribe " + gameChoiceBox.getValue());
 
 //            changeScene(event, "/framework/views/introScreen.fxml", new IntroScreenController(sc, this.getGamename(gameChoiceBox.getSelectionModel().getSelectedItem())));
             startGamemode(event, this.gamemode, aiON);

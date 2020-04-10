@@ -45,6 +45,7 @@ public class GameController extends Controller implements Initializable {
     private ServerConnection sc;
     private final int gamemode;
     private Game game;
+    private Thread gameThread;
     private Player opp;
     private Player user;
 
@@ -52,6 +53,7 @@ public class GameController extends Controller implements Initializable {
 
 
     public GameController(ServerConnection sc, int gamemode, boolean aiOn, String gameName){
+
         this.sc = sc;
         this.gamemode = gamemode;
         this.game = null;
@@ -70,7 +72,8 @@ public class GameController extends Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        AIGame aiGame = null;
-        startGame();
+            startGame();
+
     }
 
 
@@ -98,7 +101,8 @@ public class GameController extends Controller implements Initializable {
         }
 
         this.game = new Game(this, sc, user, opp);
-        new Thread(this.game).start();
+        gameThread = new Thread(this.game);
+        gameThread.start();
     }
 
     @FXML
