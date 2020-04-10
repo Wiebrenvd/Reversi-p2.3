@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import framework.settings.Settings;
 import framework.server.ServerConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +21,6 @@ import javafx.stage.Stage;
 
 public class LoginController extends Controller implements Initializable {
 
-    ServerConnection sc;
 
     @FXML
     private Button loginBtn, connect_btn;
@@ -39,10 +39,11 @@ public class LoginController extends Controller implements Initializable {
 
     private int gamemode;
     private String gName;
+    private String gameName;
 
     public LoginController(ServerConnection sc, int gamemode) {
+        super(sc);
         this.gamemode = gamemode;
-        this.sc = sc;
     }
 
     @Override
@@ -85,9 +86,13 @@ public class LoginController extends Controller implements Initializable {
                     showTooltip(stage, loginBtn, "Please select a game!", null);
                     return;
                 }
-                String loginName = nameInput.getText();
-                System.out.println(gameChoiceBox.getValue());
+                String loginName = nameInput.getText().replaceAll("^\"|\"$", "");;
+                gameName = getGamename(gameChoiceBox.getValue());
                 gName = getGamename(gameChoiceBox.getValue());
+
+                Settings.PLAYERNAME = loginName;
+                Settings.GAMENAME = gameName;
+
 
                 command += loginName;
                 sc.setLoginName(loginName);
@@ -97,11 +102,10 @@ public class LoginController extends Controller implements Initializable {
 
         if (gamemode== 0 && !sc.showLastResponse().equals("OK")) {
             showTooltip(stage, loginBtn, "Cannot connect to the Server... \nPlease restart the application", null);
-        } else {
-//            if (gamemode == 0) sc.sendCommand("subscribe " + gameChoiceBox.getValue());
 
-//            changeScene(event, "/framework/views/introScreen.fxml", new IntroScreenController(sc, this.getGamename(gameChoiceBox.getSelectionModel().getSelectedItem())));
-            startGamemode(event, this.gamemode, aiON);
+        } else {
+            if (gamemode == 0) changeScene(event, "/framework/views/lobby.fxml", new LobbyController(sc, aiON));
+            else startGamemode(event, this.gamemode, aiON);
         }
     }
 
@@ -168,8 +172,9 @@ public class LoginController extends Controller implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/framework/views/GameView.fxml"));
 
         try {
-            GameController gameController = new GameController(sc, gamemode, aiON, gName);
-
+            System.out.println(gamemode);
+            GameController gameController = new GameController(this.sc, gamemode, aiON, gName);
+            System.out.println(sc.getLoginName());
             loader.setController(gameController);
 
             Parent root = (Parent) loader.load();

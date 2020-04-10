@@ -1,6 +1,7 @@
 package framework.controllers;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 
 import framework.server.ServerConnection;
 import javafx.application.Platform;
@@ -12,6 +13,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Controller {
+
+    public ServerConnection sc;
+
+
+    public Controller(ServerConnection sc) {
+        this.sc = sc;
+
+    }
+
+
 
     protected void changeScene(ActionEvent event, String fxmlPath) {
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
@@ -38,6 +49,53 @@ public class Controller {
         }
     }
 
+    @SuppressWarnings("Duplicates")
+    public void startGame(ActionEvent event, int gamemode, String gameName, boolean aiON) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/framework/views/GameView.fxml"));
+
+        try {
+            Class<?> Controllers = Class.forName("framework.controllers.GameController");
+            Constructor<?> cons = Controllers.getConstructor(ServerConnection.class, int.class, boolean.class);
+
+            loader.setController(cons.newInstance(sc, gamemode, aiON));
+
+            Parent root = (Parent) loader.load();
+            Scene rScene = new Scene(root);
+
+            rScene.getStylesheets().add(getClass().getResource("/framework/styles/Style.css").toExternalForm());
+
+            stage.setScene(rScene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("Duplicates")
+    public void startGame(Stage stage, int gamemode, String gameName, boolean aiON) {
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/framework/views/GameView.fxml"));
+
+        try {
+            Class<?> Controllers = Class.forName("framework.controllers.GameController");
+            Constructor<?> cons = Controllers.getConstructor(ServerConnection.class, int.class, boolean.class, String.class);
+
+            loader.setController(cons.newInstance(sc, gamemode, aiON, gameName));
+
+            Parent root = (Parent) loader.load();
+            Scene rScene = new Scene(root);
+
+            rScene.getStylesheets().add(getClass().getResource("/framework/styles/Style.css").toExternalForm());
+
+            stage.setScene(rScene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

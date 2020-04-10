@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -23,6 +24,7 @@ import framework.players.OfflinePlayer;
 import framework.players.OnlinePlayer;
 import framework.settings.Settings;
 import framework.settings.TicTacToeSettings;
+import javafx.stage.Stage;
 
 public class GameController extends Controller implements Initializable {
     @FXML
@@ -38,11 +40,11 @@ public class GameController extends Controller implements Initializable {
     public Label lblStatus;
 
     @FXML
-    public Button btnForfeit;
+    public Button btnForfeit, btn_lobby;
 
     public Settings settings;
 
-    private ServerConnection sc;
+//    private ServerConnection sc;
     private final int gamemode;
     private Game game;
     private Thread gameThread;
@@ -53,8 +55,7 @@ public class GameController extends Controller implements Initializable {
 
 
     public GameController(ServerConnection sc, int gamemode, boolean aiOn, String gameName){
-
-        this.sc = sc;
+        super(sc);
         this.gamemode = gamemode;
         this.game = null;
         this.setThisAI = aiOn;
@@ -69,10 +70,18 @@ public class GameController extends Controller implements Initializable {
     }
 
 
+    @FXML
+    void goLobby(ActionEvent event) {
+        if (game != null) game.endGame();
+        changeScene(event, "/framework/views/lobby.fxml", new LobbyController(sc, setThisAI));
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        AIGame aiGame = null;
-            startGame();
+        if (gamemode!=0) btn_lobby.setDisable(true);
+
+        startGame();
 
     }
 

@@ -72,7 +72,7 @@ public class Game implements Runnable {
                         showPlayerScore();
                     }catch (NullPointerException e){
                         System.out.println("Can't read score..");
-//                        e.printStackTrace();
+                        e.printStackTrace();
                     }
                     showPlayerTurn();
                     updateGame();
@@ -180,9 +180,9 @@ public class Game implements Runnable {
         }
 
         possMovesUser = settings.checkForMoves(user,board);
-        System.out.println("--------------------------Moves User----------------------------\n"+possMovesUser.toString());
+//        System.out.println("--------------------------Moves User----------------------------\n"+possMovesUser.toString());
         possMovesOpp = settings.checkForMoves(opp,board);
-        System.out.println("--------------------------Moves Opp----------------------------\n"+possMovesOpp.toString());
+//        System.out.println("--------------------------Moves Opp----------------------------\n"+possMovesOpp.toString());
 
 
         gameStarted = true;

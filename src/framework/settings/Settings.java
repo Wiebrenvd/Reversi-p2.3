@@ -28,6 +28,9 @@ public abstract class Settings {
     public static int WIDTH;
     public static int HEIGHT;
 
+    public static String PLAYERNAME = "default";
+    public static String GAMENAME = "default";
+
     public boolean showScore = true;
 
     public static HashMap<Point, Integer> SPAWNPOINTS;

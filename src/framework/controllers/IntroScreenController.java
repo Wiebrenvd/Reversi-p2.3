@@ -7,10 +7,9 @@ import framework.settings.ReversiSettings;
 
 public class IntroScreenController extends Controller {
 
-    private ServerConnection sc;
 
     public IntroScreenController(ServerConnection sc) {
-        this.sc = sc;
+        super(sc);
     }
 
     @FXML
