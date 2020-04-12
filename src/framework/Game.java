@@ -1,4 +1,4 @@
-package framework.games;
+package framework;
 
 import framework.GameTimer;
 import framework.actors.Player;
@@ -68,14 +68,14 @@ public class Game implements Runnable {
                     Platform.runLater(() -> {
                         gc.setStatus("Status: In Game( "+gameTimer.getGameTime()+" ) Tegen "+opp.getName());
                     });
+                    updateGame();
                     try {
                         showPlayerScore();
                     }catch (NullPointerException e){
                         System.out.println("Can't read score..");
-                        e.printStackTrace();
+//                        e.printStackTrace();
                     }
                     showPlayerTurn();
-                    updateGame();
                     checkForFinish();
                 }
             } catch (Exception e) {

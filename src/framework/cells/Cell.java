@@ -9,8 +9,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import framework.games.Game;
-import framework.settings.ReversiSettings;
+import framework.Game;
+import reversi.GameSettings;
 import framework.boards.Board;
 import framework.players.OnlinePlayer;
 
@@ -54,7 +54,7 @@ public class Cell {
     }
 
     public int getMoveParameter(int colIndex, int rowIndex) {
-        return rowIndex * ReversiSettings.TILESY + colIndex;
+        return rowIndex * GameSettings.TILESY + colIndex;
     }
 
 

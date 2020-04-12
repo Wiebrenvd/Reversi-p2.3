@@ -6,7 +6,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -15,16 +14,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-import framework.settings.ReversiSettings;
 //import framework.games.AIGame;
-import framework.games.Game;
+import framework.Game;
 import framework.players.EasyAIPlayer;
 import framework.players.HardAIPlayer;
 import framework.players.OfflinePlayer;
 import framework.players.OnlinePlayer;
 import framework.settings.Settings;
-import framework.settings.TicTacToeSettings;
-import javafx.stage.Stage;
+import tictactoe.GameSettings;
 
 public class GameController extends Controller implements Initializable {
     @FXML
@@ -55,10 +52,14 @@ public class GameController extends Controller implements Initializable {
         this.gamemode = gamemode;
         this.game = null;
         this.setThisAI = aiOn;
-        if (gameName.equals("reversi")) {
-            this.settings = new ReversiSettings();
-        }else if (gameName.equals("tictactoe")){
-            this.settings = new TicTacToeSettings();
+        try {
+            this.settings = (Settings) Class.forName(gameName+".GameSettings").newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
     }
@@ -90,13 +91,13 @@ public class GameController extends Controller implements Initializable {
             user = new OfflinePlayer(sc.getLoginName());
         }
         switch (gamemode) {
-            case ReversiSettings.MULTIPLAYER:
+            case Settings.MULTIPLAYER:
                 opp = new OnlinePlayer(sc);
                 break;
-            case ReversiSettings.EASY:
+            case Settings.EASY:
                 opp = new EasyAIPlayer("Makkelijke Computer");
                 break;
-            case ReversiSettings.HARD:
+            case Settings.HARD:
                 opp = new HardAIPlayer("Moeilijke Computer");
                 break;
         }

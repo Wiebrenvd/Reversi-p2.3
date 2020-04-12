@@ -2,7 +2,7 @@ package framework.players;
 
 import framework.actors.Player;
 import framework.server.ServerConnection;
-import framework.settings.ReversiSettings;
+import reversi.GameSettings;
 
 import java.awt.*;
 import java.util.Map;
@@ -67,8 +67,8 @@ public class OnlinePlayer extends Player {
      * @return [X, Y] coordinations
      */
     public int[] getMoveParameterEnemy(int move) {
-        int rowIndex = (int) move / ReversiSettings.TILESY;
-        int colIndex = move % ReversiSettings.TILESX;
+        int rowIndex = (int) move / GameSettings.TILESY;
+        int colIndex = move % GameSettings.TILESX;
         int[] output = {colIndex, rowIndex};
         return output;
     }

@@ -3,6 +3,23 @@
   <component name="ChangeListManager">
     <list default="true" id="b8c52b1d-e29c-4540-9af5-c08da056177e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/reversiClient/framework/boards/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/reversiClient/framework/boards/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/reversiClient/framework/cells/Cell.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/reversiClient/framework/cells/Cell.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/reversiClient/framework/controllers/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/reversiClient/framework/controllers/GameController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/reversiClient/framework/controllers/IntroScreenController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/reversiClient/framework/controllers/IntroScreenController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/reversiClient/framework/games/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/reversiClient/framework/players/OnlinePlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/reversiClient/framework/players/OnlinePlayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/reversiClient/framework/settings/ReversiSettings$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/reversiClient/framework/settings/ReversiSettings.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/reversiClient/framework/settings/TicTacToeSettings.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/framework/boards/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/framework/boards/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/framework/cells/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/framework/cells/Cell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/framework/controllers/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/framework/controllers/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/framework/controllers/IntroScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/framework/controllers/IntroScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/framework/games/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/framework/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/framework/players/OnlinePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/framework/players/OnlinePlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/framework/settings/ReversiSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/reversi/GameSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/framework/settings/TicTacToeSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tictactoe/GameSettings.java" afterDir="false" />
     </list>
     <ignored path="C:\Users\Brouwnie\Documents\GitHub\Reversi-p2.3-Wiebren\.idea\shelf/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,8 +33,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/framework/controllers/LoginController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1496">
-              <caret line="104" selection-start-line="104" selection-end-line="104" />
+            <state relative-caret-position="322">
+              <caret line="183" selection-start-line="183" selection-end-line="183" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tictactoe/GameSettings.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -26,23 +52,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/framework/server/ServerConnection.java">
+        <entry file="file://$PROJECT_DIR$/src/framework/settings/Settings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="731">
-              <caret line="51" selection-start-line="51" selection-end-line="51" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1320#1321#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="374">
+              <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/framework/settings/TicTacToeSettings.java">
+        <entry file="file://$PROJECT_DIR$/src/framework/controllers/IntroScreenController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1326">
-              <caret line="84" column="14" selection-start-line="84" selection-start-column="14" selection-end-line="84" selection-end-column="14" />
+            <state relative-caret-position="100">
+              <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -72,34 +94,31 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/framework/games/Game.java">
+        <entry file="file://$PROJECT_DIR$/src/framework/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2873">
-              <caret line="184" column="107" selection-start-line="184" selection-start-column="107" selection-end-line="184" selection-end-column="107" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/framework/settings/ReversiSettings.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-52">
-              <caret line="88" column="29" selection-start-line="88" selection-start-column="29" selection-end-line="88" selection-end-column="29" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="1738">
+              <caret line="161" selection-start-line="161" selection-end-line="161" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/framework/controllers/GameController.java">
+        <entry file="file://$PROJECT_DIR$/src/reversi/GameSettings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="918">
-              <caret line="76" column="94" selection-start-line="76" selection-start-column="94" selection-end-line="76" selection-end-column="94" />
+            <state relative-caret-position="152">
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/framework/controllers/GameController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="799">
+              <caret line="68" column="30" lean-forward="true" selection-start-line="68" selection-start-column="30" selection-end-line="68" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -108,20 +127,6 @@
         <entry file="file://$PROJECT_DIR$/src/framework/views/GameView.fxml">
           <provider selected="true" editor-type-id="text-editor" />
           <provider editor-type-id="JavaFX-Scene-Builder" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/framework/server/InputListener.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="42" selection-start-line="42" selection-end-line="42" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1491#1492#0" expanded="true" />
-                <element signature="e#1529#1530#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
         </entry>
       </file>
     </leaf>
@@ -187,11 +192,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/framework/Settings.java" />
-        <option value="$PROJECT_DIR$/src/framework/controllers/GamemodeController.java" />
-        <option value="$PROJECT_DIR$/src/framework/ReversiPlayer.java" />
-        <option value="$PROJECT_DIR$/src/framework/ReversiActor.java" />
-        <option value="$PROJECT_DIR$/src/framework/Player.java" />
         <option value="$PROJECT_DIR$/src/framework/AIPlayer.java" />
         <option value="$PROJECT_DIR$/src/framework/actors/AIPlayer.java" />
         <option value="$PROJECT_DIR$/src/reversi/games/SingleplayerGame.java" />
@@ -235,9 +235,14 @@
         <option value="$PROJECT_DIR$/src/framework/games/Game.java" />
         <option value="$PROJECT_DIR$/src/framework/actors/Player.java" />
         <option value="$PROJECT_DIR$/src/framework/players/EasyAIPlayer.java" />
-        <option value="$PROJECT_DIR$/src/framework/controllers/GameController.java" />
         <option value="$PROJECT_DIR$/src/framework/players/HardAIPlayer.java" />
         <option value="$PROJECT_DIR$/src/framework/settings/TicTacToeSettings.java" />
+        <option value="$PROJECT_DIR$/src/framework/Game.java" />
+        <option value="$PROJECT_DIR$/src/framework/reversi/ReversiSettings.java" />
+        <option value="$PROJECT_DIR$/src/framework/tictactoe/TicTacToeSettings.java" />
+        <option value="$PROJECT_DIR$/src/reversi/GameSettings.java" />
+        <option value="$PROJECT_DIR$/src/tictactoe/GameSettings.java" />
+        <option value="$PROJECT_DIR$/src/framework/controllers/GameController.java" />
       </list>
     </option>
   </component>
@@ -277,43 +282,7 @@
               <item name="Reversi-p2.3-Wiebren" type="b2602c69:ProjectViewProjectNode" />
               <item name="Reversi-p2.3-Wiebren" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="framework" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Reversi-p2.3-Wiebren" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Reversi-p2.3-Wiebren" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="framework" type="462c0819:PsiDirectoryNode" />
-              <item name="games" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Reversi-p2.3-Wiebren" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Reversi-p2.3-Wiebren" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="framework" type="462c0819:PsiDirectoryNode" />
-              <item name="players" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Reversi-p2.3-Wiebren" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Reversi-p2.3-Wiebren" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="framework" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Reversi-p2.3-Wiebren" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Reversi-p2.3-Wiebren" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="framework" type="462c0819:PsiDirectoryNode" />
-              <item name="settings" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Reversi-p2.3-Wiebren" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Reversi-p2.3-Wiebren" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="framework" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="tictactoe" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -384,7 +353,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1586702925305" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1586716795875" />
     <property name="last_opened_file_path" value="C:/Program Files/Java/javafx-sdk-11.0.2/lib" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -552,11 +521,25 @@
       <option name="project" value="LOCAL" />
       <updated>1586538199426</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Werkende:&#10;  - Login&#10;  - Gameplay&#10;  - Puntentelling&#10;  - AI/Computer&#10;  - Goeie Threads&#10;  - Einde van een match&#10;  - TicTacToe Gameplay&#10;  - Match zoeken &amp; accepteren&#10;  - Playerlist laten zien&#10;&#10;Niet-Werkende:&#10; - Wins, Loses, Draws bijhouden">
+      <created>1586703241164</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1586703241164</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Werkende:&#10;  - Login&#10;  - Gameplay&#10;  - Puntentelling&#10;  - AI/Computer&#10;  - Goeie Threads&#10;  - Einde van een match&#10;  - TicTacToe Gameplay&#10;  - Match zoeken &amp; accepteren&#10;  - Playerlist laten zien&#10;&#10;Niet-Werkende:&#10; - Wins, Loses, Draws bijhouden">
+      <created>1586703249071</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1586703249071</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="151698000" />
+    <option name="totallyTimeSpent" value="154117000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -569,7 +552,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21073826" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -764,33 +746,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/framework/settings/ReversiSettings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-52">
-          <caret line="88" column="29" selection-start-line="88" selection-start-column="29" selection-end-line="88" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/framework/controllers/IntroScreenController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="77">
-          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/framework/settings/Settings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/framework/server/LobbyListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
@@ -805,16 +760,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1320#1321#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/framework/controllers/LoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1496">
-          <caret line="104" selection-start-line="104" selection-end-line="104" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -870,26 +815,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/framework/games/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2873">
-          <caret line="184" column="107" selection-start-line="184" selection-start-column="107" selection-end-line="184" selection-end-column="107" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/framework/views/GameView.fxml">
       <provider selected="true" editor-type-id="text-editor" />
       <provider editor-type-id="JavaFX-Scene-Builder" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/framework/controllers/GameController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="76" column="94" selection-start-line="76" selection-start-column="94" selection-end-line="76" selection-end-column="94" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/framework/controllers/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -908,13 +836,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/framework/settings/TicTacToeSettings.java">
+    <entry file="file://$PROJECT_DIR$/src/framework/controllers/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1326">
-          <caret line="84" column="14" selection-start-line="84" selection-start-column="14" selection-end-line="84" selection-end-column="14" />
+        <state relative-caret-position="322">
+          <caret line="183" selection-start-line="183" selection-end-line="183" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tictactoe/GameSettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/framework/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1738">
+          <caret line="161" selection-start-line="161" selection-end-line="161" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reversi/GameSettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/framework/settings/Settings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/framework/controllers/IntroScreenController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/framework/controllers/GameController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="68" column="30" lean-forward="true" selection-start-line="68" selection-start-column="30" selection-end-line="68" selection-end-column="30" />
         </state>
       </provider>
     </entry>

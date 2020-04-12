@@ -1,4 +1,4 @@
-package framework.settings;
+package reversi;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -6,8 +6,9 @@ import java.util.HashMap;
 import framework.actors.Player;
 import framework.boards.Board;
 import framework.cells.Cell;
+import framework.settings.Settings;
 
-public class ReversiSettings extends Settings {
+public class GameSettings extends Settings {
 
     public static int tilex = 8;
     public static int tiley = 8;
@@ -20,7 +21,7 @@ public class ReversiSettings extends Settings {
         put(new Point(4, 4), PLAYER2);
     }};
 
-    public ReversiSettings() {
+    public GameSettings() {
         super(sp, tilex, tiley,40,40);
     }
 

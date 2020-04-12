@@ -1,21 +1,22 @@
-package framework.settings;
+package tictactoe;
 
 import framework.actors.Player;
 import framework.boards.Board;
 import framework.cells.Cell;
+import framework.settings.Settings;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TicTacToeSettings extends Settings {
+public class GameSettings extends Settings {
     public static int tilex = 3;
     public static int tiley = 3;
 
     private static String goodMovesStr = "0;0,0;2,2;2,2;0,1;1";
     private ArrayList<Point> goodMoves;
 
-    public TicTacToeSettings() {
+    public GameSettings() {
         super(null, tilex, tiley,83,83);
         showScore = false;
         goodMoves = new ArrayList<>();
