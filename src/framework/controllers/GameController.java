@@ -31,23 +31,18 @@ public class GameController extends Controller implements Initializable {
     public GridPane gameTable;
 
     @FXML
-    public Label lblPlayer1, lblPlayer2;
-
-    @FXML
-    public Label scorep1, scorep2;
-
-    @FXML
-    public Label lblStatus;
+    public Label lblPlayer1, lblPlayer2, lblStatus, scorep1, scorep2, title;
 
     @FXML
     public Button btnForfeit, btn_lobby;
 
     public Settings settings;
 
-//    private ServerConnection sc;
     private final int gamemode;
-    private Game game;
     private Thread gameThread;
+    private String gameName;
+    private Game game;
+
     private Player opp;
     private Player user;
 
@@ -56,33 +51,30 @@ public class GameController extends Controller implements Initializable {
 
     public GameController(ServerConnection sc, int gamemode, boolean aiOn, String gameName){
         super(sc);
+        this.gameName = gameName;
         this.gamemode = gamemode;
         this.game = null;
         this.setThisAI = aiOn;
-        System.out.println("hier "+gameName);
         if (gameName.equals("reversi")) {
             this.settings = new ReversiSettings();
         }else if (gameName.equals("tictactoe")){
-            System.out.println("Yeah");
             this.settings = new TicTacToeSettings();
         }
 
     }
 
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (gamemode!=0) btn_lobby.setDisable(true);
+        title.setText(gameName.substring(0,1).toUpperCase()+gameName.substring(1)+" ☺☻");
+        startGame();
+    }
+
     @FXML
     void goLobby(ActionEvent event) {
         if (game != null) game.endGame();
         changeScene(event, "/framework/views/lobby.fxml", new LobbyController(sc, setThisAI));
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-//        AIGame aiGame = null;
-        if (gamemode!=0) btn_lobby.setDisable(true);
-
-        startGame();
-
     }
 
 

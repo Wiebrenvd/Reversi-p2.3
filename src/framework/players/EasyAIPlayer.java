@@ -16,13 +16,19 @@ public class EasyAIPlayer extends Player {
 
     @Override
     public Point doMove(){
+        int highest = 0;
         Point output = null;
         try {
             Thread.sleep(25);
             if (counter == delay && playersTurn && possibleMoves != null && possibleMoves.size()>0){
-                System.out.println(possibleMoves.toString());
-                int move = new Random().nextInt(possibleMoves.size());
-                output = possibleMoves.get(move);
+                for (Point p : possibleMoveGain.keySet()){
+                    if (possibleMoveGain.get(p) >= highest){
+                        output = p;
+                        highest = possibleMoveGain.get(p);
+                    }
+                }
+//                int move = new Random().nextInt(possibleMoves.size());
+//                output = possibleMoves.get(move);
                 counter = 0;
             }
         }catch (InterruptedException e){

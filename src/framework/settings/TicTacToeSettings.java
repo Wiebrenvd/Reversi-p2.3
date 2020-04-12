@@ -38,27 +38,23 @@ public class TicTacToeSettings extends Settings {
 
     @Override
     public HashMap<Point, Integer> checkForMoves(Player player, Board board) {
-        System.out.println("-----------------------------------------------");
         Cell[][] grid = board.grid;
         HashMap<Point,Integer> moves = new HashMap<>();
         //check
         for(int i =0;i<grid.length;i++){
             for(int j =0;j<grid[i].length;j++) {
-                System.out.println("------ Cell "+i+","+j+" ------ ");
                 Player tmpPlayer = grid[i][j].getPlayer();
                 if(tmpPlayer == null) {
                     Point tmpPoint = new Point(i,j);
                     int gain = checkGain(board,4,i,j,player,false);
-                    System.out.println("gain "+i+","+j+": "+gain);
                     moves.put(tmpPoint,gain);
                 } else{
-                    System.out.println(tmpPlayer.getName()+" Noooo "+i+","+j+" : "+checkGain(board,4,i,j,tmpPlayer,true));
-                    if (checkGain(board,4,i,j,tmpPlayer,true)>=11) return null;
+                    if (checkGain(board,4,i,j,tmpPlayer,true)>=14) return null;
                 }
             }
         }
         if (moves.containsKey(new Point(1,1))) moves.replace(new Point(1,1),10);
-//        System.out.println(moves.toString());
+
         return moves;
     }
 
@@ -67,6 +63,13 @@ public class TicTacToeSettings extends Settings {
         if ((board.grid[x][y].getPlayer()!= null && direction==4) && !end) return 0;
         int counter = 0;
         int gain = 0;
+        int tmpGain = 0;
+        int start = 0;
+        Player actPlayer = board.grid[x][y].getPlayer();
+        if (actPlayer!=null){
+            if (actPlayer.equals(getter)) start = 2;
+            else start = -2;
+        }
 
         for (int s = y-1; s < y+2; s++){
             for (int z = x-1; z < x+2; z++){
@@ -79,12 +82,12 @@ public class TicTacToeSettings extends Settings {
                             if (!goodMoves.contains(tmpPoint1)) continue;
                         }
 
-                        System.out.println("Counter is " + counter);
-                        System.out.println("name: "+tmpPlayer.getName());
                         if (tmpPlayer.equals(getter)){
-                            gain += 1 + checkGain(board,counter,z,s,getter,end);
+                            tmpGain = start + 2 + checkGain(board,counter,z,s,getter,end);
+                            if (tmpGain >= Math.abs(gain)) gain = tmpGain;
                         } else {
-                            if (!end) gain += 2 + checkGain(board,counter,z,s,tmpPlayer,end);
+                            tmpGain = start -2 - checkGain(board,counter,z,s,tmpPlayer,end);
+                            if (!end && Math.abs(tmpGain) >= Math.abs(gain)) gain = tmpGain;
                         }
 
                     } else if (counter==direction && tmpPlayer != null){
@@ -96,6 +99,6 @@ public class TicTacToeSettings extends Settings {
                 counter++;
             }
         }
-        return gain;
+        return Math.abs(gain);
     }
 }

@@ -26,7 +26,7 @@ public class HardAIPlayer extends Player {
     public HardAIPlayer(String name) {
         super(name);
         counter = 0;
-        delay = 2;
+        delay = 3;
         secondBest = new ArrayList<>();
         for (String point : goodPoints.split(",")){
             int x = Integer.parseInt(point.split(";")[0]);
@@ -45,7 +45,7 @@ public class HardAIPlayer extends Player {
     public Point doMove(){
         Point output = null;
         try {
-            Thread.sleep(100);
+            Thread.sleep(50);
             if (counter == delay && playersTurn && possibleMoves != null && possibleMoves.size()>0){
                 output = getBestMove(possibleMoves);
                 counter = 0;
@@ -58,7 +58,6 @@ public class HardAIPlayer extends Player {
     }
 
     public Point getBestMove(ArrayList<Point> arr){
-        System.out.println("Begin "+arr.size());
         ArrayList<Point> tmpArr = new ArrayList<>();
         if (arr.size()==1) return arr.get(0);
         for (Point p : firstmoves){
@@ -78,14 +77,12 @@ public class HardAIPlayer extends Player {
                 }
             }
         }
-        System.out.println("Midden arr "+ arr.size());
-        System.out.println("Midden tmparr "+ tmpArr.size());
 
         if (arr.size()>tmpArr.size()){
             arr.removeAll(tmpArr);
         }
 
-        System.out.println("Einde arr "+arr.size());
+
         int random = new Random().nextInt(arr.size());
 
         return arr.get(random);

@@ -294,7 +294,7 @@ public class Game implements Runnable {
      * This method will end the game
      */
     public void endGame() {
-        this.gameTimerThread.stop();
+        if (this.gameTimerThread != null) this.gameTimerThread.stop();
         board = null;
         Platform.runLater(() -> {
             gc.gameTable.getChildren().removeIf(node -> node instanceof StackPane);
@@ -305,7 +305,7 @@ public class Game implements Runnable {
             gc.scorep2.setText("0");
             gc.btnForfeit.setText("Zoek Nieuw Spel");
         });
-        players.removeAll(players);
+        if (players.size()>0)players.removeAll(players);
         startGame = false;
         running = false;
 
