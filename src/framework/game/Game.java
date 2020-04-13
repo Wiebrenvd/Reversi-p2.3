@@ -1,18 +1,16 @@
-package framework;
+package Framework.game;
 
-import framework.GameTimer;
-import framework.actors.Player;
-import framework.server.ServerConnection;
+import Framework.players.Player;
+import Framework.server.MessageType;
+import Framework.server.ServerConnection;
+import Framework.server.ServerMessage;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
-import framework.boards.Board;
-import framework.cells.Cell;
-import framework.controllers.GameController;
-import framework.players.HardAIPlayer;
-import framework.players.OnlinePlayer;
-import framework.players.EasyAIPlayer;
-import framework.settings.Settings;
+import Framework.controllers.GameController;
+import Framework.players.HardAIPlayer;
+import Framework.players.OnlinePlayer;
+import Framework.players.EasyAIPlayer;
 
 import java.awt.*;
 import java.util.*;
@@ -38,7 +36,7 @@ public class Game implements Runnable {
     private HashMap<Point,Integer> possMovesOpp;
 
     private Board board;
-    private String[] endAnswers = {"GAME WIN", "GAME LOSS", "GAME DRAW", "ERR NOT"};
+    private MessageType[] endAnswers = new MessageType[]{ MessageType.WIN, MessageType.LOSS, MessageType.DRAW, MessageType.NOMATCH };
     private ArrayList<Player> players = new ArrayList<>(); // Kan ook een hashmap worden (met player.id als key ipv in player klasse), of een andere oplossing
 
     private boolean running;
@@ -93,9 +91,8 @@ public class Game implements Runnable {
         if (opp.getName().length()>0){
             if (!opp.isPlayersTurn()) {
                 user.setId(settings.PLAYER1);
-                user.setColor(settings.PLAYER1COLOR);
                 opp.setId(settings.PLAYER2);
-                opp.setColor(settings.PLAYER2COLOR);
+
                 Platform.runLater(() -> {
                     gc.getLblPlayer1().setText(user.getName());
                     gc.getLblPlayer2().setText(opp.getName());
@@ -103,9 +100,7 @@ public class Game implements Runnable {
                 setTurnToUser(true);
             } else {
                 user.setId(settings.PLAYER2);
-                user.setColor(settings.PLAYER2COLOR);
                 opp.setId(settings.PLAYER1);
-                opp.setColor(settings.PLAYER1COLOR);
                 Platform.runLater(() -> {
                     gc.getLblPlayer1().setText(opp.getName());
                     gc.getLblPlayer2().setText(user.getName());
@@ -180,10 +175,7 @@ public class Game implements Runnable {
         }
 
         possMovesUser = settings.checkForMoves(user,board);
-//        System.out.println("--------------------------Moves User----------------------------\n"+possMovesUser.toString());
         possMovesOpp = settings.checkForMoves(opp,board);
-//        System.out.println("--------------------------Moves Opp----------------------------\n"+possMovesOpp.toString());
-
 
         gameStarted = true;
 
@@ -239,7 +231,6 @@ public class Game implements Runnable {
                 tmpPoint = null;
             });
         }
-
     }
 
 
@@ -247,8 +238,10 @@ public class Game implements Runnable {
      * This method will check if the server had finished a game.
      */
     public void checkForFinish() {
+        if(!gameStarted)
+            return;
 
-        if (possMovesOpp == null && possMovesUser == null && gameStarted) {
+        if (possMovesOpp == null && possMovesUser == null) {
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
@@ -259,10 +252,13 @@ public class Game implements Runnable {
         }
 
         if (opp instanceof OnlinePlayer) {
-            String endResponse = sc.lastRespContains("SVR GAME");
+            ServerMessage endResponse = sc.lastRespContains("SVR GAME");
+
             if (endResponse!=null) {
-                for (String end : endAnswers) {
-                    if (endResponse.contains(end)) {
+                for (MessageType mType : endAnswers) {
+                    if (endResponse.getType() == mType) {
+                        System.out.println("end by: " + mType.name());
+
                         endGame();
                         gc.startGame();
                     }

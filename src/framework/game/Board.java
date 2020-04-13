@@ -1,15 +1,13 @@
-package framework.boards;
+package Framework.game;
 
 import java.awt.Point;
 import java.util.ArrayList;
 
-import framework.actors.Player;
-import framework.server.ServerConnection;
+import Framework.players.Player;
+import Framework.server.ServerConnection;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import framework.cells.Cell;
-import framework.Game;
 
 
 public class Board {

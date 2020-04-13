@@ -1,6 +1,4 @@
-package framework.players;
-
-import framework.actors.Player;
+package Framework.players;
 
 import java.awt.*;
 import java.util.ArrayList;

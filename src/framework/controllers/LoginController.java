@@ -1,11 +1,12 @@
-package framework.controllers;
+package Framework.controllers;
 
-import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import framework.settings.Settings;
-import framework.server.ServerConnection;
+import Framework.game.Settings;
+import Framework.server.MessageType;
+import Framework.server.ServerConnection;
+import Framework.server.ServerMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -76,7 +77,6 @@ public class LoginController extends Controller implements Initializable {
             showTooltip(stage, loginBtn, "Please fill in a login name!", null);
             return;
         } else {
-            System.out.println(gamemode);
             if (status_lbl.getText().equals("Offline") && gamemode == 0) {
 
                 showTooltip(stage, loginBtn, "Please check if you are online!", null);
@@ -87,8 +87,7 @@ public class LoginController extends Controller implements Initializable {
                     return;
                 }
                 String loginName = nameInput.getText().replaceAll("^\"|\"$", "");;
-                gameName = getGamename(gameChoiceBox.getValue());
-                gName = getGamename(gameChoiceBox.getValue());
+                gameName = gameChoiceBox.getValue();
 
                 Settings.PLAYERNAME = loginName;
                 Settings.GAMENAME = gameName;
@@ -100,12 +99,12 @@ public class LoginController extends Controller implements Initializable {
             }
         }
 
-        if (gamemode== 0 && !sc.showLastResponse().equals("OK")) {
+        if (gamemode== 0 && sc.showLastResponse().getType() != MessageType.OK) {
             showTooltip(stage, loginBtn, "Cannot connect to the Server... \nPlease restart the application", null);
 
         } else {
-            if (gamemode == 0) changeScene(event, "/framework/views/lobby.fxml", new LobbyController(sc, aiON));
-            else startGamemode(event, this.gamemode, aiON);
+            if (gamemode == 0) changeScene(event, "/Framework/views/lobby.fxml", new LobbyController(sc, aiON));
+            else startGamemode(event, this.gamemode, gameName, aiON);
         }
     }
 
@@ -123,29 +122,13 @@ public class LoginController extends Controller implements Initializable {
         }
     }
 
-    public String getGamename(String key) {
-        String name = "";
-        if (key.contains("-")) {
-            String[] words = key.split("[_-]");
-
-            for (String sWord : words) {
-                name += sWord.substring(0, 1).toUpperCase();
-                name += sWord.substring(1);
-            }
-        } else {
-            name = key;
-        }
-
-        return name.toLowerCase();
-    }
-
     private void getGamelist() {
         sc.sendCommand("get gamelist");
-        String response = sc.showLastResponse();
+        ServerMessage response = sc.showLastResponse();
 
-        String[] gamelist = sc.getArr(response);
+        String[] gamelist = response.getArr();
         for (String game : gamelist) {
-            gameChoiceBox.getItems().add(game.substring(1, game.length() - 1));
+            gameChoiceBox.getItems().add(game);
         }
     }
 
@@ -166,21 +149,21 @@ public class LoginController extends Controller implements Initializable {
 
     }
 
-    public void startGamemode(ActionEvent event, int gamemode, boolean aiON) {
+    public void startGamemode(ActionEvent event, int gamemode, String gameName, boolean aiON) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        String pName = Settings.getPath(gameName);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/framework/views/GameView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Framework/views/GameView.fxml"));
 
         try {
-            System.out.println(gamemode);
-            GameController gameController = new GameController(this.sc, gamemode, aiON, gName);
-            System.out.println(sc.getLoginName());
+            GameController gameController = new GameController(this.sc, gamemode, aiON, gameName);
+
             loader.setController(gameController);
 
             Parent root = (Parent) loader.load();
             Scene rScene = new Scene(root);
 
-            rScene.getStylesheets().add(getClass().getResource("/framework/styles/Style.css").toExternalForm());
+            rScene.getStylesheets().add(getClass().getResource("/" + pName + "/src/Style.css").toExternalForm());
 
             stage.setScene(rScene);
             stage.show();

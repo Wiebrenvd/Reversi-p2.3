@@ -1,11 +1,13 @@
-package framework.settings;
+package Framework.game;
 
-import framework.actors.Player;
+import Framework.players.Player;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
-import framework.boards.Board;
-import framework.cells.Cell;
+import Framework.game.Board;
+import Framework.game.Cell;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Settings {
@@ -19,9 +21,6 @@ public abstract class Settings {
     public static int PLAYER1 = 0;
     public static int PLAYER2 = 1;
 
-    public static Color PLAYER1COLOR = Color.BLACK;
-    public static Color PLAYER2COLOR = Color.WHITE;
-
     public static int TILESX;
     public static int TILESY;
 
@@ -29,7 +28,7 @@ public abstract class Settings {
     public static int HEIGHT;
 
     public static String PLAYERNAME = "default";
-    public static String GAMENAME = "default";
+    public static String GAMENAME;
 
     public boolean showScore = true;
 
@@ -52,4 +51,22 @@ public abstract class Settings {
     public abstract HashMap<Point, Integer> checkForMoves(Player player, Board board);
 
     public abstract int checkGain(Board board, int direction, int x, int y, Player getter, boolean end);
+
+    public abstract Node getPiece(int id);
+
+    public static String getPath(String gName){
+        String name = "";
+        String[] words = gName.split("[_-]");
+
+        for(String sWord : words){
+            name += sWord.substring(0, 1).toUpperCase();
+            name += sWord.substring(1);
+        }
+
+        return name;
+    }
+
+    public String getPath(){
+        return this.getPath(GAMENAME);
+    }
 }

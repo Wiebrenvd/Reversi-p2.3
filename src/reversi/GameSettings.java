@@ -1,18 +1,21 @@
-package reversi;
+package Reversi;
 
 import java.awt.*;
 import java.util.HashMap;
 
-import framework.actors.Player;
-import framework.boards.Board;
-import framework.cells.Cell;
-import framework.settings.Settings;
+import Framework.players.Player;
+import Framework.game.Board;
+import Framework.game.Cell;
+import Framework.game.Settings;
+import javafx.scene.Node;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 public class GameSettings extends Settings {
-
     public static int tilex = 8;
     public static int tiley = 8;
 
+    public static int playerSize = 24;
 
     public static HashMap<Point, Integer> sp = new HashMap<>() {{
         put(new Point(3, 3), PLAYER2);
@@ -20,6 +23,8 @@ public class GameSettings extends Settings {
         put(new Point(3, 4), PLAYER1);
         put(new Point(4, 4), PLAYER2);
     }};
+
+    public static javafx.scene.paint.Color[] playerColors = new javafx.scene.paint.Color[]{ javafx.scene.paint.Color.BLACK, Color.WHITE };
 
     public GameSettings() {
         super(sp, tilex, tiley,40,40);
@@ -89,6 +94,20 @@ public class GameSettings extends Settings {
         }
         if (gain > 0) gain++;
         return gain;
+    }
+
+    @Override
+    public Node getPiece(int playerId) {
+        if(playerId >= this.playerColors.length)
+            return null;
+
+        Color color = this.playerColors[playerId];
+        Circle circle = new Circle(0,0,this.playerSize/2);
+
+        circle.setFill(color);
+        circle.setStroke(Color.BLACK);
+
+        return circle;
     }
 
     @Override

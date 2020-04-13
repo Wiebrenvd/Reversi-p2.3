@@ -1,8 +1,9 @@
-package framework.players;
+package Framework.players;
 
-import framework.actors.Player;
-import framework.server.ServerConnection;
-import reversi.GameSettings;
+import Framework.server.MessageType;
+import Framework.server.ServerConnection;
+import Framework.server.ServerMessage;
+import Reversi.GameSettings;
 
 import java.awt.*;
 import java.util.Map;
@@ -23,10 +24,11 @@ public class OnlinePlayer extends Player {
     public Point doMove() {
         Point output = null;
         if (playersTurn){
-            String moveResponse = sc.lastRespContains("GAME MOVE");
+            ServerMessage moveResponse = sc.lastRespContains(MessageType.MOVE);
+
 //            System.out.println(moveResponse);
             if (moveResponse != null) {
-                Map<String, String> tmp = sc.getMap(moveResponse);
+                Map<String, String> tmp = moveResponse.getObj();
                 if (!tmp.get("PLAYER").equals(sc.getLoginName())) {
 //                    System.out.println(tmp.get("MOVE"));
                     int[] xy = getMoveParameterEnemy(Integer.parseInt(tmp.get("MOVE")));
@@ -46,10 +48,10 @@ public class OnlinePlayer extends Player {
 
     private String searchOnline() {
         String output = "";
-        String matchResponse = sc.lastRespContains("MATCH");
+        ServerMessage matchResponse = sc.lastRespContains(MessageType.MATCH);
 
         if (matchResponse != null) {
-            Map<String, String> tmp = sc.getMap(matchResponse);
+            Map<String, String> tmp = matchResponse.getObj();
             System.out.println(tmp.toString());
             output = tmp.get("OPPONENT");
             if (tmp.get("PLAYERTOMOVE").equals(tmp.get("OPPONENT"))) {

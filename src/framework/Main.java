@@ -1,10 +1,10 @@
-package framework;
+package Framework;
 
 import java.io.IOException;
 
-import framework.controllers.Controller;
-import framework.controllers.IntroScreenController;
-import framework.server.ServerConnection;
+import Framework.controllers.Controller;
+import Framework.controllers.IntroScreenController;
+import Framework.server.ServerConnection;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -12,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import framework.controllers.LoginController;
 import javafx.stage.WindowEvent;
 
 public class Main extends Application {
@@ -20,7 +19,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/framework/views/introScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Framework/views/introScreen.fxml"));
         ServerConnection sc = new ServerConnection();
         Controller introControl = new IntroScreenController(sc);
         loader.setController(introControl);
@@ -28,7 +27,7 @@ public class Main extends Application {
             Parent root = loader.load();
             Scene rScene = new Scene(root);
 
-            rScene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+            rScene.getStylesheets().add(getClass().getResource("src/Style.css").toExternalForm());
 
             primaryStage.setOnCloseRequest((EventHandler<WindowEvent>) event -> {
                 Platform.exit();
