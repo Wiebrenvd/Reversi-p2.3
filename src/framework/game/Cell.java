@@ -1,18 +1,17 @@
-package framework.cells;
+package Framework.game;
 
 import java.awt.Point;
 
-import framework.actors.Player;
-import framework.server.ServerConnection;
+import Framework.players.Player;
+import Framework.server.ServerConnection;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import framework.Game;
-import reversi.GameSettings;
-import framework.boards.Board;
-import framework.players.OnlinePlayer;
+import Reversi.GameSettings;
+import Framework.players.OnlinePlayer;
 
 public class Cell {
 
@@ -64,26 +63,11 @@ public class Cell {
      */
     public void setPlayer(Player player){
         this.player = player;
-        giveColor(player);
+        setPiece(player);
     }
 
     public Player getPlayer(){
         return this.player;
-    }
-
-
-    /**
-     * This method will add a circle to a plane.
-     * @param player Player, the circle takes the color of this player.
-     */
-    public void addCircle(Player player) {
-        Circle circle = new Circle(0, 0, ((currentGame.settings.HEIGHT/2)-3));
-
-        circle.setFill(player.getColor());
-        circle.setStroke(Color.BLACK);
-
-
-        clickablePane.getChildren().add(circle);
     }
 
     /**
@@ -108,24 +92,14 @@ public class Cell {
     }
 
     /**
-     * This method will check if this Cell Object has a Circle Object and return it.
-     * @return a Circle Object if Cell has a Circle, otherwise null
-     */
-    public Circle getCircleOK(){
-        if (clickablePane.getChildren().size()<=0) return null;
-        Circle tmp = (Circle) clickablePane.getChildren().get(0);
-        return tmp;
-    }
-
-    /**
      * This method will change te color of the Cell Object
      */
-    public void giveColor(Player player){
-        if (clickablePane.getChildren().size()==0) {
-            addCircle(player);
-        } else {
-            Circle tmp = (Circle) clickablePane.getChildren().get(0);
-            tmp.setFill(player.getColor());
-        }
+    public void setPiece(Player player){
+        if(clickablePane.getChildren().size() > 0)
+            clickablePane.getChildren().removeAll();
+
+        Node pNode = currentGame.settings.getPiece(player.getId());
+
+        clickablePane.getChildren().add(pNode);
     }
 }

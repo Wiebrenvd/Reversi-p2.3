@@ -1,9 +1,6 @@
-package framework.players;
-
-import framework.actors.Player;
+package Framework.players;
 
 import java.awt.*;
-import java.util.Random;
 
 public class EasyAIPlayer extends Player {
     private int counter;

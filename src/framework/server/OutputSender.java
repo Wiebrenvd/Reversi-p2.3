@@ -1,4 +1,4 @@
-package framework.server;
+package Framework.server;
 
 import java.io.IOException;
 import java.io.PrintWriter;

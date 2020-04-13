@@ -1,13 +1,15 @@
-package framework.controllers;
+package Framework.controllers;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import framework.server.LobbyListener;
-import framework.settings.Settings;
-import framework.server.ServerConnection;
+import Framework.server.LobbyListener;
+import Framework.game.Settings;
+import Framework.server.MessageType;
+import Framework.server.ServerConnection;
+import Framework.server.ServerMessage;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,7 +30,6 @@ public class LobbyController extends Controller implements Initializable {
     private VBox player_list;
 
     private ArrayList<String> players;
-
 
     private ToggleGroup tg;
 
@@ -59,12 +60,11 @@ public class LobbyController extends Controller implements Initializable {
 
     public synchronized void updatePlayerList() {
         sc.sendCommand("get playerlist");
-        String response = sc.lastRespContains("SVR PLAYERLIST");
+        ServerMessage response = sc.lastRespContains(MessageType.PLAYERLIST);
 
         System.out.println("CPL reponse: " + response);
 
-
-        String[] playerNames = sc.getArr(response);
+        String[] playerNames = response.getArr();
         if (response==null) return;
         for (String player : playerNames) {
             player = player.replaceAll("^\"|\"$", "");
@@ -107,7 +107,7 @@ public class LobbyController extends Controller implements Initializable {
         ChallengeController cc = new ChallengeController(sc, ll, challenger, challengeNumber);
 
         try {
-            String path = "/framework/views/challenge.fxml";
+            String path = "/Framework/views/challenge.fxml";
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             loader.setController(cc);
             Parent root = loader.load();
@@ -127,7 +127,6 @@ public class LobbyController extends Controller implements Initializable {
     public void start() {
         Stage stage = (Stage) player_list.getScene().getWindow();
         startGame(stage, Settings.MULTIPLAYER, Settings.GAMENAME, aiON);
-
     }
 
 

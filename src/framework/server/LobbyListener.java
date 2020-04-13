@@ -1,9 +1,8 @@
-package framework.server;
+package Framework.server;
 
 import java.util.Map;
 
-import framework.controllers.LobbyController;
-import framework.server.ServerConnection;
+import Framework.controllers.LobbyController;
 import javafx.application.Platform;
 
 public class LobbyListener implements Runnable {
@@ -25,18 +24,16 @@ public class LobbyListener implements Runnable {
     public void run() {
         challengeNumber = "";
         while (true) {
-            String challengeResponse = sc.lastRespContains("SVR GAME CHALLENGE");
-            String matchResponse = sc.lastRespContains("SVR GAME MATCH");
-
+            ServerMessage challengeResponse = sc.lastRespContains(MessageType.CHALLENGE);
+            ServerMessage matchResponse = sc.lastRespContains(MessageType.MATCH);
 
             if (challengeResponse != null) {
+                Map<String, String> cData = challengeResponse.getObj();
 
-                Map<String, String> map = sc.getMap(challengeResponse);
-
-                if (!hasMatch && !hasChallenge && !challengeNumber.equals(map.get("CHALLENGENUMBER"))) {
+                if (!hasMatch && !hasChallenge && !challengeNumber.equals(cData.get("CHALLENGENUMBER"))) {
                     hasChallenge = true; // deny challenge -> hasChallenge = false
-                    challengeNumber = map.get("CHALLENGENUMBER");
-                    Platform.runLater(() -> lc.showChallengePopup(this, map.get("CHALLENGER"), map.get("CHALLENGENUMBER")));
+                    challengeNumber = cData.get("CHALLENGENUMBER");
+                    Platform.runLater(() -> lc.showChallengePopup(this, cData.get("CHALLENGER"), cData.get("CHALLENGENUMBER")));
                 }
 
             }

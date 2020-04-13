@@ -1,11 +1,10 @@
-package framework.controllers;
+package Framework.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import framework.server.LobbyListener;
-import framework.settings.Settings;
-import framework.server.ServerConnection;
+import Framework.server.LobbyListener;
+import Framework.server.ServerConnection;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

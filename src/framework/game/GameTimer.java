@@ -1,4 +1,4 @@
-package framework;
+package Framework.game;
 
 public class GameTimer implements Runnable {
 

@@ -1,4 +1,4 @@
-package framework.server;
+package Framework.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,12 +12,11 @@ public class InputListener implements Runnable {
     private BufferedReader br;
 
     private String inputFromServer = "";
-    private String lastResponse = "";
-    private ArrayList<String> serverResponses;
+    private ArrayList<ServerMessage> serverResponses;
 
     public InputListener(Socket s){
         this.socket = s;
-        this.serverResponses = new ArrayList<>();
+        this.serverResponses = new ArrayList<ServerMessage>();
 
         try {
             isr = new InputStreamReader(socket.getInputStream());
@@ -32,28 +31,28 @@ public class InputListener implements Runnable {
         while (socket.isConnected()){
             try {
                 inputFromServer = br.readLine();
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
-                }
+//                try {
+//                    Thread.sleep(50);
+//                } catch (InterruptedException e1) {
+//                    e1.printStackTrace();
+//                }
             } catch (IOException e) {
                 System.out.println("Failed to read from server...");
             }
             if (inputFromServer.length() != 0){
                 System.out.println(inputFromServer);
-                serverResponses.add(inputFromServer);
-                inputFromServer = "";
+                ServerMessage sMessage = new ServerMessage(inputFromServer, System.currentTimeMillis());
+
+                serverResponses.add(sMessage);
             }
         }
     }
 
-    public ArrayList<String> getServerResponses(){
+    public ArrayList<ServerMessage> getServerResponses(){
         return serverResponses;
     }
 
-    public String getLastResponse() {
-
+    public ServerMessage getLastResponse() {
         return serverResponses.get(serverResponses.size()-1);
     }
 }

@@ -1,7 +1,7 @@
-package framework.controllers;
+package Framework.controllers;
 
-import framework.actors.Player;
-import framework.server.ServerConnection;
+import Framework.players.Player;
+import Framework.server.ServerConnection;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,14 +14,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-//import framework.games.AIGame;
-import framework.Game;
-import framework.players.EasyAIPlayer;
-import framework.players.HardAIPlayer;
-import framework.players.OfflinePlayer;
-import framework.players.OnlinePlayer;
-import framework.settings.Settings;
-import tictactoe.GameSettings;
+//import Framework.games.AIGame;
+import Framework.game.Game;
+import Framework.players.EasyAIPlayer;
+import Framework.players.HardAIPlayer;
+import Framework.players.OfflinePlayer;
+import Framework.players.OnlinePlayer;
+import Framework.game.Settings;
 
 public class GameController extends Controller implements Initializable {
     @FXML
@@ -45,7 +44,6 @@ public class GameController extends Controller implements Initializable {
 
     private boolean setThisAI;
 
-
     public GameController(ServerConnection sc, int gamemode, boolean aiOn, String gameName){
         super(sc);
         this.gameName = gameName;
@@ -53,7 +51,7 @@ public class GameController extends Controller implements Initializable {
         this.game = null;
         this.setThisAI = aiOn;
         try {
-            this.settings = (Settings) Class.forName(gameName+".GameSettings").newInstance();
+            this.settings = (Settings) Class.forName(settings.getPath(gameName) +".GameSettings").newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -75,7 +73,7 @@ public class GameController extends Controller implements Initializable {
     @FXML
     void goLobby(ActionEvent event) {
         if (game != null) game.endGame();
-        changeScene(event, "/framework/views/lobby.fxml", new LobbyController(sc, setThisAI));
+        changeScene(event, "/Framework/views/lobby.fxml", new LobbyController(sc, setThisAI));
     }
 
 

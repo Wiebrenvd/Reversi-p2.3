@@ -1,9 +1,11 @@
-package tictactoe;
+package TicTacToe;
 
-import framework.actors.Player;
-import framework.boards.Board;
-import framework.cells.Cell;
-import framework.settings.Settings;
+import Framework.players.Player;
+import Framework.game.Board;
+import Framework.game.Cell;
+import Framework.game.Settings;
+import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,8 +15,12 @@ public class GameSettings extends Settings {
     public static int tilex = 3;
     public static int tiley = 3;
 
+    public static double playerSize = 64;
+
     private static String goodMovesStr = "0;0,0;2,2;2,2;0,1;1";
     private ArrayList<Point> goodMoves;
+
+    public static String[] playerTypes = new String[]{"O", "X"};
 
     public GameSettings() {
         super(null, tilex, tiley,83,83);
@@ -101,5 +107,20 @@ public class GameSettings extends Settings {
             }
         }
         return Math.abs(gain);
+    }
+
+    @Override
+    public Node getPiece(int playerId){
+        if(playerId >= this.playerTypes.length)
+            return null;
+
+        String fName = this.playerTypes[playerId];
+
+        ImageView fImage = new ImageView("TicTacToe/src/images/" + fName + ".png");
+
+        fImage.setFitWidth(this.playerSize);
+        fImage.setFitHeight(this.playerSize);
+
+        return fImage;
     }
 }

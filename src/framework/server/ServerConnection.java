@@ -1,4 +1,4 @@
-package framework.server;
+package Framework.server;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -16,7 +16,6 @@ public class ServerConnection{
 
     private OutputSender outputSender;
     private InputListener inputListener;        //InputListener is een Runnable
-
 
     public boolean startConnection(String ip_host, int prt){
         this.host = ip_host;
@@ -55,9 +54,9 @@ public class ServerConnection{
     /**
      * @return the last response from the server as a String with a 500ms delay
      **/
-    public String showLastResponse(){
+    public ServerMessage showLastResponse(){
         try {
-            Thread.sleep(100);
+            Thread.sleep(200);
         } catch (InterruptedException e){
             System.out.println("Fail to sleep");
         }
@@ -65,19 +64,9 @@ public class ServerConnection{
     }
 
     /**
-     * Converts a response(String) into an Array
-     * @param response This String will be converted into an Array(Example: SVR GAMELIST ["Reversi", "Tic-tac-toe"])
-     * @return The array that is found.
-     **/
-    public String[] getArr(String response){
-        String tmp = response.split(" ",3)[2];
-        return tmp.substring(1,tmp.length()-1).split(", ");
-    }
-
-    /**
      * @return An Arraylist of all responses from the Server with 500ms delay
      **/
-    public ArrayList<String> getLastResponses(){
+    public ArrayList<ServerMessage> getLastResponses(){
         try {
             Thread.sleep(200);
         } catch (InterruptedException e){
@@ -86,36 +75,31 @@ public class ServerConnection{
         return inputListener.getServerResponses();
     }
 
-    // https://stackoverflow.com/questions/26485964/how-to-convert-string-into-hashmap-in-java
-    public Map<String,String> getMap(String response){
-        String str = response.split(" ",4)[3];
-        String tmp = str.substring(1, str.length()-1);           //remove curly brackets
-        String[] keyValuePairs = tmp.split(",");              //split the string to creat key-value pairs
-        Map<String,String> output = new HashMap<>();
-
-        for(String pair : keyValuePairs)                        //iterate over the pairs
-        {
-            String[] entry = pair.split(": ");                   //split the pairs to get key and value
-            output.put(entry[0].trim(), entry[1].trim().substring(1,entry[1].length()-1));          //add them to the hashmap and trim whitespaces
-        }
-
-        return output;
-    }
-
     /**
-    * Looking for response if it match with the key(String) and returns response
-     * @param key the String that match with a response
+    * Looking for response if it match with the key(MessageType) and returns response
+     * @param mType the MessageType that match with a response
      * @return the String response if it has found a match with the key, otherwise null
     **/
-    public String lastRespContains(String key){
-        ArrayList<String> tmp = getLastResponses();
-        if (tmp.size() >= 2) {
-            if (tmp.get(tmp.size()-1).contains(key)) return tmp.get(tmp.size()-1);
-            if (tmp.get(tmp.size()-2).contains(key)) return tmp.get(tmp.size()-2);
+    public ServerMessage lastRespContains(MessageType mType){
+        return this.lastRespContains(mType.name());
+    }
+
+
+    /**
+     * Looking for response if it match with the key(String) and returns response
+     * @param key the String that match with a response
+     * @return the ServerMessage response if it has found a match with the key, otherwise null
+     **/
+    public ServerMessage lastRespContains(String key){
+        ArrayList<ServerMessage> sList = getLastResponses();
+        if (sList.size()<2) return null;
+        for(int s = sList.size()-1; s >= sList.size()-2; s--){
+            ServerMessage sRes = sList.get(s);
+
+            if(sRes.getType() != null && sRes.getType().toString().contains(key))
+                return sRes;
         }
-        else if (tmp.size() == 1 && tmp.get(0).contains(key)) {
-            return tmp.get(0);
-        }
+
         return null;
     }
 }
