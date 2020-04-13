@@ -29,15 +29,15 @@ public class InputListener implements Runnable {
 
     @Override
     public void run() {
-        while (true){
+        while (socket.isConnected()){
             try {
                 inputFromServer = br.readLine();
-            } catch (IOException e) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(50);
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
+            } catch (IOException e) {
                 System.out.println("Failed to read from server...");
             }
             if (inputFromServer.length() != 0){

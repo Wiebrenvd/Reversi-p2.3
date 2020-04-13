@@ -141,8 +141,11 @@ public class LoginController extends Controller implements Initializable {
 
     private void getGamelist() {
         sc.sendCommand("get gamelist");
-        String response = sc.showLastResponse();
-
+        String response = sc.lastRespContains("SVR GAMELIST");
+        if (response == null){
+            getGamelist();
+            return;
+        }
         String[] gamelist = sc.getArr(response);
         for (String game : gamelist) {
             gameChoiceBox.getItems().add(game.substring(1, game.length() - 1));

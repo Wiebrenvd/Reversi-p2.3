@@ -24,7 +24,7 @@ public class LobbyListener implements Runnable {
     @Override
     public void run() {
         challengeNumber = "";
-        while (running) {
+        while (true) {
             String challengeResponse = sc.lastRespContains("SVR GAME CHALLENGE");
             String matchResponse = sc.lastRespContains("SVR GAME MATCH");
 
@@ -44,6 +44,7 @@ public class LobbyListener implements Runnable {
             if (!hasMatch && matchResponse != null) {
                 hasMatch = true;
                 Platform.runLater(() -> lc.start());
+                break;
             }
 
 

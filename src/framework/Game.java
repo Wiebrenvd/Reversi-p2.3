@@ -90,6 +90,11 @@ public class Game implements Runnable {
      * If there is a match, it will create a new Board object and starts the game.
      */
     private void createPlayers() {
+        if (!gc.btnForfeit.getText().equals("Eindig Spel")) {
+            Platform.runLater(() -> {
+                gc.btnForfeit.setText("Eindig Spel");
+            });
+        }
         if (opp.getName().length()>0){
             if (!opp.isPlayersTurn()) {
                 user.setId(settings.PLAYER1);
@@ -120,7 +125,7 @@ public class Game implements Runnable {
 
             Platform.runLater(() -> {
                 this.board = new Board(gc.gameTable, this, players);
-                gc.btnForfeit.setText("Eindig Spel");
+//                gc.btnForfeit.setText("Eindig Spel");
                 startTimer();
             });
 
@@ -250,7 +255,7 @@ public class Game implements Runnable {
 
         if (possMovesOpp == null && possMovesUser == null && gameStarted) {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(1500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

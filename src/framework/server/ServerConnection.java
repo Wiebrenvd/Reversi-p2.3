@@ -57,7 +57,7 @@ public class ServerConnection{
      **/
     public String showLastResponse(){
         try {
-            Thread.sleep(500);
+            Thread.sleep(100);
         } catch (InterruptedException e){
             System.out.println("Fail to sleep");
         }
@@ -79,7 +79,7 @@ public class ServerConnection{
      **/
     public ArrayList<String> getLastResponses(){
         try {
-            Thread.sleep(500);
+            Thread.sleep(200);
         } catch (InterruptedException e){
             System.out.println("Fail to sleep");
         }
