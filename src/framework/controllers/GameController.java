@@ -22,7 +22,7 @@ import Framework.players.OfflinePlayer;
 import Framework.players.OnlinePlayer;
 import Framework.game.Settings;
 
-public class GameController extends Controller implements Initializable {
+public class GameController extends Framework.controllers.Controller implements Initializable {
     @FXML
     public GridPane gameTable;
 
@@ -33,6 +33,9 @@ public class GameController extends Controller implements Initializable {
     public Button btnForfeit, btn_lobby;
 
     public Settings settings;
+
+    public int wonMatches;
+    public int playedMatches;
 
     private final int gamemode;
     private Thread gameThread;
@@ -50,6 +53,8 @@ public class GameController extends Controller implements Initializable {
         this.gamemode = gamemode;
         this.game = null;
         this.setThisAI = aiOn;
+        this.wonMatches = 0;
+        this.playedMatches = 0;
         try {
             this.settings = (Settings) Class.forName(settings.getPath(gameName) +".GameSettings").newInstance();
         } catch (InstantiationException e) {
@@ -73,7 +78,7 @@ public class GameController extends Controller implements Initializable {
     @FXML
     void goLobby(ActionEvent event) {
         if (game != null) game.endGame();
-        changeScene(event, "/Framework/views/lobby.fxml", new LobbyController(sc, setThisAI));
+        changeScene(event, "/Framework/views/lobby.fxml", new Framework.controllers.LobbyController(sc, setThisAI));
     }
 
 
@@ -83,10 +88,11 @@ public class GameController extends Controller implements Initializable {
     }
 
     public void startGame(){
+        String playerName = " ( G: " + this.playedMatches + " - W: " + this.wonMatches + " ) " + sc.getLoginName();
         if (setThisAI){
-            user = new HardAIPlayer(sc.getLoginName()+" (HARD AI)");
+            user = new HardAIPlayer(playerName + " (HARD AI)");
         } else {
-            user = new OfflinePlayer(sc.getLoginName());
+            user = new OfflinePlayer(playerName);
         }
         switch (gamemode) {
             case Settings.MULTIPLAYER:
@@ -114,6 +120,7 @@ public class GameController extends Controller implements Initializable {
         }
         if (opp instanceof OnlinePlayer)sc.sendCommand("forfeit");
         Platform.runLater(()->{
+            game.endGameMessage(3);
             game.endGame();
         });
 

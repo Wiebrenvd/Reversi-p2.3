@@ -6,21 +6,33 @@ import Framework.server.ServerConnection;
 import Framework.server.ServerMessage;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import Framework.controllers.GameController;
 import Framework.players.HardAIPlayer;
 import Framework.players.OnlinePlayer;
 import Framework.players.EasyAIPlayer;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import javafx.geometry.Pos;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 
 import java.awt.*;
 import java.util.*;
+
+import static java.util.logging.Logger.global;
 
 public class Game implements Runnable {
 
     public ServerConnection sc;
     private GameController gc;
+    private boolean forfeit = false;
 
-    private GameTimer gameTimer;
+    private Framework.game.GameTimer gameTimer;
     private Thread gameTimerThread;
 
     private boolean startGame;
@@ -35,7 +47,7 @@ public class Game implements Runnable {
     private HashMap<Point,Integer> possMovesUser;
     private HashMap<Point,Integer> possMovesOpp;
 
-    private Board board;
+    private Framework.game.Board board;
     private MessageType[] endAnswers = new MessageType[]{ MessageType.WIN, MessageType.LOSS, MessageType.DRAW, MessageType.NOMATCH };
     private ArrayList<Player> players = new ArrayList<>(); // Kan ook een hashmap worden (met player.id als key ipv in player klasse), of een andere oplossing
 
@@ -43,6 +55,8 @@ public class Game implements Runnable {
 
     int scoreP1 = 0;
     int scoreP2 = 0;
+    int finalScore1;
+    int finalScore2;
 
     public Game(GameController gc, ServerConnection sc, Player user, Player opp) {
         this.gc = gc;
@@ -119,7 +133,7 @@ public class Game implements Runnable {
             startGame = true;
 
             Platform.runLater(() -> {
-                this.board = new Board(gc.gameTable, this, players);
+                this.board = new Framework.game.Board(gc.gameTable, this, players);
                 startTimer();
             });
 
@@ -189,15 +203,19 @@ public class Game implements Runnable {
         possibleMoves.put(user,movesUser);
         possibleMoves.put(opp,movesOpp);
 
-        int finalScoreP2 = scoreP2;
-        int finalScoreP1 = scoreP1;
+        finalScore2 = scoreP2;
+        finalScore1 = scoreP1;
         if (settings.showScore){
             Platform.runLater(() -> {
-                gc.scorep1.setText(String.valueOf(finalScoreP1));
-                gc.scorep2.setText(String.valueOf(finalScoreP2));
+                gc.scorep1.setText(String.valueOf(finalScore1));
+                gc.scorep2.setText(String.valueOf(finalScore2));
             });
         }
+
+
+
     }
+
 
     /**
      * This function wait for a response from the server if it's not the players turn.
@@ -253,6 +271,7 @@ public class Game implements Runnable {
             }
             System.out.println("Door geen Moves");
             endGame();
+
         }
 
         if (opp instanceof OnlinePlayer) {
@@ -294,6 +313,7 @@ public class Game implements Runnable {
      * This method will end the game
      */
     public void endGame() {
+
         if (this.gameTimerThread != null) this.gameTimerThread.stop();
         board = null;
         Platform.runLater(() -> {
@@ -305,9 +325,28 @@ public class Game implements Runnable {
             gc.scorep2.setText("0");
             gc.btnForfeit.setText("Zoek Nieuw Spel");
         });
-        if (players.size()>0)players.removeAll(players);
+        if (players.size() > 0) players.removeAll(players);
         startGame = false;
         running = false;
+
+        if(forfeit){
+
+        }else if(finalScore2 < finalScore1){
+            Platform.runLater(()->{
+                endGameMessage(1);
+                gc.wonMatches++;
+            });
+        }else if(finalScore2 == finalScore1){
+            Platform.runLater(()->{
+                endGameMessage(2);
+            });
+        }else{
+            Platform.runLater(()->{
+                endGameMessage(0);
+
+            });
+        }
+        gc.playedMatches++;
 
     }
 
@@ -316,7 +355,7 @@ public class Game implements Runnable {
      */
     public void startTimer() {
         this.gameTimer = null;
-        this.gameTimer = new GameTimer();
+        this.gameTimer = new Framework.game.GameTimer();
         this.gameTimerThread = new Thread(this.gameTimer);
         this.gameTimerThread.start();
 
@@ -341,6 +380,46 @@ public class Game implements Runnable {
             }
         }
         return null;
+    }
+
+    public void endGameMessage(int i){
+        Stage popupMessage = new Stage();
+        Button closeButton = new Button("OK");
+        Label result = new Label();
+        switch(i){
+            case 0:
+                result = new Label("U heeft verloren!");
+                break;
+            case 1:
+                result = new Label("U heeft gewonnen!");
+                break;
+            case 2:
+                result = new Label("U heeft gelijk gespeeld!");
+                break;
+            case 3:
+                result = new Label("U heeft opgegeven!");
+
+                forfeit = true;
+                break;
+        }
+
+        popupMessage.initModality(Modality.APPLICATION_MODAL);
+        popupMessage.setTitle("Spel verlopen :'(");
+
+        closeButton.setOnAction(e -> popupMessage.close());
+        closeButton.setAlignment(Pos.BOTTOM_CENTER);
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(closeButton, result);
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene1 = new Scene(layout, 250, 150);
+
+        popupMessage.setScene(scene1);
+        popupMessage.showAndWait();
+
+
+
     }
 
 }
